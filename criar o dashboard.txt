@@ -1,0 +1,82 @@
+para criar as dashborad
+
+redux - controlar estado.
+react-redux - faz a ponte entre o react e redux
+redux-thunk - para fazer payload
+moment      - para gerenciar datas 
+axios  -  para requisições externas
+react-router-dom - gerenciar as roltas com react
+react-cookie 
+rodar :
+npx create-react-app dashboard
+
+npm install --save redux@4.0.1 react-redux@6.0.1 redux-thunk@2.3.0 moment@2.24.0 axios@0.18.0 react-router-dom@5.0.0 react-cookie@3.1.1
+
+yarn add redux@4.0.1 react-redux@6.0.1 redux-thunk@2.3.0 moment@2.24.0 axios@0.18.0 react-router-dom@5.0.0 react-cookie@3.1.1
+
+npm ERR! Could not resolve dependency:
+npm ERR! peer react@"^16.4.0-0" from react-redux@6.0.1
+npm ERR! node_modules/react-redux
+npm ERR!   react-redux@"6.0.1" from the root project
+
+
+npm install --save react-redux@6.0.1
+
+
+-----------------------------------------------------
+limpar os arquivos em excesso do react
+
+ir em public e deletar o favicon.ico logo192.png e logo512.png
+em index.html alterar o titulo
+em manifest.json alterar:
+ alterar short_name para dashaboard
+ alterar o name para dashboard
+ apagar o objeto do icons ficando : [] chave vazias
+
+-----------------------------------------------------
+na pasta scr
+criar uma sub pasta app ( ficara os arquivos de javascript)
+criar uma pasta css
+ 
+mover o arquivo app.js para a pasta app
+mover o arquivo index.css para a pasta css
+
+deletar todos os arquivo (deixar apenaso index.js)
+app.css
+app.teste.js
+logo.svg
+servicworker.js
+reportWebVitals.js
+
+no indice remover o reportWebVitals
+alterar:  import App from './App'; para import App from './app';
+
+na pasta app alterar o arquivo App.js para index.js
+
+
+alterar import './index.css'; para import './css/index.css';
+--------------------------------------------------------------
+
+
+no arquivo index.js na pasta app 
+remover:
+import logo from './logo.svg';
+import './App.css';
+
+remover :
+
+ <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+
