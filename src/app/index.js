@@ -1,10 +1,22 @@
+// Modulo 21 - Dashboard  - instalando o redux e preparando as pastas.
+
+import { Provider } from 'react-redux';
+import store from './store';
+
+
 
 function App() {
   return (
-	  <div className="App">
-		  Dashboard
+	  
+	  <Provider store={store}>
+		  <div className="App">
+			  Dashboard 
+		  </div>
+
+
+	</Provider>
      
-    </div>
+    
   );
 }
 
