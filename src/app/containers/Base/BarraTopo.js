@@ -1,0 +1,21 @@
+/*
+  Modulo 22 - Dashboard crianod a base.
+  Criando o menu da Dashboard  1/2
+  */
+
+import React from 'react';
+import { Link } from 'react-router-dom';
+ 
+  const BarraTopo = () => (
+	
+	<div className='flex horizontal full-width'>
+		<div className='flex-1 flex flex-start'>
+			<a href="/">Ver Loja</a>
+		</div>
+		<div className='flex-1 flex flex-end'>
+			<Link to="logout">Sair</Link>
+		</div>
+	  </div>
+);
+  
+export default BarraTopo;

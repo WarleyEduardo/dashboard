@@ -15,13 +15,21 @@ import { HashRouter as Router, Route } from 'react-router-dom';
 import Pedidos from './containers/Pedidos';
 
 
+/*
+  Modulo 22 - Dashboard criando a base 
+  o que é OHC e criando a base dos menus da Dashboard.
+
+*/
+import base from './containers/HOC/Base'
+
+
 class App extends Component {
 	render() {
 		return (
 			<Provider store={store}>
 				<Router>
 					<div className="App">
-						<Route path={"/"} exact component={Pedidos} />
+						<Route path={"/"} exact component={base(Pedidos)} />
 
 					</div>
 				</Router>
