@@ -35,7 +35,7 @@ class App extends Component {
 				<Router>
 					<div className='App'>
 						<Route path={'/pedidos'} exact component={base(Pedidos)} />
-						<Route path={'/'} component={Login} />
+						<Route path={'/'} exact component={Login} />
 						<Route path={'/recuperar-senha'} component={RecuperarSenha} />
 						<Route path={'/resetar-senha/:token'} component={ResetarSenha} />
 					</div>

@@ -35,7 +35,7 @@ class ResetarSenha extends Component {
 					<Input label='Confirmar senha' type='password' value={confirmarSenha} onChange={(ev) => this.onChangeInput('confirmarSenha', ev)} />
 				</div>
 				<div>
-					<Button type="success" rota="/login" label="RESETAR SENHA"/>
+					<Button type="success" rota='/' label="RESETAR SENHA"/>
 				</div>
 			</div>
 		); 
