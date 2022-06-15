@@ -17,10 +17,9 @@ import { HashRouter as Router, Route } from 'react-router-dom';
   o que é OHC e criando a base dos menus da Dashboard.
 
 */
-import base from './containers/HOC/Base'
 
-
-import Pedidos from './containers/Pedidos';
+import base from './containers/HOC/Base';
+import Pedidos from './containers/Pedidos'; 
 
 /* Modulo 23 -  Tela de login  1/2 */
 
@@ -35,8 +34,8 @@ class App extends Component {
 			<Provider store={store}>
 				<Router>
 					<div className='App'>
-						<Route path={'/'} exact component={base(Pedidos)} />
-						<Route path={'/login'} component={Login} />
+						<Route path={'/pedidos'} exact component={base(Pedidos)} />
+						<Route path={'/'} component={Login} />
 						<Route path={'/recuperar-senha'} component={RecuperarSenha} />
 						<Route path={'/resetar-senha/:token'} component={ResetarSenha} />
 					</div>

@@ -50,7 +50,7 @@ class Login extends Component {
 						</div>
 					</div>
 					<Button type="success"
-						rota="/"
+						rota="/pedidos"
 						label="Entrar"
 						 />
 				</div>

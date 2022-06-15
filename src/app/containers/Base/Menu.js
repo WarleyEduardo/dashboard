@@ -11,8 +11,7 @@
    
   */
 
-import ListItems from './ListItems';	
-
+import ListItems from './ListItems';
 
 import React, { Component } from 'react';
   
@@ -32,7 +31,9 @@ class Menu extends Component {
 
 		return (
 			<div className={`Menu ${open ? "menu-open":""}`}>
-				<div className= {`item-top flex ${open ? "flex-end":"flex-center"}`}  onClick={() => this.toggleOpen()}>
+				<div className={`item-top flex ${open ? "flex-end" : "flex-center"}`}
+					onClick={() => this.toggleOpen()}>
+					
 					{(<i className={`fas fa-arrow-${open?"left":"right"}`} />)}
 				</div>
 				<hr />

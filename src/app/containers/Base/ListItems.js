@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 const items = [
 	{
-		rota: '/',
+		rota: '/pedidos',
 		icone: <i className='fas fa-copy' />,
 		titulo: 'Pedidos',
 	},
@@ -39,9 +39,9 @@ const items = [
 		titulo: 'Perfil',
 	},
 	{
-		rota: '/LOGIN',
+		rota: '/',
 		icone: <i className='fas fa-key' />,
-		titulo: 'teste',
+		titulo: 'WARLEY',
 	},
 ];
 
