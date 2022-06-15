@@ -11,8 +11,7 @@ const InputSimples = ({ type, label, value, onChange }) => (
 		<input
 			type={type}
 			value={value}
-			onChange={onChange}
-		/>
+			onChange={onChange}	/>
 
 	</div>
 );

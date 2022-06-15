@@ -11,6 +11,7 @@ import Titulo from '../../components/Texto/Titulo'
 
 import Input from '../../components/Inputs/Simples';
 import Checkbox from '../../components/Inputs/Checkbox';
+import Button  from '../../components/Button/Simples'
 
 
 class Login extends Component {
@@ -22,7 +23,7 @@ class Login extends Component {
 	}
 	
 	onChangeInput = (field, ev) => this.setState({ [field]: ev.target.value })
-	onChangeCheckbox = (field) => this.setState({[field] : !this.state[field]})
+	onChangeCheckbox = (field) => this.setState({ [field]: !this.state[field] })
 
 	render() {
 
@@ -33,25 +34,25 @@ class Login extends Component {
 				<div className='card'>
 					<Titulo tipo='1' titulo='Loja IT' />
 					<p>Faça o seu login abaixo</p>
-					<Input label='E-mail'
-						value={email} type='email'
-						onChange={(ev) => this.onChangeInput('Email', ev)} />
-					<Input label='Senha'
-						value={senha}
-						type='password'
-						onChange={(ev) => this.onChangeInput('senha', ev)} />
+					<Input
+						label='E-mail'
+						value={email}
+						type='email'
+					    onChange={(ev) => this.onChangeInput('email', ev)}
+					/>
+					<Input label='Senha' value={senha} type='password' onChange={(ev) => this.onChangeInput('senha', ev)} />
 					<div>
 						<div>
-							<Checkbox value={opcaoLembrar}
-							onChange={() => this.onChangeCheckbox("opcaoLembrar")}
-							label = "Lembrar?"
-							/>
-                           
+							<Checkbox value={opcaoLembrar} onChange={() => this.onChangeCheckbox('opcaoLembrar')} label='Lembrar?' />
 						</div>
 						<div>
-                            <Link to="/recuperar-senha">Esqueceu sua senha?</Link>
+							<Link to='/recuperar-senha'>Esqueceu sua senha?</Link>
 						</div>
 					</div>
+					<Button type="success"
+						rota="/"
+						label="Entrar"
+						 />
 				</div>
 			</div>
 		);
