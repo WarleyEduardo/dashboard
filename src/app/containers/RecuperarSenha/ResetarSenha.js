@@ -38,7 +38,7 @@ class ResetarSenha extends Component {
 					<Button type="success" rota="/login" label="RESETAR SENHA"/>
 				</div>
 			</div>
-		);
+		); 
 	}
 	
 }

@@ -38,6 +38,11 @@ const items = [
 		icone: <i className='fas fa-user' />,
 		titulo: 'Perfil',
 	},
+	{
+		rota: '/LOGIN',
+		icone: <i className='fas fa-key' />,
+		titulo: 'teste',
+	},
 ];
 
 /*
