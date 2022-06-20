@@ -27,6 +27,9 @@ import Login from './containers/Login';
 import RecuperarSenha from './containers/RecuperarSenha';
 import ResetarSenha from './containers/RecuperarSenha/ResetarSenha';
 
+/* Modulo 23 Detalhes do pedido 1/6 */
+
+import Pedido from './containers/Pedido'
 
 class App extends Component {
 	render() {
@@ -35,6 +38,7 @@ class App extends Component {
 				<Router>
 					<div className='App'>
 						<Route path={'/pedidos'} exact component={base(Pedidos)} />
+						<Route path={'/pedido'} exact component={base(Pedido)} />
 						<Route path={'/'} exact component={Login} />
 						<Route path={'/recuperar-senha'} component={RecuperarSenha} />
 						<Route path={'/resetar-senha/:token'} component={ResetarSenha} />
