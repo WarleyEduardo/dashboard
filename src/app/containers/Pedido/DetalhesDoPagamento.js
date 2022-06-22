@@ -7,7 +7,7 @@ import React, { Component } from 'react'
 /* Modulo 23 Detalhes do pedido 3/6 */
 
 import Titulo from '../../components/Texto/Titulo'
-import ListaDinamica from '../../components/Listas/ListaDinamicaSimples'
+import ListaDinamica from '../../components/Listas/ListaDinamicaSimples';
 
 class DetalhesDoPagamento extends Component {
 	state = {
@@ -15,11 +15,6 @@ class DetalhesDoPagamento extends Component {
 			     "Processando Pagamento"]
 	}
 
-	onRemoveListaDinamica = (index) => {
-		let { status } = this.state;
-		status = status.filter((item, _index) => _index !== index);
-		this.setState({ status });
-	}
 
 	onAddListaDinamica = (texto) => {
 		if (!texto) return false;
@@ -39,7 +34,6 @@ class DetalhesDoPagamento extends Component {
 				<br />
 				<ListaDinamica
 					dados={status}
-					onRemove={this.onRemoveListaDinamica}
 					onAdd={this.onAddListaDinamica}/>
 			</div>
 		)
