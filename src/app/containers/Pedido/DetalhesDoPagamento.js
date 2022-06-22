@@ -2,13 +2,45 @@
 
 /* Modulo 23 Detalhes do pedido 1/6 */
 
-import React , {Component} from 'react'
+import React, { Component } from 'react'
+
+/* Modulo 23 Detalhes do pedido 3/6 */
+
+import Titulo from '../../components/Texto/Titulo'
+import ListaDinamica from '../../components/Listas/ListaDinamicaSimples'
 
 class DetalhesDoPagamento extends Component {
+	state = {
+		status: ["Aguardando Pagamento",
+			     "Processando Pagamento"]
+	}
+
+	onRemoveListaDinamica = (index) => {
+		let { status } = this.state;
+		status = status.filter((item, _index) => _index !== index);
+		this.setState({ status });
+	}
+
+	onAddListaDinamica = (texto) => {
+		if (!texto) return false;
+		let { status } = this.state;
+		status.push(texto)
+		this.setState({ status });
+		 
+	}
+
 	render() {
+
+		const { status } = this.state;
+		
 		return (
 			<div className='Detalhes-do-Pagamento'>
-				DetalhesDoPagamento
+				<Titulo tipo="h4" titulo="Pagamento" />
+				<br />
+				<ListaDinamica
+					dados={status}
+					onRemove={this.onRemoveListaDinamica}
+					onAdd={this.onAddListaDinamica}/>
 			</div>
 		)
 

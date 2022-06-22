@@ -48,7 +48,7 @@ class Pedidos extends Component {
 				'Valor Total': 89.9,
 				Data: moment().toISOString(),
 				Situação: 'Aguardando Pagamento',
-				botaoDetalhes: '/pedido/9D1DS345FFD9',
+				botaoDetalhes: '/pedido',
 			},
 			{
 				Cliente: 'Cliente 2',
