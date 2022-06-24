@@ -33,7 +33,7 @@ body {
 
 
 .full-width { width:100%;}
-.full-height {height: 100vh;}
+.full-height {height: 100vh; }
 
 
 /* flex*/
@@ -51,8 +51,8 @@ body {
 }
 
 .flex-1 {flex: 1;}
-.flex-2 {flex: 2;}
-.flex-3 {flex: 3;}
+.flex-2 {flex: 2};
+.flex-3 {flex: 3};
 
 .flex-start,
 .flex-end,
@@ -69,31 +69,10 @@ body {
 
 /*COMPONENTES*/
 /*modulo 24   2/6 */
-
-.Barra-Topo{
-	background-color: var(--cor-preta);	
-	margin-left: -10px;
-	z-index: 100;
-	padding: 10px;
-	height: 20px;
-}
-
-.Barra-Topo a {
-	background-color: var(--cor-preta);
-	color : var(--cor-branca);
-	text-decoration: none;
-	font-weight: 200;
-}
-
-
-
-
 .Menu{
 
 	background-color: var(--cor-tema);
 	width: 50px;
-	margin-right: 10px;
-	box-shadow: 0 0 5px #111;
 }
 
 .menu-open{
@@ -108,8 +87,9 @@ body {
 
 .item-top{
 	 
-	padding: 10px;
+	/*padding: 10px;
 	padding-bottom: 0;
+	*/
 	font-size: 1.3rem;
 	cursor: pointer;
 	color :var(--cor-branca)
@@ -131,4 +111,3 @@ body {
 
 	background-color: var(--cor-tema-claro);
 }
-
