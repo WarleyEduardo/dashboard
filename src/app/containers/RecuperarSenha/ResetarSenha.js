@@ -23,19 +23,25 @@ class ResetarSenha extends Component {
 		const { senha, confirmarSenha } = this.state;
 
 		return (
-			<div className='Resetar-Senha'>
-				<Titulo tipo='h1' titulo='LOJA IT' />
-				<br />
-				<div>
-					<p>para reiniciar a senha , digite a nova senha e confirme no campo abaixo</p>
-				</div>
-				<br />
-				<div>
-					<Input label='senha' type='password' value={senha} onChange={(ev) => this.onChangeInput('senha', ev)} />
-					<Input label='Confirmar senha' type='password' value={confirmarSenha} onChange={(ev) => this.onChangeInput('confirmarSenha', ev)} />
-				</div>
-				<div>
-					<Button type="success" rota='/' label="RESETAR SENHA"/>
+			<div className='Resetar-Senha flex flex-center'>
+				<div className='Card'>
+					<div className='flex flex-center'>
+						<Titulo tipo='h1' titulo='LOJA IT' />
+					</div>
+
+					<br />
+					<div>
+						<p>para reiniciar a senha , digite a nova senha e confirme no campo abaixo</p>
+					</div>
+					<br />
+					<div>
+						<Input label='senha' type='password' value={senha} onChange={(ev) => this.onChangeInput('senha', ev)} />
+						<Input label='Confirmar senha' type='password' value={confirmarSenha} onChange={(ev) => this.onChangeInput('confirmarSenha', ev)} />
+					</div>
+					<br/>
+					<div className='flex flex-center'>
+						<Button type='success' rota='/' label='RESETAR SENHA' />
+					</div>
 				</div>
 			</div>
 		); 

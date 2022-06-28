@@ -31,6 +31,14 @@ import ResetarSenha from './containers/RecuperarSenha/ResetarSenha';
 
 import Pedido from './containers/Pedido'
 
+/* teste warley */
+
+import Cliente from './containers/Clientes';
+import Categoria from './containers/Categorias';
+import Produto from './containers/Produtos';
+import Configuracao from './containers/Configuracao';
+import Perfil from './containers/Perfil';
+
 class App extends Component {
 	render() {
 		return (
@@ -42,6 +50,11 @@ class App extends Component {
 						<Route path={'/'} exact component={Login} />
 						<Route path={'/recuperar-senha'} component={RecuperarSenha} />
 						<Route path={'/resetar-senha/:token'} component={ResetarSenha} />
+						<Route path={'/clientes'} exact component={base(Cliente)} />
+						<Route path={'/categorias'} exact component={base(Categoria)} />
+						<Route path={'/produtos'} exact component={base(Produto)} />
+						<Route path={'/configuracoes'} exact component={base(Configuracao)} />
+						<Route path={'/perfil'} exact component={base(Perfil)} />
 					</div>
 				</Router>
 			</Provider>

@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const TabelaSimples = ({cabecalho,dados }) => (
 	
 	<div className='TabelaSimples'>
-		<table className='Simples'>
+		<table className='simples'>
 			<thead>
 				<tr>
 					{cabecalho.map((item, idx) => (<th key={idx}>{item}</th>) )}
@@ -29,7 +29,7 @@ const TabelaSimples = ({cabecalho,dados }) => (
 								linha["botaoDetalhes"] && (
 									<td>
 										<Link to={linha["botaoDetalhes"]}>
-											<button>
+											<button className="button button-danger button-small">
 												DETALHES
 											</button>
 										</Link>

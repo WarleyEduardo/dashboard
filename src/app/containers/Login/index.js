@@ -30,29 +30,31 @@ class Login extends Component {
 		const { email, senha , opcaoLembrar } = this.state; 
 
 		return (
-			<div className='Login'>
-				<div className='card'>
-					<Titulo tipo='1' titulo='Loja IT' />
-					<p>Faça o seu login abaixo</p>
-					<Input
-						label='E-mail'
-						value={email}
-						type='email'
-					    onChange={(ev) => this.onChangeInput('email', ev)}
-					/>
+			<div className='Login flex flex-center'>
+				<div className='Card'>
+					<div className='flex vertical flex-center'>
+						<Titulo tipo='1' titulo='Loja IT' />
+						<p>Faça o seu login abaixo</p>
+					</div>
+					<br />
+					<br />
+					<Input label='E-mail' value={email} type='email' onChange={(ev) => this.onChangeInput('email', ev)} />
 					<Input label='Senha' value={senha} type='password' onChange={(ev) => this.onChangeInput('senha', ev)} />
-					<div>
-						<div>
+					<div className='flex'>
+						<div className='flex-1'>
 							<Checkbox value={opcaoLembrar} onChange={() => this.onChangeCheckbox('opcaoLembrar')} label='Lembrar?' />
 						</div>
-						<div>
-							<Link to='/recuperar-senha'>Esqueceu sua senha?</Link>
+						<div className='flex-1 flex flex-end'>
+							<Link to='/recuperar-senha'>
+								<small>Esqueceu sua senha?</small>
+							</Link>
 						</div>
 					</div>
-					<Button type="success"
-						rota='/pedidos'
-						label="Entrar"
-						 />
+					<br />
+					<br />
+					<div className='flex flex-center'>
+						<Button type='success' rota='/pedidos' label='Entrar' />
+					</div>
 				</div>
 			</div>
 		);

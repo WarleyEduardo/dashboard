@@ -27,7 +27,7 @@ class ListaDinamicaSimples extends Component {
 		<div className='flex vertical'>
 			{dados.map((item, idx) => (
 				<div key={idx} className='flex horizontal'>
-					<div className='flex-3 flex flex-start'>
+					<div className='flex-3 flex flex-start border-green'>
 						<span>{item}</span>
 					</div>
 					{onRemove &&
@@ -40,12 +40,12 @@ class ListaDinamicaSimples extends Component {
 				</div> 
 			))}
 
-			<div className='flex horizontal'>
-				<div className='flex-3 flex flex-start'>
+			<div className='flex'>
+				<div className='flex flex-start'>
 					<InputSimples type='text' value={texto} onChange={this.onChangeInput} />
 				</div>
 
-				<div className='flex-1 flex flex-center'>
+				<div className='flex flex-center'>
 					<ButtonSimples type='success' onClick={() => this.onAdd(texto)} label=' + ' />
 				</div>
 			</div>

@@ -68,7 +68,7 @@ class Pedidos extends Component {
 
 		return (
 			<div className='Pedidos'>
-				<div className='card'>
+				<div className="Card">
 					<Titulo tipo='h1' titulo='Pedidos' />
 					<br />
 					<Pesquisa

@@ -1,13 +1,3 @@
-body {
-
-  Margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 /*modulo 24   2/6 */
 
 :root{
@@ -16,7 +6,7 @@ body {
 	--cor-tema-claro : rgb(27,79,169);
 
 	--cor-primaria: rgb(10,99,167);
-	--cor-segundaria: rgb(17,131,17);
+	--cor-secundaria: rgb(17,131,17);
 	--cor-terciaria : rgb(176, 22, 22);
 	--cor-amarelo : rgb(220, 204, 26);
 
@@ -24,7 +14,23 @@ body {
 	--cor-branca: #fff;
 	--cor-cinza-claro : #eee;
 	--cor-cinza-escuro : #222;
+	--cor-cinza-medio: #888;   
+
+	
 }
+
+body {
+
+  Margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color:  var(--cor-cinza-claro);
+}
+
+
 
 /*
   Modulo 22 - Dashboard criando a base 
@@ -71,10 +77,10 @@ body {
 /*modulo 24   2/6 */
 
 .Barra-Topo{
-	background-color: var(--cor-preta);	
+	background-color:  var(--cor-preta);	
 	margin-left: -10px;
 	z-index: 100;
-	padding: 10px;
+	padding: 10px 20px;
 	height: 20px;
 }
 
@@ -82,10 +88,10 @@ body {
 	background-color: var(--cor-preta);
 	color : var(--cor-branca);
 	text-decoration: none;
-	font-weight: 200;
+	font-weight:bold; /*200*/
+	font-size: 1rem;
+
 }
-
-
 
 
 .Menu{
@@ -95,6 +101,8 @@ body {
 	margin-right: 10px;
 	box-shadow: 0 0 5px #111;
 }
+
+
 
 .menu-open{
 	width: 180px;
@@ -132,3 +140,230 @@ body {
 	background-color: var(--cor-tema-claro);
 }
 
+/* modulo 24  3/6 */
+.Card , .Sub-Card{
+	margin: 40px 20px;
+	padding: 30px;
+	border-radius: 10px;
+	border:0;
+	box-shadow:  0  0 5px #7777;
+
+	background-color: var(--cor-branca);
+	
+}
+
+.Sub-Card{
+	margin-top: 0;
+}
+
+.Pesquisa input{
+
+	padding:  8px 15px;
+	border : 1px solid #cccc;
+	font-size : 1rem;
+	border-radius: 10px;
+	width: 80%;
+}
+
+.Pesquisa button{
+
+	margin-left: -40px;
+	background-color: transparent;
+	font-size: 1.1rem;
+	border: 0;
+	cursor: pointer;
+}
+
+
+table.simples{
+
+	margin-bottom: 50px;
+	border-collapse: collapse;  
+}
+
+table.simples td { 
+	padding: 10px;
+	font-size: 0.9rem;
+	border-bottom: 1px solid #999;
+}
+
+table.simples th{
+	background-color: var(--cor-tema);
+	padding: 10px;
+	color: var(--cor-branca);
+	font-size: 1rem;
+}
+
+table.simples th:first-child{
+
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+table.simples th:last-child{
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.button {
+
+	font-size: 1rem;
+	padding: 10px 15px;
+	margin: 5px;
+	border: 1px solid #aaaa;
+	cursor: pointer;
+	border-radius: 10px;
+	font-weight: bold;
+}
+
+.button-small{
+	font-size: 0.8rem;
+	padding: 5px 8px;
+	margin: 3px;
+}
+
+.button-danger{
+
+	background-color: var(--cor-terciaria);
+	color:var(--cor-branca);
+	border: 0;
+}
+
+.button-success{
+
+	background-color: var(--cor-secundaria);
+	color:var(--cor-branca);
+	border: 0;
+}
+
+.button-warning{
+
+	background-color: var(--cor-amarelo);
+	color:var(--cor-preta);
+	border: 0;
+}
+ 
+main{
+
+	overflow: scroll;
+}
+
+main > div{
+
+margin-right: 20px;	
+
+}
+
+.Paginacao{
+
+	display: flex;
+	justify-content: flex-end;
+}
+
+.paginacao-item{
+
+  font-size: 0.9rem;	
+  color: var(--cor-cinza-escuro);
+  padding: 5px 10px;
+  border: 1px solid #cccc;
+  cursor: pointer;
+
+}
+
+.paginacao-item:first-child{
+
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+.paginacao-item:last-child{
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+
+.paginacao-item-active, .paginacao-item:hover{
+	background-color: var(--cor-cinza-escuro);
+	color: Var(--cor-cinza-claro);
+	border : 1px solid  var(--cor-cinza-escuro)
+}
+
+
+.Link-Voltar{
+
+	text-decoration: none;
+	color : rgba(116, 199, 255)
+
+}
+
+.Link-Voltar:hover{
+	color: var(--cor-tema);
+	
+}
+
+.Input-Simples label{
+	margin: 5px 0 2px  0;
+	font-weight: bold;
+
+}
+
+.Input-Simples input{
+
+	padding: 8px 12px;
+	margin: 5px 0;
+	border-radius: 5px;
+	border: 1px solid var(--cor-cinza-medio);
+	font-size: 0.95rem;
+}
+	
+
+.border-green{
+
+	border-left: 2px solid var(--cor-secundaria);
+	padding-left: 5px;
+	margin: 2px 0;
+
+}
+
+.Input-Valor{
+	margin: 10px 0;
+}
+
+.Input-Valor input, .Input-Valor .input{
+	border: 1px solid var(--cor-cinza-medio);
+	padding: 8px 12px;
+	font-size: 0.95rem;
+	border-radius: 10px;
+}
+
+.Input-Valor .input{
+
+   background-color: var(--cor-cinza-claro);
+   color: var(--cor-cinza-medio);
+}
+
+/*por minha conta*/
+.Titulo-terciario , .Subtitulo{
+
+   	border-bottom: 4px solid var(--cor-cinza-medio);
+    margin-right: 20px;   
+	
+}
+
+.Login .Card{
+
+	width: 95%;
+	max-width: 450px;
+}
+
+.Login h1 {
+
+	font-size: 3rem;
+	color:rgb(20,3,61);
+	margin-bottom: 0;
+}
+
+.Login a{
+  text-decoration: none;
+  color: #474747;
+}

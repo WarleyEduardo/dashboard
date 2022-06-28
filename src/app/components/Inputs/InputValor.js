@@ -2,6 +2,11 @@
 
 import React, { Component } from 'react';
 
+
+/* Modulo 24  5/6 */
+
+import ButtonSimples from '../Button/Simples'
+
 class InputValor extends Component {
 	
 	state = {
@@ -25,34 +30,28 @@ class InputValor extends Component {
 
 		const { value } = this.state;
 		return (
-			
-			<div className='Input-valor input-valor-open'>
+			<div className='Input-Valor flex input-valor-open'>
 				<div>
-					<input
-						value={value}
-						onChange={this.onChange}
-						name={this.props.name}
-					/>
+					<input value={value} onChange={this.onChange} name={this.props.name} />
 				</div>
-				<div>
-				  <div onClick={() => this.handleSubmit(value)}>
-					<i className='fas fa-check' />	
-				  </div>
-					<div onClick={this.toggleForm}>
-						<i className='fas fa-times'/>
-				   </div>
+				<div className='flex flex-center'>
+					<ButtonSimples type='success button-small'
+						onClick={() => this.handleSubmit(value)}
+						label={<i className='fas fa-check' />} />
+
+					<ButtonSimples type='danger button-small' onClick={this.toggleForm} label={<i className='fas fa-times' />} />
 				</div>
 			</div>
-		)
+		);
 	}
 
 	renderValue() {
 		const { value } = this.props;
 		return (
-			<div className='Input-valor'>
-				<span>{value}</span>
-				<div onClick={() => this.toggleForm()}>
-					<i className='fas fa-edit' />
+			<div className='Input-Valor flex' onClick={this.toggleForm}>
+				<span className='input'>{value}</span>
+				<div className='flex flex-center'>
+					<ButtonSimples type='warning button-small' label={<i className='fas fa-edit' />} />
 				</div>
 			</div>
 		);
