@@ -342,6 +342,12 @@ margin-right: 20px;
    color: var(--cor-cinza-medio);
 }
 
+.Input-Valor .input-nostyle{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 /*por minha conta*/
 .Titulo-terciario , .Subtitulo{
 

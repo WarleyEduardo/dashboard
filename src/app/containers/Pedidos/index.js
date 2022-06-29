@@ -44,30 +44,30 @@ class Pedidos extends Component {
 
 		const dados = [
 			{
-				Cliente: 'Cliente 1',
-				'Valor Total': 89.9,
-				Data: moment().toISOString(),
-				Situação: 'Aguardando Pagamento',
-				botaoDetalhes: '/pedido',
+				"Cliente": 'Cliente 1',
+				"Valor Total": 89.9,
+				"Data": moment().toISOString(),
+				"Situação": 'Aguardando Pagamento',
+				"botaoDetalhes": '/pedido/csadfadf45555',
 			},
 			{
-				Cliente: 'Cliente 2',
+				"Cliente": 'Cliente 2',
 				'Valor Total': 105.9,
-				Data: moment().toISOString(),
-				Situação: 'Aguardando Pagamento',
-				botaoDetalhes: '/pedido/CCDDFS345DFD55',
+				"Data": moment().toISOString(),
+				"Situação": 'Aguardando Pagamento',
+				"botaoDetalhes": '/pedido/CCDDFS345DFD55',
 			},
 			{
-				Cliente: 'Cliente 3',
-				'Valor Total': 26.72,
-				Data: moment().toISOString(),
-				Situação: 'Pagamento Concluído',
-				botaoDetalhes: '/pedido/834545DFDFDFDF',
+				"Cliente": 'Cliente 3',
+				"Valor Total": 26.72,
+				"Data": moment().toISOString(),
+				"Situação": 'Pagamento Concluído',
+				"botaoDetalhes": '/pedido/834545DFDFDFDF',
 			},
 		];
 
 		return (
-			<div className='Pedidos'>
+			<div className='Pedidos full-width'>
 				<div className="Card">
 					<Titulo tipo='h1' titulo='Pedidos' />
 					<br />

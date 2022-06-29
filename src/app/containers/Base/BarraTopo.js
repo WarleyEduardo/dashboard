@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 			</div>
 			<div className='flex-1 flex flex-end'>
 				{/* teste warley <Link to="logout">Sair</Link>*/}
-				<Link to='/'>Sair</Link>
+				<Link to='/Login'>Sair</Link>
 			</div>
 		</div>
   );

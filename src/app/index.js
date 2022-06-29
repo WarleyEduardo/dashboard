@@ -31,9 +31,12 @@ import ResetarSenha from './containers/RecuperarSenha/ResetarSenha';
 
 import Pedido from './containers/Pedido'
 
-/* teste warley */
+/* Modulo 25  Clientes 1/2 */
 
-import Cliente from './containers/Clientes';
+import Clientes from './containers/Clientes';
+import Cliente from './containers/Cliente'
+
+/* teste warley */
 import Categoria from './containers/Categorias';
 import Produto from './containers/Produtos';
 import Configuracao from './containers/Configuracao';
@@ -45,12 +48,14 @@ class App extends Component {
 			<Provider store={store}>
 				<Router>
 					<div className='App'>
-						<Route path={'/pedidos'} exact component={base(Pedidos)} />
-						<Route path={'/pedido'} exact component={base(Pedido)} />
-						<Route path={'/'} exact component={Login} />
+						<Route path={'/'} exact component={base(Pedidos)} />
+						<Route path={'/pedido/:id'} component={base(Pedido)} />
+						<Route path={'/clientes'} exact component={base(Clientes)} />
+						<Route path={'/cliente/:email'}  component={base(Cliente)} />
+
+						<Route path={'/Login'} exact component={Login} />
 						<Route path={'/recuperar-senha'} component={RecuperarSenha} />
 						<Route path={'/resetar-senha/:token'} component={ResetarSenha} />
-						<Route path={'/clientes'} exact component={base(Cliente)} />
 						<Route path={'/categorias'} exact component={base(Categoria)} />
 						<Route path={'/produtos'} exact component={base(Produto)} />
 						<Route path={'/configuracoes'} exact component={base(Configuracao)} />
