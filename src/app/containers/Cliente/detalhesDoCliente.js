@@ -28,10 +28,12 @@ class DetalhesDoCliente extends Component {
 		};
 
 	renderCabecalho() {
+
+		const { nome } = this.state;
 		return (
 			<div className='flex'>
 				<div className='flex-1 flex'>
-					<Titulo tipo='h1' titulo='Cliente 1' />
+					<Titulo tipo='h1' titulo={nome} />
 				</div>
 
 				<div className='flex-1 flex flex-end'>

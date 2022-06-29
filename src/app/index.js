@@ -36,8 +36,11 @@ import Pedido from './containers/Pedido'
 import Clientes from './containers/Clientes';
 import Cliente from './containers/Cliente'
 
-/* teste warley */
+/*modulo 25  criando estrutura de categorias*/
 import Categoria from './containers/Categorias';
+
+/* teste warley */
+
 import Produto from './containers/Produtos';
 import Configuracao from './containers/Configuracao';
 import Perfil from './containers/Perfil';
@@ -51,12 +54,13 @@ class App extends Component {
 						<Route path={'/'} exact component={base(Pedidos)} />
 						<Route path={'/pedido/:id'} component={base(Pedido)} />
 						<Route path={'/clientes'} exact component={base(Clientes)} />
-						<Route path={'/cliente/:email'}  component={base(Cliente)} />
+						<Route path={'/cliente/:email'} component={base(Cliente)} />
+						<Route path={'/categorias'} component={base(Categoria)} />
 
 						<Route path={'/Login'} exact component={Login} />
 						<Route path={'/recuperar-senha'} component={RecuperarSenha} />
 						<Route path={'/resetar-senha/:token'} component={ResetarSenha} />
-						<Route path={'/categorias'} exact component={base(Categoria)} />
+
 						<Route path={'/produtos'} exact component={base(Produto)} />
 						<Route path={'/configuracoes'} exact component={base(Configuracao)} />
 						<Route path={'/perfil'} exact component={base(Perfil)} />

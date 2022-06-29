@@ -15,7 +15,7 @@ class Pedido extends Component {
 	return (
 		<div className='Pedidos full-width flex vertical'>
 			<div className='Card'>
-				<Voltar path='/' />
+				<Voltar path='/' />				
 				<DetalhesDoPedido />
 			</div>
 			<div className='flex horizontal'>
