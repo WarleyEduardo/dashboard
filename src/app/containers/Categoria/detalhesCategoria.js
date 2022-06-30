@@ -1,4 +1,4 @@
-/* Modulo 25  Clientes 1/2 */
+/* Modulo 25  Categoria 1/2 */
 
 import React, { Component } from 'react';
 import Titulo from '../../components/Texto/Titulo';
