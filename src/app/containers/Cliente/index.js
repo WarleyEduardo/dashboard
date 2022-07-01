@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import DetalhesDoCliente from './detalhesDoCliente';
 
-import DetalhesDoPedido from './detalhesDoPedido';
+import DetalhesDosPedidos from './detalhesDoPedidos';
 
 
 class Cliente extends Component{ 
@@ -19,7 +19,7 @@ class Cliente extends Component{
 				</div>
 				
 				<div className='Sub-Card'>
-						<DetalhesDoPedido />
+						<DetalhesDosPedidos />
 				</div>
 				
 			</div>

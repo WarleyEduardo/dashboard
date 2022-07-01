@@ -43,10 +43,12 @@ import Categorias from './containers/Categorias';
 /*modulo 25  categoria 1/2 */
 import Categoria from './containers/Categoria';
 
+/* Modulo 25 criando pagina de produtos */
+import Produtos from './containers/Produtos';
+
 
 /* teste warley */
 
-import Produto from './containers/Produtos';
 import Configuracao from './containers/Configuracao';
 import Perfil from './containers/Perfil';
 
@@ -62,12 +64,12 @@ class App extends Component {
 						<Route path={'/cliente/:email'} component={base(Cliente)} />
 						<Route path={'/categorias'} component={base(Categorias)} />
 						<Route path={'/categoria/:id'} component={base(Categoria)} />
+						<Route path={'/produtos'} exact component={base(Produtos)} />
 
 						<Route path={'/Login'} exact component={Login} />
 						<Route path={'/recuperar-senha'} component={RecuperarSenha} />
 						<Route path={'/resetar-senha/:token'} component={ResetarSenha} />
 
-						<Route path={'/produtos'} exact component={base(Produto)} />
 						<Route path={'/configuracoes'} exact component={base(Configuracao)} />
 						<Route path={'/perfil'} exact component={base(Perfil)} />
 					</div>
