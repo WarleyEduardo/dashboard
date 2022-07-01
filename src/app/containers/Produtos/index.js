@@ -25,32 +25,32 @@ class Produtos extends Component {
 			    "Produto": 'Mouse 1',
 				"Categoria": 'acessorios',
 				"Disponível": 'sim',
-				"botaoDetalhes": '/produtos/kkdsfa014545'
+				"botaoDetalhes": '/produto/kkdsfa014545'
 			},
 					{
 			    "Produto": 'Mouse 2',
 				"Categoria": 'acessorios',
 				"Disponível": 'sim',
-				"botaoDetalhes": '/produtos/kkdsfa014545'
+				"botaoDetalhes": '/produto/kkdsfa014545'
 			},
 					{
 			    "Produto": 'Mouse 3',
 				"Categoria": 'acessorios',
 				"Disponível": 'sim',
-				"botaoDetalhes": '/produtos/kkdsfa014545'
+				"botaoDetalhes": '/produto/kkdsfa014545'
 			},
 			{
 			    "Produto": 'Mouse 4',
 				"Categoria": 'acessorios',
 				"Disponível": 'sim',
-				"botaoDetalhes": '/produtos/kkdsfa014545'
+				"botaoDetalhes": '/produto/kkdsfa014545'
 			}
 			,
 			{
 			    "Produto": 'Mouse 5',
 				"Categoria": 'acessorios',
 				"Disponível": 'sim',
-				"botaoDetalhes": '/produtos/kkdsfa014545'
+				"botaoDetalhes": '/produto/kkdsfa014545'
 			}
 					
 			
@@ -73,7 +73,7 @@ class Produtos extends Component {
 						<div className='flex-1 flex vertical'>
 							<label>
 								<small>Ordernar por</small>
-							</label>
+							</label>	
 							<select defaultValue="">
 								<option>Aleatório</option>
 								<option value={'oaA-Z'}>Alfabética A-Z</option>

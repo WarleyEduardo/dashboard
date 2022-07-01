@@ -46,6 +46,11 @@ import Categoria from './containers/Categoria';
 /* Modulo 25 criando pagina de produtos */
 import Produtos from './containers/Produtos';
 
+/* Modulo 25 preparando a base de produtos */
+
+import Produto from './containers/Produto'
+
+
 
 /* teste warley */
 
@@ -64,7 +69,8 @@ class App extends Component {
 						<Route path={'/cliente/:email'} component={base(Cliente)} />
 						<Route path={'/categorias'} component={base(Categorias)} />
 						<Route path={'/categoria/:id'} component={base(Categoria)} />
-						<Route path={'/produtos'} exact component={base(Produtos)} />
+						<Route path={'/produtos'} component={base(Produtos)} />
+						<Route path={'/produto/:id'} component={base(Produto)} />
 
 						<Route path={'/Login'} exact component={Login} />
 						<Route path={'/recuperar-senha'} component={RecuperarSenha} />

@@ -6,6 +6,11 @@ import ButtonSimples from '../../components/Button/Simples'
 import { TextoDados } from '../../components/Texto/Dados'
 import Inputvalor from '../../components/Inputs/InputValor';
 
+/*Modulo 25 produtos 1/4 */
+
+import InputSelect from '../../components/Inputs/Select';
+
+
 class DetalhesCategoria extends Component{
 
 	state = {
@@ -51,7 +56,8 @@ class DetalhesCategoria extends Component{
 	}
 
 	renderDados() {
-		const { nome , disponibilidade , codigo } = this.state; 
+		const { nome, disponibilidade, codigo } = this.state;
+		
 	 return (
 		 <div>
 
@@ -87,11 +93,26 @@ class DetalhesCategoria extends Component{
 				 valor={(
 
 					 
+					 <InputSelect
+						 name="disponibilidade"
+						 onChange={(ev) => this.setState({ disponibilidade: ev.target.value })}
+						 value={disponibilidade}
+						 opcoes={[
+							 
+							 {label: "Disponível", value: "disponivel" },
+							 {label:"Indisponível", value:"indisponivel"}
+						 ]}
+					 
+					 
+					 />
+
+					 /* modulo 25 produto 1/4 
 					 <select value={disponibilidade}
 						 onChange={(ev) => this.setState({ disponibilidade: ev.target.value })}	 >
 						 <option value={"disponivel"}>Disponível</option>
 						 <option value={"indisponivel"}>Indisponível</option>
-					 </select>
+			          </select>
+			          */
 				 )}
 			 />
 
