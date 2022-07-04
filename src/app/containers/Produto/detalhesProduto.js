@@ -15,6 +15,11 @@ import InputValor from '../../components/Inputs/InputValor'
 import { Link } from 'react-router-dom'
 
 import InputSelect from '../../components/Inputs/Select'
+
+
+/*Modulo 25 produto 2/4 */
+
+import BlocoImagens from '../../components/Imagens/Bloco';
  
 class DetalhesProduto extends Component {
 	state = {
@@ -22,12 +27,12 @@ class DetalhesProduto extends Component {
 		disponibilidade: 'disponivel',
 		descricao: '',
 		imagens: [
-			'https://dummyimage.com/100x100/ffff/00ff26.jpg',
-			'https://dummyimage.com/100x100/ffff/00ff26.jpg',
-			'https://dummyimage.com/100x100/ffff/00ff26.jpg',
-			'https://dummyimage.com/100x100/ffff/00ff26.jpg',
-			'https://dummyimage.com/100x100/ffff/00ff26.jpg',
-			'https://dummyimage.com/100x100/ffff/00ff26.jpg',
+			'https://dummyimage.com/100x100/a49430/fff.jpg',
+			'https://dummyimage.com/100x100/b39414/fff.jpg',
+			'https://dummyimage.com/100x100/c39414/fff.jpg',
+			'https://dummyimage.com/100x100/d39414/fff.jpg',
+			'https://dummyimage.com/100x100/e39414/fff.jpg',
+			'https://dummyimage.com/100x100/f39414/fff.jpg',
 		],
 	};
 
@@ -79,11 +84,16 @@ class DetalhesProduto extends Component {
 		);
 	}
 
+	onRemove = (id) => {
+		const { imagens } = this.state;
+		this.setState({ imagens: imagens.filter((i, idx) => idx !== id) });
+	};
+
 	renderImagens() {
 		const { imagens } = this.state;
 		return (
 			<div className='dados-de-imagens'>
-				<BlocoImagens imagens={imagens} handleSubmit={() => alert('enviado')} />
+				<BlocoImagens imagens={imagens} handleSubmit={() => alert('enviado')} onRemove={this.onRemove} />
 			</div>
 		);
 	}

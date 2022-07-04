@@ -374,3 +374,24 @@ margin-right: 20px;
   color: #474747;
 }
 
+
+
+
+/*modulo 25 produto 2/4 */
+
+.imagens-container{
+ flex-wrap: wrap;
+ display: flex;
+
+}
+
+.imagem-container{
+  max-width: 100px;
+  height: 100px;
+  margin: 5px;
+  border-radius: 5px;
+  background-size: cover ;
+  flex:1;
+  flex-basis: 100px;
+
+}
