@@ -12,7 +12,7 @@ const InputSelect = ({ value, name, opcoes, onChange }) => (
 		{
 			opcoes.map((opcao,idx) => (		   
 
-			  <option key={opcao.value} value={opcao.value}>opcao.label</option>
+				<option key={opcao.value} value={opcao.value}>{opcao.label}</option>
 			))
 
 		}

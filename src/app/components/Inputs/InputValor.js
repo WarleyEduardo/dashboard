@@ -32,7 +32,11 @@ class InputValor extends Component {
 		return (
 			<div className='Input-Valor flex input-valor-open'>
 				<div>
-					<input value={value} onChange={this.onChange} name={this.props.name} />
+					<input value={value}
+						onChange={this.onChange}
+						name={this.props.name}
+					    type ={this.props.type || 'text'}
+					/>
 				</div>
 				<div className='flex flex-center'>
 					<ButtonSimples type='success button-small'

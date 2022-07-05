@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import DetalhesProduto from './detalhesProduto';
-import DetalhesVariacoes from './detalhesVariacoes'
+import DetalhesVariacoes from './DetalhesVariacoes'
 
 class Produto extends Component{
 
