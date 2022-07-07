@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import DetalhesProduto from './detalhesProduto';
-import DetalhesVariacoes from './DetalhesVariacoes'
+import DetalhesVariacoes from './detalhesVariacoes'
 
 class Produto extends Component{
 
@@ -16,10 +16,8 @@ class Produto extends Component{
                   <DetalhesProduto />
 				</div>
 
-				<div className='Card'>
-					<DetalhesVariacoes />
-					
-
+				<div >
+					<DetalhesVariacoes />	
 				</div>
 				
 			</div>

@@ -8,6 +8,8 @@ import { TextoDados } from '../../components/Texto/Dados';
 
 import InputValor from '../../components/Inputs/InputValor'
 
+import Voltar from '../../components/Links/Voltar';
+
 class DetalhesDoCliente extends Component {
 	state = {
 		nome: 'Cliente 1',
@@ -150,6 +152,8 @@ class DetalhesDoCliente extends Component {
 	render() {
 		return (
 			<div className='DetalhesdoCliente'>
+               <Voltar  path="/clientes"/>
+
 				{this.renderCabecalho()}
 				<div className='flex horizontal'>
 					<div className='flex-1 flex vertical'>{this.renderDetalhesCadastro()}</div>

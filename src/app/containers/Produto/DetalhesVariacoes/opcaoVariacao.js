@@ -1,5 +1,5 @@
 /* Modulo 25 detalhes do produto 3/4 */
-import React, { Components } from 'react';
+import React, { Component } from 'react';
 
 import Titulo from '../../../components/Texto/Titulo'
 
@@ -12,7 +12,10 @@ import { TextoDados } from '../../../components/Texto/Dados';
 import InputSelect from '../../../components/Inputs/Select';
 
 
-class OpcaoVariacao extends Components {
+import BlocoImagens from '../../../components/Imagens/Bloco';
+
+
+class OpcaoVariacao extends Component {
 	state = {
 		nome: 'P',
 		disponibilidade: 'disponível',
@@ -24,12 +27,12 @@ class OpcaoVariacao extends Components {
 		altura: 5,
 		comprimento: 17,
 		imagens: [
-			'https://dummyimage.com/100x100/99ff00/fff.jpg',
-			'https://dummyimage.com/100x100/99ff00/fff.jpg',
-			'https://dummyimage.com/100x100/99ff00/fff.jpg',
-			'https://dummyimage.com/100x100/99ff00/fff.jpg',
-			'https://dummyimage.com/100x100/99ff00/fff.jpg',
-			'https://dummyimage.com/100x100/99ff00/fff.jpg',
+			'https://dummyimage.com/100x100/103020/fff.jpg',
+			'https://dummyimage.com/100x100/103020/fff.jpg',
+			'https://dummyimage.com/100x100/103020/fff.jpg',
+			'https://dummyimage.com/100x100/103020/fff.jpg',
+			'https://dummyimage.com/100x100/103020/fff.jpg',
+			'https://dummyimage.com/100x100/103020/fff.jpg',
 		],
 	};
 
@@ -48,7 +51,7 @@ class OpcaoVariacao extends Components {
 	}
 
 	renderDadosCadastrais() {
-		const { nome, disponibilidade, preco, promocao, quantidade , peso } = this.state;
+		const { nome, disponibilidade, preco, promocao, quantidade } = this.state;
 
 		return (
 			<div className='Dados-Produto'>
@@ -56,13 +59,15 @@ class OpcaoVariacao extends Components {
 					valor={<InputValor value={nome}
 						noStyle
 						name='nome'
-						onChange={(ev) => this.setState({ nome: ev.target.value })} />} />
+						handleSubmit={(valor) => this.setState({ nome: valor })}
+					/>}
+				/>
 				<TextoDados
 					chave='Disponibilidade'
 					valor={
 						<InputSelect
 							name='disponibilidade'
-							onChange={(ev) => this.setState({ disponibilidade: ev.target.value })}
+							handleSubmit={(ev) => this.setState({ disponibilidade: ev.target.value })}
 							value={disponibilidade}
 							opcoes={[
 								{ label: 'Disponível', value: 'disponivel' },
@@ -73,27 +78,102 @@ class OpcaoVariacao extends Components {
 				/>
 
 				<TextoDados
-					chave='Preço Padrão'	
-					valor={<InputValor value={preco}
+					chave='Preço Padrão'
+					valor={<InputValor
+						value={preco}
 						noStyle
 						name='preco'
-						type="number"
-						onChange={(ev) => this.setState({ preco: Number(ev.target.value) })} />} />
-				
+						type='number'
+						handleSubmit={(valor) => this.setState({ preco: Number(valor) })}
+					/>}
+				/>
+
 				<TextoDados
 					chave='Preço Promocional'
-					valor={<InputValor value={promocao}
+					valor={<InputValor
+						value={promocao}
 						noStyle
 						name='promocao'
-						type ="number"
-						onChange={(ev) => this.setState({ promocao: Number(ev.target.value) })} />} />
-				
-				<TextoDados chave='Quantidade'
-					valor={<InputValor value={quantidade}
+						type='number'
+						handleSubmit={(valor) => this.setState({ promocao: Number(valor) })}
+					/>}
+				/>
+
+				<TextoDados
+					chave='Quantidade'
+					valor={<InputValor
+						value={quantidade}
 						noStyle
 						name='quantidade'
-						onChange={(ev) => this.setState({ quantidade: ev.target.value })} />} />
+						handleSubmit={(valor) => this.setState({ quantidade: valor })}
+					/>}
+				/>
+			</div>
+		);
+	}
 
+	renderDadosEnvio() {
+		const { peso, largura, comprimento, altura } = this.state;
+
+		return (
+			<div className='Dados-Envio'>
+				<TextoDados
+					chave='Peso (Kg)'
+					valor={<InputValor
+						value={peso}
+						noStyle
+						name='peso'
+						type='number'
+						handleSubmit={(valor) => this.setState({ peso: Number(valor) })}
+					/>}
+				/>
+
+				<TextoDados
+					chave='Largura (cm)'
+					valor={<InputValor
+						value={largura}
+						noStyle
+						name='largura'
+						type='number'
+						handleSubmit={(valor) => this.setState({ largura: Number(valor) })}
+					/>}
+				/>
+
+				<TextoDados
+					chave='Comprimento (cm)'
+					valor={<InputValor
+						value={comprimento}
+						noStyle
+						name='comprimento'
+						type='number'
+						handleSubmit={(valor) => this.setState({ comprimento: Number(valor) })}
+					/>}
+				/>
+
+				<TextoDados
+					chave='Altura (cm)'
+					valor={<InputValor
+						value={altura}
+						noStyle
+						name='altura'
+						type='number'
+						handleSubmit={(valor) => this.setState({ altura: Number(valor) })}
+					/>}
+				/>
+			</div>
+		);
+	}
+
+	onRemove = (id) => {
+		const { imagens } = this.state;
+		this.setState({ imagens: imagens.filter((i, idx) => idx !== id) });
+	};
+
+	renderImagens() {
+		const { imagens } = this.state;
+		return (
+			<div className='dados-de-imagens'>
+				<BlocoImagens imagens={imagens} handleSubmit={() => alert('enviado')} onRemove={this.onRemove} />
 			</div>
 		);
 	}
