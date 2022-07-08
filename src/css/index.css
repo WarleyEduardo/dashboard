@@ -400,3 +400,8 @@ margin-right: 20px;
   flex-basis: 100px;
 
 }
+
+
+.Imagem-remove{
+	cursor: pointer;
+}
