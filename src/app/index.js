@@ -56,9 +56,11 @@ import Produto from './containers/Produto'
 import Avaliacoes from './containers/Avaliacoes'
 import Avaliacao from './containers/Avaliacao'
 
-/* teste warley */
+/* Modulo 25 configurações  */
+import Configuracoes from './containers/Configuracoes';
 
-import Configuracao from './containers/Configuracao';
+
+
 import Perfil from './containers/Perfil';
 
 class App extends Component {
@@ -77,12 +79,12 @@ class App extends Component {
 						<Route path={'/produto/:id'} component={base(Produto)} />
 						<Route path={'/avaliacoes/:id'} component={base(Avaliacoes)} />
 						<Route path={'/avaliacao/:id'} component={base(Avaliacao)} />
+						<Route path={'/configuracoes'} component={base(Configuracoes)} />
 
 						<Route path={'/Login'} exact component={Login} />
 						<Route path={'/recuperar-senha'} component={RecuperarSenha} />
 						<Route path={'/resetar-senha/:token'} component={ResetarSenha} />
 
-						<Route path={'/configuracoes'} exact component={base(Configuracao)} />
 						<Route path={'/perfil'} exact component={base(Perfil)} />
 					</div>
 				</Router>
