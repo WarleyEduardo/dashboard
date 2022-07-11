@@ -15,8 +15,7 @@ const TabelaSimples = ({ cabecalho, dados }) => (
 					))}
 				</tr>
 			</thead>
-			<tbody>
-				
+			<tbody>		
 
 				{dados.map((linha, idx) => (
 					<tr key={idx}>
@@ -36,7 +35,7 @@ const TabelaSimples = ({ cabecalho, dados }) => (
 							</td>
 						)}
 					</tr>
-				))}
+						))}
 			</tbody>
 		</table>
 	</div>

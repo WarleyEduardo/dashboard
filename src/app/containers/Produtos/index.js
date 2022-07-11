@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import Titulo from '../../components/Texto/Titulo';
 import Pesquisa from '../../components/Inputs/Pesquisa';
-import Tabela from '../../components/Tabela/Simples';
+import Tabela from '../../components/Tabela/Simples2';
 import Paginacao from '../../components/Paginacao/Simples';
 
 class Produtos extends Component {
@@ -82,11 +82,10 @@ class Produtos extends Component {
 								<option value={'op-maior'}>Preço maior</option>
 							</select>
 						</div>
-						<div className='flex-1'></div>
 					</div>
 
 					<br />
-					<Tabela cabecalho={['Produto', 'Categoria', 'Disponível']} dados={dados} />
+					<Tabela cabecalho={['Produto', 'Categoria', 'Disponível' ,'*Exibir']} dados={dados} />
 					<Paginacao atual={this.state.atual} total={120} limite={20} onClick={(numeroAtual) => this.changeNumeroAtual(numeroAtual)} />
 				</div>
 			</div>

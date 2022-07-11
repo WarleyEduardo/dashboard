@@ -2,6 +2,8 @@
 
 import React from 'react';
 
+import Titulo from '../Texto/Titulo';
+
 class BlocoImagem extends React.Component {
 
 	render() {
@@ -10,19 +12,25 @@ class BlocoImagem extends React.Component {
 		
 		return (
 			<div className='Bloco-Imagem'>
-				<div>
+				<div className='flex horizontal'>
+					<Titulo tipo="h3" titulo="Imagens"/>
+				</div>
+				<div className='flex vertical'>
+					<label><strong>Insira aqui uma nova imagem:&nbsp;</strong></label>
 					<input type="file" onChange={handleSubmit}/>
 				</div>
+
+				<hr/>  <br/>
 				<div className='imagens-container'>
 					{
 						imagens.map((src, idx) => (
 						   
-							<div className='imagem-container'
+							<div className='imagem-container flex flex-center'
 								style={{ backgroundImage: `url("${src}")` }}
 								key={idx}
 							>
 
-								<div className='Imagem-remove' onClick={() => onRemove(idx)}>
+								<div className='imagem-remover flex flex-center' onClick={() => onRemove(idx)}>
 									<span>{"-"}</span>
 								</div>	
 								

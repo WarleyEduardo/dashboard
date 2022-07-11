@@ -83,9 +83,16 @@ class DetalhesProduto extends Component {
 					}
 				/>
 
+				<br/>
+
 				<TextoDados
-					chave='descricao'
-					valor={<textarea name={'Descrição'} onChange={(ev) => this.setState({ descricao: ev.target.value })} value={descricao} rows='10' style={{ resize: 'nome' }} />}
+					chave='Descrição'
+					vertical
+					valor={(
+						<textarea name={'descricao'}
+						onChange={(ev) => this.setState({ descricao: ev.target.value })} value={descricao} rows='10' style={{ resize: 'nome' }}
+						/>)
+					}
 				/>
 			</div>
 		);

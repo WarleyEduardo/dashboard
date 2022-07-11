@@ -7,6 +7,8 @@ import Titulo from '../../../components/Texto/Titulo'
 
 class Variacoes extends Component {
 	state = {
+
+		variacaoSelecionada:"C8J8338",	
 		variacoes: [
 			{ nome: 'P', id: 'C8J8338' },
 			{ nome: 'M', id: 'F93KC934K' },
@@ -14,14 +16,15 @@ class Variacoes extends Component {
 	};
 
 	render() {
-		const { variacoes } = this.state;
+		const { variacoes , variacaoSelecionada } = this.state;
 
 		return (
-			<div className='Variacoes flex vertical flex-center'>
+			<div className='Variacoes flex vertical flex-center'> 
 				<Titulo tipo="h2" titulo="Variações" />
 				
 				{variacoes.map((item, idx) => (
-					<div className='Variacao-item'>
+					<div onClick={()=> this.setState({ variacaoSelecionada: item.id})}
+						className={`flex flex-center variacao-item ${variacaoSelecionada === item.id ? "variacao-item-ativa" : ""}`}>
 						<span>{item.nome}</span>
 					</div>
 				))}

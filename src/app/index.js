@@ -60,7 +60,7 @@ import Avaliacao from './containers/Avaliacao'
 import Configuracoes from './containers/Configuracoes';
 
 
-
+/* Modulo 25 pagina de perfil */
 import Perfil from './containers/Perfil';
 
 class App extends Component {
@@ -80,12 +80,11 @@ class App extends Component {
 						<Route path={'/avaliacoes/:id'} component={base(Avaliacoes)} />
 						<Route path={'/avaliacao/:id'} component={base(Avaliacao)} />
 						<Route path={'/configuracoes'} component={base(Configuracoes)} />
+						<Route path={'/Login'} component={Login} />
+						<Route path={'/perfil'} exact component={base(Perfil)} />
 
-						<Route path={'/Login'} exact component={Login} />
 						<Route path={'/recuperar-senha'} component={RecuperarSenha} />
 						<Route path={'/resetar-senha/:token'} component={ResetarSenha} />
-
-						<Route path={'/perfil'} exact component={base(Perfil)} />
 					</div>
 				</Router>
 			</Provider>
