@@ -11,7 +11,11 @@ import Titulo from '../../components/Texto/Titulo'
 
 import Input from '../../components/Inputs/Simples';
 import Checkbox from '../../components/Inputs/Checkbox';
-import Button  from '../../components/Button/Simples'
+import Button from '../../components/Button/Simples'
+
+/* Modulo 27 - definindo a base e a primeira resquisição */
+import { connect } from 'react-redux';
+import * as actions from '../../actions'
 
 
 class Login extends Component {
@@ -24,6 +28,21 @@ class Login extends Component {
 	
 	onChangeInput = (field, ev) => this.setState({ [field]: ev.target.value })
 	onChangeCheckbox = (field) => this.setState({ [field]: !this.state[field] })
+
+	/* Modulo 27 - definindo a base e a primeira resquisição */
+
+	handleLogin() {
+	
+	     		
+			const { email, senha: password } = this.state;
+			this.props.handleLogin({ email, password }, () => {
+			
+				alert("aviso!");
+			});
+			
+		
+
+	}
 
 	render() {
 
@@ -53,7 +72,7 @@ class Login extends Component {
 					<br />
 					<br />
 					<div className='flex flex-center'>
-						<Button type='success' rota='/' label='Entrar' />
+						<Button type='success'  label='Entrar' onClick={()=> this.handleLogin()}/>
 					</div>
 				</div>
 			</div>
@@ -61,4 +80,4 @@ class Login extends Component {
 	}
 }
 
-export default Login;
+export default connect(null,actions)(Login);
