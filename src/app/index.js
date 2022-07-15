@@ -63,7 +63,18 @@ import Configuracoes from './containers/Configuracoes';
 /* Modulo 25 pagina de perfil */
 import Perfil from './containers/Perfil';
 
+
+/* modulo 27 fazendo login com localStorage */
+import {initApp} from './actions'
+
 class App extends Component {
+
+	componentWillMount() {
+		
+		initApp();
+	}
+
+
 	render() {
 		return (
 			<Provider store={store}>
