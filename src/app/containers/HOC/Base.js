@@ -19,17 +19,18 @@ const base = Component => {
 	   /* Modulo 27 -  login com sucesso: autenticação de rota */
 		 componentWillMount() {
 			
-			const { getUser, authorized, history } = this.props;
+			const { getUser, authorized, history, usuario } = this.props;
 			getUser();
 			
-			 if (!authorized) history.replace('/Login');
+			 if (!authorized || !usuario || !usuario.role.includes("admin")) history.replace('/Login');
 		 }
 		 
 		 componentWillUpdate(nextProps) {
 			
-			 const { authorized, history } = this.props
+			 const { history } = this.props
 			 
-			 if (authorized && !nextProps.authorized) history.replace('/Login');
+			 if (!nextProps.authorized || !nextProps.usuario ||
+				 !nextProps.usuario.role.includes("admin")) history.replace('/Login');
 			
 		 }
 
