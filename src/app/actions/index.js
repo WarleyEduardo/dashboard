@@ -1,7 +1,7 @@
 /* Modulo 27  - Definindo base  e primeira requisição */
 
 import axios from 'axios';
-import { LOGIN_USER } from './types'; 
+import { LOGIN_USER, LOGOUT_USER } from './types'; 
 import { api, versao } from '../config'
 
 //usuarios
@@ -39,8 +39,8 @@ const getToken = () => {
 const getHeaders = () => {
 	
 	return {
-		"Headers": {
-			"Autorization": `Ecommerce ${getToken()}`
+		"headers": {
+			"authorization": `Ecommerce ${getToken()}`
 		}
 	}
 }
@@ -58,9 +58,29 @@ export const handleLogin = ({ email, password , opcaoLembrar}, callback) => {
 		axios.post(`${api}/${versao}/api/usuarios/login`, { email, password })
 			.then((response) => {
 				saveToken(response.data.usuario,opcaoLembrar)
-				dispatch({ type: LOGIN_USER, payload: response.data });
-				console.log(response.data)
+				dispatch({ type: LOGIN_USER, payload: response.data });	
+				console.log('warley',response.data);
 			})
 		.catch((error)=> {console.log( error, error.response,error.response.data)} )
 	}
+}
+
+
+export const getUser = () => {
+	
+	return function (dispatch) {
+		axios.get(`${api}/${versao}/api/usuarios/`, getHeaders())
+			.then((response) => {
+				saveToken(response.data.usuario,true)
+				dispatch({ type: LOGIN_USER, payload: response.data });	
+				
+			})
+		.catch((error)=> {console.log( error, error.response,error.response.data)} )
+	}
+}
+
+
+export const handleLogout = () => {
+	cleanToken();
+	return {type: LOGOUT_USER };
 }

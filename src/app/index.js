@@ -65,7 +65,11 @@ import Perfil from './containers/Perfil';
 
 
 /* modulo 27 fazendo login com localStorage */
-import {initApp} from './actions'
+import { initApp } from './actions'
+
+
+/* modulo 27 -  login com sucesso : autenticação  de rotas */
+import noAuth from './containers/HOC/noAuth';
 
 class App extends Component {
 
@@ -91,11 +95,11 @@ class App extends Component {
 						<Route path={'/avaliacoes/:id'} component={base(Avaliacoes)} />
 						<Route path={'/avaliacao/:id'} component={base(Avaliacao)} />
 						<Route path={'/configuracoes'} component={base(Configuracoes)} />
-						<Route path={'/Login'} component={Login} />
 						<Route path={'/perfil'} exact component={base(Perfil)} />
-
-						<Route path={'/recuperar-senha'} component={RecuperarSenha} />
-						<Route path={'/resetar-senha/:token'} component={ResetarSenha} />
+						
+						<Route path={'/Login'} component={noAuth(Login)} />
+						<Route path={'/recuperar-senha'} component={noAuth(RecuperarSenha)} />
+						<Route path={'/resetar-senha/:token'} component={noAuth(ResetarSenha)} />
 					</div>
 				</Router>
 			</Provider>

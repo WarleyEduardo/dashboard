@@ -36,6 +36,10 @@ import React from 'react';
 import BarraTopo from './BarraTopo';
 import Menu from './Menu';
 
+/* modulo 27 -  login com sucesso : autenticação  de rotas */
+
+import { connect } from 'react-redux';
+import * as actions from '../../actions' 
 
 class Dashboard extends React.Component {
 
@@ -48,7 +52,7 @@ class Dashboard extends React.Component {
 
 				<div className='flex vertical full-width'>
 					<div className='flex horizontal'>
-						<BarraTopo />
+						<BarraTopo handleLogout={this.props.handleLogout} />
 					</div>
 
 					<main className='flex full-height'>
@@ -56,9 +60,9 @@ class Dashboard extends React.Component {
 					</main>
 				</div>
 			</div>
-		);
+		); 
   }
 
 }
 
-export default Dashboard;
+export default connect(null,actions)(Dashboard);
