@@ -61,12 +61,17 @@ export const handleLogin = ({ email, password , opcaoLembrar}, callback) => {
 				dispatch({ type: LOGIN_USER, payload: response.data });	
 				console.log('warley',response.data);
 			})
-		.catch((error)=> {console.log( error, error.response,error.response.data)} )
+			.catch((error) => {
+				//console.log(error, error.response, error.response.data);
+
+				if (error.response.data.erros) alert(error.response.data.erros);
+			})
 	}
 }
 
 
 export const getUser = () => {
+	
 	
 	return function (dispatch) {
 		axios.get(`${api}/${versao}/api/usuarios/`, getHeaders())

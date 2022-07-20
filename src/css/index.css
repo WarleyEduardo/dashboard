@@ -89,7 +89,7 @@ body {
 	height: 20px;
 }
 
-.Barra-Topo a {
+.Barra-Topo a , .Barra-Topo span {
 	background-color: var(--cor-preta);
 	color : var(--cor-branca);
 	text-decoration: none;
@@ -323,7 +323,17 @@ margin-right: 20px;
 	border: 1px solid var(--cor-cinza-medio);
 	font-size: 0.95rem;
 }
-	
+
+.input-error{
+
+	border: 1px solid red;
+	box-shadow: 0 0 5px #a31d1d;
+}
+
+.small-danger{
+	font: 12px;
+	color: #a31d1d;
+}
 
 .border-green{
 
