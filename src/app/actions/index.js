@@ -4,7 +4,9 @@ import axios from 'axios';
 import { LOGIN_USER, LOGOUT_USER } from './types'; 
 import { api, versao } from '../config'
 
-//usuarios
+
+
+// localStorage
 
 const saveToken = (usuario, opcaoLembrar) => {
 	
@@ -52,20 +54,36 @@ export const initApp = () => {
 	if (opcaoLembrar === "false") cleanToken();
 }
 
+//usuarios
+// Error handling
+
+const errorHandling = (error) => {
+	if (!error.response || !error.response.data) {
+		
+		return {status: 500 , message:"Ocorreu um erro no servidor.Tente novamente"}
+	}
+
+	if (error.response.data.status === 401) {
+		
+		return {status: 401 , message:"Usuário não tem autorização para acessar esses dados"}
+	}
+
+	if (error.response.data.errors) return {status:400 , message: error.response.data.errors }; 
+
+	//console.log(error.response.data)
+}
+
 export const handleLogin = ({ email, password , opcaoLembrar}, callback) => {
 	
 	return function (dispatch) {
-		axios.post(`${api}/${versao}/api/usuarios/login`, { email, password })
+		axios
+			.post(`${api}/${versao}/api/usuarios/login`, { email, password })
 			.then((response) => {
-				saveToken(response.data.usuario,opcaoLembrar)
-				dispatch({ type: LOGIN_USER, payload: response.data });	
-				console.log('warley',response.data);
+				saveToken(response.data.usuario, opcaoLembrar);
+				dispatch({ type: LOGIN_USER, payload: response.data });
+				console.log('warley', response.data);
 			})
-			.catch((error) => {
-				//console.log(error, error.response, error.response.data);
-
-				if (error.response.data.erros) alert(error.response.data.erros);
-			})
+			.catch((e) => callback(errorHandling(e)));
 	}
 }
 

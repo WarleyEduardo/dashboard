@@ -17,7 +17,10 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions'
 
 /* modulo 27 fazendo login com localStorage */
-import {api,versao} from '../../config'
+import { api, versao } from '../../config'
+
+/* modulo 27 - login com erro : criando Error Handling 1/2 */
+import Alert from '../../components/Alert/Danger'
 
 
 class Login extends Component {
@@ -44,8 +47,10 @@ class Login extends Component {
 		
 		if (! this.validate()) return;
 
-			this.props.handleLogin({ email, password, opcaoLembrar }, () => {
-				alert('aviso!');
+		this.props.handleLogin({ email, password, opcaoLembrar }, (error) => {
+	              			
+			this.setState({	erros: {...this.state.erros , form: error}})
+			
 			});
 			
 		
@@ -61,7 +66,6 @@ class Login extends Component {
 		if (!email) erros.email = 'Preencha aqui o seu e-mail';
 		if (!senha) erros.senha = 'Preencha aqui sua senha';
 		this.setState({ erros });
-		console.log(erros)
 		return !(Object.keys(erros).length > 0);
 	}
 
@@ -78,6 +82,9 @@ class Login extends Component {
 					</div>
 					<br />
 					<br />
+
+					<Alert error={erros.form} />
+					
 					<Input
 						label='E-mail'
 						value={email}

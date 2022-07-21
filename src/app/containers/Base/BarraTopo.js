@@ -10,9 +10,7 @@ import React from 'react';
 				<a href='/'>Ver Loja</a>
 			</div>
 			<div className='flex-1 flex flex-end'>
-				<a href='#' onClick={() => handleLogout()}>
-					Sair
-				</a>
+				<span onClick={() => handleLogout()}>Sair</span>
 			</div>
 		</div>
   );
