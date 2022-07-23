@@ -17,7 +17,7 @@ const base = Component => {
 	 class ComponentBase extends React.Component {
 
 	   /* Modulo 27 -  login com sucesso: autenticação de rota */
-		 componentWillMount() {
+		 componentDidMount() {
 			
 			const { getUser, authorized, history, usuario } = this.props;
 			getUser();
@@ -25,12 +25,12 @@ const base = Component => {
 			 if (!authorized || !usuario || !usuario.role.includes("admin")) history.replace('/Login');
 		 }
 		 
-		 componentWillUpdate(nextProps) {
+		 componentDidUpdate(prevProps) {
 			
 			 const { history } = this.props
 			 
-			 if (!nextProps.authorized || !nextProps.usuario ||
-				 !nextProps.usuario.role.includes("admin")) history.replace('/Login');
+			 if (!this.props.authorized || !this.props.usuario ||
+				 !this.props.usuario.role.includes("admin")) history.replace('/Login');
 			
 		 }
 

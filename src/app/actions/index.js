@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import { LOGIN_USER, LOGOUT_USER } from './types'; 
-import { api, versao } from '../config'
+import { urlUsuarios , urlLoginAdmin } from '../config';
 
 
 /* Modulo 27 login com erro : criando  Error handling 2/2 */
@@ -25,12 +25,10 @@ export const initApp = () => {
 export const handleLogin = ({ email, password , opcaoLembrar}, callback) => {
 	
 	return function (dispatch) {
-		axios
-			.post(`${api}/${versao}/api/usuarios/login`, { email, password })
+			axios.post(urlLoginAdmin, { email, password })
 			.then((response) => {
 				saveToken(response.data.usuario, opcaoLembrar);
 				dispatch({ type: LOGIN_USER, payload: response.data });
-				console.log('warley', response.data);
 			})
 			.catch((e) => callback(errorHandling(e)));
 	}
@@ -41,13 +39,14 @@ export const getUser = () => {
 	
 	
 	return function (dispatch) {
-		axios.get(`${api}/${versao}/api/usuarios/`, getHeaders())
+		axios.get(urlUsuarios, getHeaders())
 			.then((response) => {
-				saveToken(response.data.usuario,true)
-				dispatch({ type: LOGIN_USER, payload: response.data });	
-				
+				saveToken(response.data.usuario, true);
+				dispatch({ type: LOGIN_USER, payload: response.data });
 			})
-		.catch((error)=> {console.log( error, error.response,error.response.data)} )
+			.catch((error) => {
+				console.log(error, error.response, error.response.data);
+			});
 	}
 }
 

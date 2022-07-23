@@ -17,7 +17,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions'
 
 /* modulo 27 fazendo login com localStorage */
-import { api, versao } from '../../config'
+import { urlRecuperarSenha } from '../../config'
 
 /* modulo 27 - login com erro : criando Error Handling 1/2 */
 import Alert from '../../components/Alert/Danger'
@@ -109,7 +109,7 @@ class Login extends Component {
 							</Link>
 							*/
 							}
-							<a href={`${api}/${versao}/api/usuarios/recuperar-senha`}>
+							<a href={urlRecuperarSenha}>
                                  <span>Esqueceu sua senha?</span>
 							</a>
 						</div>

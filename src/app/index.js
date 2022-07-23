@@ -73,7 +73,7 @@ import noAuth from './containers/HOC/noAuth';
 
 class App extends Component {
 
-	componentWillMount() {
+	componentDidMount() {
 		
 		initApp();
 	}
