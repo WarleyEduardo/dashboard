@@ -22,11 +22,34 @@ import Tabela from '../../components/Tabela/Simples';
 
 import Paginacao from '../../components/Paginacao/Simples'
 
+
+/* Modulo 28 integração de pedidos */
+import * as actions from '../../actions/pedidos'
+import { connect } from 'react-redux';
+
 class Pedidos extends Component {
 	state = {
 		pesquisa: '',
 		atual: 0,
+		limit: 5,
 	};
+
+	getPedidos() {
+		const { atual, limit } = this.state;
+		const { usuario } = this.props;
+		if (!usuario) return null;
+		const loja = usuario.loja;
+		this.props.getPedidos(atual, limit, loja);
+	}
+
+	/* Modulo 28 integração de pedidos */
+	componentWillMount() {
+		this.getPedidos();
+	}
+
+	componentWillUpdate(nextProps) {
+		if (!this.props.usuario && nextProps.usuario) this.getPedidos();
+	}
 
 	onChangePesquisa = (ev) => this.setState({ pesquisa: ev.target.value });
 
@@ -34,7 +57,10 @@ class Pedidos extends Component {
 		  Modulo 23 - Dashboard  Finalizando  tela de pedidos 3/3	
 	   */
 
-	changeNumeroAtual = (atual) => this.setState({ atual });
+	changeNumeroAtual = (atual) =>
+		this.setState({ atual }, () => {
+			this.getPedidos();
+		});
 
 	render() {
 		const { pesquisa } = this.state;
@@ -42,33 +68,25 @@ class Pedidos extends Component {
 		  Modulo 23 - Dashboard  Finalizando  tela de pedidos 1/3	
 	   */
 
-		const dados = [
-			{
-				"Cliente": 'Cliente 1',
-				"Valor Total": 89.9,
-				"Data": moment().toISOString(),
-				"Situação": 'Aguardando Pagamento',
-				"botaoDetalhes": '/pedido/csadfadf45555',
-			},
-			{
-				"Cliente": 'Cliente 2',
-				'Valor Total': 105.9,
-				"Data": moment().toISOString(),
-				"Situação": 'Aguardando Pagamento',
-				"botaoDetalhes": '/pedido/CCDDFS345DFD55',
-			},
-			{
-				"Cliente": 'Cliente 3',
-				"Valor Total": 26.72,
-				"Data": moment().toISOString(),
-				"Situação": 'Pagamento Concluído',
-				"botaoDetalhes": '/pedido/834545DFDFDFDF',
-			},
-		];
+		/* Modulo 28 integração de pedidos */
+		const { pedidos } = this.props;
+		const dados = [];
+		
+		(pedidos ? pedidos.docs : []).forEach((item) => {
+		 
+			  console.log(item) 
+			dados.push({
+				"Cliente": item.cliente ? item.cliente.nome : "",
+				'Valor Total': item.pagamento.valor,
+				"Data": moment(item.createdAt).format("DD/MM/YYYY"),
+				"Situação": item.pagamento.status !== "Paga" ? item.pagamento.status : item.entrega.status,
+				"botaoDetalhes": `/pedido/${item._id}`,
+			})			
+		});	
 
 		return (
 			<div className='Pedidos full-width'>
-				<div className="Card">
+				<div className='Card'>
 					<Titulo tipo='h1' titulo='Pedidos' />
 					<br />
 					<Pesquisa
@@ -79,11 +97,22 @@ class Pedidos extends Component {
 					/>
 					<br />
 					<Tabela cabecalho={['Cliente', 'Valor Total', 'Data', 'Situação']} dados={dados} />
-					<Paginacao atual={this.state.atual} total={120} limite={20} onClick={(numeroAtual) => this.changeNumeroAtual(numeroAtual)} />
+					<Paginacao
+						atual={this.state.atual}
+						total={this.props.pedidos ? this.props.pedidos.total : 0}
+						limite={this.state.limit}
+						onClick={(numeroAtual) => this.changeNumeroAtual(numeroAtual)}
+					/>
 				</div>
 			</div>
 		);
 	}
 }
 
-export default Pedidos;
+const mapStateToProps = state => ({
+	
+	pedidos: state.pedido.pedidos,
+	usuario: state.auth.usuario
+})
+
+export default connect(mapStateToProps,actions)(Pedidos);
