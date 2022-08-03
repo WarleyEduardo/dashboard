@@ -27,6 +27,8 @@ import Paginacao from '../../components/Paginacao/Simples'
 import * as actions from '../../actions/pedidos'
 import { connect } from 'react-redux';
 
+import {formatMoney} from '../../actions'
+
 class Pedidos extends Component {
 	state = {
 		pesquisa: '',
@@ -39,7 +41,7 @@ class Pedidos extends Component {
 		const { usuario } = this.props;
 		if (!usuario) return null;
 		const loja = usuario.loja;
-		this.props.getPedidos(atual, limit, loja);
+		this.props.getPedidos(atual, limit, loja); 
 	}
 
 	/* Modulo 28 integração de pedidos */
@@ -71,18 +73,16 @@ class Pedidos extends Component {
 		/* Modulo 28 integração de pedidos */
 		const { pedidos } = this.props;
 		const dados = [];
-		
+			  
 		(pedidos ? pedidos.docs : []).forEach((item) => {
-		 
-			  console.log(item) 
-			dados.push({
-				"Cliente": item.cliente ? item.cliente.nome : "",
-				'Valor Total': item.pagamento.valor,
-				"Data": moment(item.createdAt).format("DD/MM/YYYY"),
-				"Situação": item.pagamento.status !== "Paga" ? item.pagamento.status : item.entrega.status,
-				"botaoDetalhes": `/pedido/${item._id}`,
-			})			
-		});	
+					dados.push({
+						"Cliente": item.cliente ? item.cliente.nome : '',
+						'Valor Total': formatMoney(item.pagamento.valor),
+						"Data": moment(item.createdAt).format('DD/MM/YYYY'),
+						"Situação": item.pagamento.status !== 'Paga' ? item.pagamento.status : item.entrega.status,
+						"botaoDetalhes": `/pedido/${item._id}`,
+					});
+				});	
 
 		return (
 			<div className='Pedidos full-width'>
