@@ -37,11 +37,13 @@ class Pedidos extends Component {
 	};
 
 	getPedidos() {
-		const { atual, limit } = this.state;
+		const { atual, limit, pesquisa} = this.state;
 		const { usuario } = this.props;
 		if (!usuario) return null;
 		const loja = usuario.loja;
-		this.props.getPedidos(atual, limit, loja); 
+		if (pesquisa) this.props.getPedidosPesquisa(pesquisa, atual, limit, loja)
+		else
+		this.props.getPedidos(atual, limit, loja);
 	}
 
 	/* Modulo 28 integração de pedidos */
@@ -64,6 +66,28 @@ class Pedidos extends Component {
 			this.getPedidos();
 		});
 
+	/* modulo 28 - Pedidos : criando a parte de pesquisa */
+
+	handleSubmitPesquisa = () => { 
+
+		this.setState({ atual: 0 }, () =>
+		{
+			
+       		const { atual, limit ,pesquisa} = this.state;
+			const { usuario } = this.props;
+			if (!usuario) return null;
+			const loja = usuario.loja;
+			if (pesquisa) this.props.getPedidosPesquisa(pesquisa, atual, limit, loja)
+					else this.props.getPedidos(atual, limit, loja);			
+
+
+		})	    
+    
+
+	};
+	
+
+
 	render() {
 		const { pesquisa } = this.state;
 		/*
@@ -73,16 +97,16 @@ class Pedidos extends Component {
 		/* Modulo 28 integração de pedidos */
 		const { pedidos } = this.props;
 		const dados = [];
-			  
+
 		(pedidos ? pedidos.docs : []).forEach((item) => {
-					dados.push({
-						"Cliente": item.cliente ? item.cliente.nome : '',
-						'Valor Total': formatMoney(item.pagamento.valor),
-						"Data": moment(item.createdAt).format('DD/MM/YYYY'),
-						"Situação": item.pagamento.status !== 'Paga' ? item.pagamento.status : item.entrega.status,
-						"botaoDetalhes": `/pedido/${item._id}`,
-					});
-				});	
+			dados.push({
+				Cliente: item.cliente ? item.cliente.nome : '',
+				'Valor Total': formatMoney(item.pagamento.valor),
+				Data: moment(item.createdAt).format('DD/MM/YYYY'),
+				Situação: item.pagamento.status !== 'Paga' ? item.pagamento.status : item.entrega.status,
+				botaoDetalhes: `/pedido/${item._id}`,
+			});
+		});
 
 		return (
 			<div className='Pedidos full-width'>
@@ -93,7 +117,7 @@ class Pedidos extends Component {
 						valor={pesquisa}
 						placeholder={'Pesquise aqui pelo nome do cliente...'}
 						onChange={(ev) => this.onChangePesquisa(ev)}
-						onClick={() => alert('Pesquisar')}
+						onClick={() => this.handleSubmitPesquisa()}
 					/>
 					<br />
 					<Tabela cabecalho={['Cliente', 'Valor Total', 'Data', 'Situação']} dados={dados} />

@@ -10,5 +10,6 @@ const apiVersao = () => `${api}/${versao}/api`;
 export const urlogin = `${apiVersao()}/login`;
 export const urlLoginAdmin = `${apiVersao()}/usuarios/login/admin`;
 export const urlPedidosAdmin = `${apiVersao()}/pedidos/admin`; 
-export const urlUsuarios = `${apiVersao()}/usuarios/`;
+export const urlUsuarios = `${apiVersao()}/usuarios`;
 export const urlRecuperarSenha = `${apiVersao()}/usuarios/recuperar-senha`;
+export const urlPedidosPesquisa = `${apiVersao()}/clientes/search`;
