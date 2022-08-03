@@ -37,19 +37,15 @@ class Pedidos extends Component {
 	};
 
 
-	getPesquisa() {
-		
-      const { atual, limit, pesquisa } = this.state;
-	  const { usuario } = this.props;
-	  if (!usuario) return null;
-	  const loja = usuario.loja;
-	  if (pesquisa) this.props.getPedidosPesquisa(pesquisa, atual, limit, loja);
-	  else this.props.getPedidos(atual, limit, loja);			
-
-	}
-
+	
 	getPedidos() {
-		this.getPesquisa();
+		
+		const { atual, limit, pesquisa } = this.state;
+		const { usuario } = this.props;
+		if (!usuario) return null;
+		const loja = usuario.loja;
+		if (pesquisa) this.props.getPedidosPesquisa(pesquisa, atual, limit, loja);
+		else this.props.getPedidos(atual, limit, loja);	
 	}
 
 	/* Modulo 28 integração de pedidos */
@@ -78,12 +74,8 @@ class Pedidos extends Component {
 
 		this.setState({ atual: 0 }, () =>
 		{
-			
-          this.getPesquisa();	
-
-
+			this.getPedidos();
 		})	    
-    
 
 	};
 	
