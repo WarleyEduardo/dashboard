@@ -12,8 +12,7 @@ const errorHandling = (error) => {
 	}
 
 	const _errors = error.response.data.errors;
-
-	console.log(_errors)
+	
 
 	if (_errors && typeof _errors === 'string') return { status: 400, message: _errors };
 
