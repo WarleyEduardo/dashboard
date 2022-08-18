@@ -23,8 +23,7 @@ export const getPedidos = (atual,limit,loja) => {
 
 export const getPedidosPesquisa = (termo, atual, limit, loja) => {
 	return function (dispatch) {
-		axios
-			.get(`${urlPedidosPesquisa}/${termo}/pedidos?offset=${atual}&limit=${limit}&loja=${loja}`, getHeaders())
+		axios.get(`${urlPedidosPesquisa}/${termo}/pedidos?offset=${atual}&limit=${limit}&loja=${loja}`, getHeaders())
 			.then((response) => {
 				dispatch({ type: GET_PEDIDOS, payload: response.data });
 			})
@@ -39,8 +38,10 @@ export const getPedido = (id, loja) => {
 	
 	return function (dispatch) {
 		axios.get(`${urlPedidosAdmin}/${id}?loja=${loja}`, getHeaders())
-		.then(response => dispatch({ type: GET_PEDIDO, payload: response.data }))
-		.cath(errorHandling)
+			.then((response) => {
+				dispatch({ type: GET_PEDIDO, payload: response.data });				
+			})
+		.catch(errorHandling)
 	}
 };
 
@@ -52,7 +53,7 @@ export const cancelarPedido = (id, loja, cb) => {
 				dispatch({ type: CANCELAR_PEDIDO, payload: response.data });
 				cb(null)
 			})
-			.cath(e => cb(errorHandling(e)));
+			.catch(e => cb(errorHandling(e)));
 	};
 };
 
@@ -63,7 +64,7 @@ export const setNovoStatusPagamento = (status, id, idPedido, loja, cb) => {
 	
 	return function (dispatch) {
 		
-		axios.put(`${urlPagamentos}/${id}?loja=${loja}&pedido=${idPedido}`, { status }, getHeaders)
+		axios.put(`${urlPagamentos}/${id}?loja=${loja}&pedido=${idPedido}`, { status }, getHeaders())
 			.then((response) => {
 				dispatch(getPedido(idPedido, loja));
 				cb(null);
@@ -77,7 +78,7 @@ export const setNovoStatusPagamento = (status, id, idPedido, loja, cb) => {
 export const setNovoStatusEntrega = ({ status, codigoRastreamento }, id, idPedido, loja, cb) => {
 	return function (dispatch) {
 		axios
-			.put(`${urlEnregas}/${id}?loja=${loja}&pedido=${idPedido}`, { status , codigoRastreamento }, getHeaders)
+			.put(`${urlEnregas}/${id}?loja=${loja}&pedido=${idPedido}`, { status , codigoRastreamento }, getHeaders())
 			.then((response) => {
 				dispatch(getPedido(idPedido, loja));
 				cb(null);

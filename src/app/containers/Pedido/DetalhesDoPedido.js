@@ -12,6 +12,8 @@ import { TextoDados } from '../../components/Texto/Dados'
 import TabelaSimples from '../../components/Tabela/Simples'
 
 
+
+
 class DetalhesDoPedido extends Component {
 	renderCabecalho() {
 		return (
