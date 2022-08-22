@@ -11,81 +11,152 @@ import ButtomSimples from '../../components/Button/Simples'
 import { TextoDados } from '../../components/Texto/Dados'
 import TabelaSimples from '../../components/Tabela/Simples'
 
+/* Modulo 28 Detalhes do pedido  colocando dados dinamicos*/
+
+import { connect } from 'react-redux';
+import { formatMoney } from '../../actions';
+import moment from 'moment';
+import * as actions from '../../actions/pedidos'
+
+
+/* Modulo 28 - Detalhes do pedido  -  ativando botão de cancelar */
+import AlertaGeral from '../../components/Alert/Geral';
 
 
 
 class DetalhesDoPedido extends Component {
+
+	state = {
+	  
+		aviso : null
+    } 
+   
+	cancelarPedido = () => { 
+	
+	    const { usuario, pedido } = this.props;
+		if (!usuario || !pedido) return null; 
+		if (window.confirm("Você realmente deseja cancelar esse pedido?")) {
+			
+			this.props.cancelarPedido(pedido.pedido._id, usuario.loja, (error) => {
+				this.setState({
+					aviso: { status: !error,msg: error ? error.message : "Pedido cancelado com sucesso!"
+					}
+				})
+			})
+		}
+
+	}
+	
+	
+
 	renderCabecalho() {
+
+		if (!this.props.pedido) return null;
+		const { pedido } = this.props.pedido;
 		return (
 			<div className='flex'>
-				
-					<div className='flex-1 flex'>
-						<Titulo tipo='h2' titulo='Pedido - cliente 1 - 04/04/2019' />
-					</div>
-					<div className='flex-1 flex flex-end'>
-						<ButtomSimples type='danger' label='CANCELAR PEDIDO' onClick={() => alert('Cancelado')} />
-					</div>
-				
+				<div className='flex-1 flex'>
+					<Titulo tipo='h2' titulo={`Pedido - ${pedido.cliente ? pedido.cliente.nome : ""}  
+					- ${moment(pedido.createdAt).format("DD/MM/YYYY")}`} />
+				</div>
+				<div className='flex-1 flex flex-end'>
+					{
+						pedido.cancelado ? (
+							
+							<ButtomSimples 
+								type='danger'
+								label='CANCELADO'
+								/>
+							
+						) :
+						(
+							<ButtomSimples
+								type='danger'
+								label='CANCELAR PEDIDO'
+								onClick={()=> this.cancelarPedido()}	
+									
+							 />		
+								
+						)
+						 
+					}
+					
+				</div>
 			</div>
 		);
 	}
 
 	renderDadosDoCliente() {
+		
+		if (!this.props.pedido) return null;
+		const { cliente } = this.props.pedido.pedido;
+		  
 		return (
 			<div className='flex-2'>
 				<Titulo tipo='h4' titulo='Dados do Cliente' />
 				<br />
-				<TextoDados chave='Nome' valor='Cliente 1' />
-				<TextoDados chave='Cpf' valor='111.222.333.45' />
-				<TextoDados chave='Telefone' valor='11 1234-5678' />
-				<TextoDados chave='Data de nascimento' valor='10/04/1990' />
+				<TextoDados chave='Nome' valor={cliente ? cliente.nome : ""}/>
+				<TextoDados chave='Cpf' valor={cliente ? cliente.cpf :""} />
+				<TextoDados chave='Telefone' valor={cliente ? cliente.telefones[0] : ""} />
+				<TextoDados chave='Data de nascimento' valor={cliente ? moment(cliente.dataDeNascimento).format("DD/MM/YYYY") :""} />
 			</div>
 		);
 	}
 
 	renderDadosDeEntrega() {
+
+		if (!this.props.pedido) return null;
+		const { entrega } = this.props.pedido.pedido;
 		return (
 			<div className='flex-2'>
 				<Titulo tipo='h4' titulo='Dados de Entrega' />
 				<br />
-				<TextoDados chave='Endereco' valor='rua teste, 123' />
-				<TextoDados chave='Bairro' valor='centro' />
-				<TextoDados chave='Cidade' valor='Uberaba' />
-				<TextoDados chave='Estado' valor='Minas Gerais' />
-				<TextoDados chave='Cep' valor='38540-123' />
+				<TextoDados chave='Endereco' valor={entrega ? entrega.endereco.local : ''} />
+				<TextoDados chave='Numero' valor={entrega ? entrega.endereco.numero : ''} />
+				<TextoDados chave='Bairro' valor={entrega ? entrega.endereco.bairro : ''} />
+				<TextoDados chave='Cidade' valor={entrega ? entrega.endereco.cidade : ''} />
+				<TextoDados chave='Estado' valor={entrega ? entrega.endereco.estado : ''} />
+				<TextoDados chave='Cep' valor={entrega ? entrega.endereco.CEP : ''} />
 			</div>
 		);
 	}
 
 	renderDadosDePagamento() {
+
+		if (!this.props.pedido) return null;
+		const { entrega , pagamento } = this.props.pedido.pedido;
+
 		return (
 			<div className='flex-3'>
 				<Titulo tipo='h4' titulo='Dados de Pagamento' />
 				<br />
-				<TextoDados chave='Taxa de Entrega' valor='R$ 15,50 (PAC)' />
-				<TextoDados chave='Valor do Pedido' valor='R$ 32,00' />
-				<TextoDados chave='Valor Total ' valor='R$ 47,50' />
-				<TextoDados chave='Forma de Pagamento' valor='Boleto' />		
+				<TextoDados chave='Taxa de Entrega' valor={`${formatMoney(entrega.custo)}  (${entrega.tipo})`}/>
+				<TextoDados chave='Valor do Pedido' valor={`${formatMoney(pagamento.valor -  entrega.custo)}`}/>
+				<TextoDados chave='Valor Total ' valor={`${formatMoney(pagamento.valor)}`} />
+				<TextoDados chave='Forma de Pagamento' valor={pagamento.forma} />		
 			</div>
 		);
 	}
 	
 	renderDadosDoCarrinho() {
 
-		const dados = [
-			{
-				"Produto": 'Produto 1',
-				'Preço Und.': 'R$ 12,00',
-				'Quantidade': '1',
-				'Preço Total': 'R$ 12,00',
-			},
-			{
-				"Produto": 'Produto 2',
-				'Preço Und.': 'R$ 10,00',
-				'Quantidade': '2',
-				'Preço Total': 'R$ 20,00',
-			},
-		]
+       
+		if (!this.props.pedido) return null;
+		const { carrinho } = this.props.pedido.pedido;
+
+		const dados = [];
+		carrinho.forEach((item) => {
+			console.log(item)
+			
+			dados.push({
+				"Produto": item.produto.titulo + " - " + item.variacao.nome,
+				"Preço Und.": formatMoney(item.precoUnitario),
+				"Quantidade": item.quantidade,
+				"Preço Total": formatMoney(item.precoUnitario *  item.quantidade)	
+		  })
+ 
+		})
+		 
 		return (
 			<div className='flex-3'>
 				<Titulo tipo='h4' titulo='Carrinho' />
@@ -99,7 +170,7 @@ class DetalhesDoPedido extends Component {
 		return (
 			<div className='Detalhes-do-Pedido'>
 				{this.renderCabecalho()}
-
+				<AlertaGeral aviso={this.state.aviso} />
 				<div className='flex vertical'>
 					<div className='flex horizontal'>
 						{this.renderDadosDoCliente()}
@@ -115,5 +186,9 @@ class DetalhesDoPedido extends Component {
 	}
 }
 
+const mapStateToProps = state => ({
+	pedido: state.pedido.pedido,
+	usuario: state.auth.usuario
+})
 
-export default DetalhesDoPedido;
+export default connect(mapStateToProps,actions)(DetalhesDoPedido);
