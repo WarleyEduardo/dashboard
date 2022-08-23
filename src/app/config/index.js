@@ -15,3 +15,5 @@ export const urlRecuperarSenha = `${apiVersao()}/usuarios/recuperar-senha`;
 export const urlPedidosPesquisa = `${apiVersao()}/clientes/search`;
 export const urlPagamentos  = `${apiVersao()}/pagamentos`;
 export const urlEntregas = `${apiVersao()}/entregas`;
+export const urlClientes = `${apiVersao()}/clientes`;
+export const urlClientesPesquisa = `${apiVersao()}/clientes/search`;

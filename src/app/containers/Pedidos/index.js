@@ -49,12 +49,12 @@ class Pedidos extends Component {
 	}
 
 	/* Modulo 28 integração de pedidos */
-	componentWillMount() {
+	componentDidMount() {
 		this.getPedidos();
 	}
 
-	componentWillUpdate(nextProps) {
-		if (!this.props.usuario && nextProps.usuario) this.getPedidos();
+	componentDidUpdate(prevProps) {
+		if (!prevProps.usuario && this.props.usuario) this.getPedidos();
 	}
 
 	onChangePesquisa = (ev) => this.setState({ pesquisa: ev.target.value });

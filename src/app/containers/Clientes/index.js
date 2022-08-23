@@ -8,6 +8,11 @@ import Pesquisa from '../../components/Inputs/Pesquisa';
 import Tabela from '../../components/Tabela/Simples';
 import Paginacao from '../../components/Paginacao/Simples';
 
+
+/* Modulo 29 - Dashboard - integração clientes */
+import { connect } from "react-redux";
+import * as actions from '../../actions/clientes';
+
 class Clientes extends Component {
 	state = {
 		pesquisa: '',
@@ -21,37 +26,21 @@ class Clientes extends Component {
 	render() {
 		const { pesquisa } = this.state;
 
+		const { clientes } = this.props;
+		
+		const dados = [];
 
-		const dados = [
-			{
-				"Cliente": 'Cliente 1',
-				"E-mail": 'cliente1@hotmail.com',
-				"Telefone": '11 1234 5678',
-				"CPF": '111.222.333-45',
-				"botaoDetalhes": '/cliente/cliente1@hotmail.com'
-			},
-			{
-				"Cliente": 'Cliente 2',
-				"E-mail": 'cliente2@hotmail.com',
-				"Telefone": '11 1234 5678',
-				"CPF": '111.222.333-45',
-				"botaoDetalhes": '/cliente/cliente2@hotmail.com'
-			},
-			{
-				"Cliente": 'Cliente 3',
-				"E-mail": 'cliente3@hotmail.com',
-				"Telefone": '11 1234 5678',
-				"CPF": '111.222.333-45',
-				"botaoDetalhes": '/cliente/cliente3@hotmail.com'
-			},
-			{
-				"Cliente": 'Cliente 4',
-				"E-mail": 'cliente4@hotmail.com',
-				"Telefone": '11 1234 5678',
-				"CPF": '111.222.333-45',
-				"botaoDetalhes": '/cliente/cliente4@hotmail.com'
-			},
-		];
+		(clientes ? clientes.docs : []).forEach(item => {
+			dados.push({
+				"Cliente": item.nome,
+				"E-mail": item.usuario ? item.usuario.email : "",
+				"Telefone": item.telefone[0],
+				"CPF": item.cpf,
+				"botaoDetalhes" : `/cliente/${item._id}`
+			 })
+			
+		  });
+	
 
 		return (
 			<div className='Clientes full-width'>
@@ -73,4 +62,9 @@ class Clientes extends Component {
 	}
 }
 
-export default Clientes;
+const mapStateToProps = state => ({
+	
+	clientes: state.cliente.clientes,
+	usuario: state.auth.usuario
+})
+export default connect(mapStateToProps,actions)(Clientes);
