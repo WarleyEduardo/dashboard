@@ -23,13 +23,27 @@ class DetalhesDoPagamento extends Component {
 	}
 
 
-	onAddListaDinamica = (texto) => {
-		if (!texto) return this.setState({ aviso :{ status: false , msg:"Preenchar o campo para enviar um novo status"}})
-		 
+	cleanState() {
+		this.setState({aviso: null})
 	}
 
-	render() {
 
+	onAddListaDinamica = (texto) => {
+
+		this.cleanState();
+		
+		if (!texto) return this.setState({ aviso: { status: false, msg: "Preenchar o campo para enviar um novo status" } });
+		const { pedido, usuario } = this.props;
+		this.props.setNovoStatusPagamento(texto, pedido.pedido.pagamento._id, pedido.pedido._id, usuario.loja, error => {
+			
+		if (error) this.setState({ aviso: { status: false, msg: error.message } });
+		})
+		 
+	}
+	
+
+	render() {
+ 
 		const { pedido } = this.props;
 		const { aviso } = this.state;
 
@@ -37,7 +51,7 @@ class DetalhesDoPagamento extends Component {
 		const status = (pedido.registros || [])
 			.reduce((all, item) => item.tipo === 'pagamento' ? all.concat([item.situacao]) : all, [])	
 			
-		if (status.length === 0) status.push('Sem status de pagamento') 
+		if (status.length === 0) status.push('Sem dados de pagamento') 
 		
 		return (
 			<div className='Detalhes-do-Pagamento'>

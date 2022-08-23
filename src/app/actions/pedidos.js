@@ -2,7 +2,7 @@
 
 import { getHeaders } from './localStorage';
 import axios from 'axios';
-import { urlPedidosAdmin, urlPedidosPesquisa, urlPagamentos, urlEnregas } from '../config/';
+import { urlPedidosAdmin, urlPedidosPesquisa, urlPagamentos, urlEntregas } from '../config/';
 import errorHandling from './errorHandling'
 import { GET_PEDIDOS, GET_PEDIDO , CANCELAR_PEDIDO, LIMPAR_PEDIDO } from './types';
 
@@ -77,8 +77,7 @@ export const setNovoStatusPagamento = (status, id, idPedido, loja, cb) => {
 
 export const setNovoStatusEntrega = ({ status, codigoRastreamento }, id, idPedido, loja, cb) => {
 	return function (dispatch) {
-		axios
-			.put(`${urlEnregas}/${id}?loja=${loja}&pedido=${idPedido}`, { status , codigoRastreamento }, getHeaders())
+		axios.put(`${urlEntregas}/${id}?loja=${loja}&pedido=${idPedido}`, { status, codigoRastreamento }, getHeaders())
 			.then((response) => {
 				dispatch(getPedido(idPedido, loja));
 				cb(null);

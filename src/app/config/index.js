@@ -14,4 +14,4 @@ export const urlUsuarios = `${apiVersao()}/usuarios`;
 export const urlRecuperarSenha = `${apiVersao()}/usuarios/recuperar-senha`;
 export const urlPedidosPesquisa = `${apiVersao()}/clientes/search`;
 export const urlPagamentos  = `${apiVersao()}/pagamentos`;
-export const urlEnregas = `${apiVersao()}/entregas`;
+export const urlEntregas = `${apiVersao()}/entregas`;
