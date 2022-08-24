@@ -17,11 +17,36 @@ class Clientes extends Component {
 	state = {
 		pesquisa: '',
 		atual: 0,
+		limit: 5
 	};
+
+
+	getClientes() {
+		const { atual, limit, pesquisa } = this.state;
+		const { usuario } = this.props;
+
+		if (!usuario) return null;
+		const loja = usuario.loja;
+
+		if (pesquisa) this.props.getClientesPesquisa(pesquisa, atual, limit, loja)
+		else this.props.getClientes(atual, limit, loja)
+	}
+
+	componentWillMount() {
+		this.getClientes();
+	}
+
+	componentWillUpdate(nextProps) {
+		if (!this.props.usuario && nextProps.usuario) this.getClientes();
+	}
 
 	onChangePesquisa = (ev) => this.setState({ pesquisa: ev.target.value });
 
-	changeNumeroAtual = (atual) => this.setState({ atual });
+	changeNumeroAtual = (atual) => this.setState({ atual }, () => this.getClientes());
+	
+	handleSubmitPesquisa() {
+		this.setState({atual : 0} , this.getClientes())
+	}
 
 	render() {
 		const { pesquisa } = this.state;
@@ -34,7 +59,7 @@ class Clientes extends Component {
 			dados.push({
 				"Cliente": item.nome,
 				"E-mail": item.usuario ? item.usuario.email : "",
-				"Telefone": item.telefone[0],
+				"Telefone": item.telefones[0],
 				"CPF": item.cpf,
 				"botaoDetalhes" : `/cliente/${item._id}`
 			 })
@@ -51,11 +76,15 @@ class Clientes extends Component {
 						valor={pesquisa}
 						placeholder={'Pesquise aqui pelo nome do cliente...'}
 						onChange={(ev) => this.onChangePesquisa(ev)}
-						onClick={() => alert('Pesquisar')}
+						onClick={() => this.handleSubmitPesquisa()}
 					/>
 					<br />
 					<Tabela cabecalho={['Cliente', 'E-mail', 'Telefone', 'CPF']} dados={dados} />
-					<Paginacao atual={this.state.atual} total={120} limite={20} onClick={(numeroAtual) => this.changeNumeroAtual(numeroAtual)} />
+					<Paginacao
+						atual={this.state.atual}
+						total={clientes ? clientes.total :  0}
+						limite={this.state.limit}
+						onClick={(numeroAtual) => this.changeNumeroAtual(numeroAtual)} />
 				</div>
 			</div>
 		);
