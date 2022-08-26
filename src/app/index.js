@@ -87,7 +87,7 @@ class App extends Component {
 						<Route path={'/'} exact component={base(Pedidos)} />
 						<Route path={'/pedido/:id'} component={base(Pedido)} />
 						<Route path={'/clientes'} exact component={base(Clientes)} />
-						<Route path={'/cliente/:email'} component={base(Cliente)} />
+						<Route path={'/cliente/:id'} component={base(Cliente)} />
 						<Route path={'/categorias'} component={base(Categorias)} />
 						<Route path={'/categoria/:id'} component={base(Categoria)} />
 						<Route path={'/produtos'} component={base(Produtos)} />
@@ -95,8 +95,7 @@ class App extends Component {
 						<Route path={'/avaliacoes/:id'} component={base(Avaliacoes)} />
 						<Route path={'/avaliacao/:id'} component={base(Avaliacao)} />
 						<Route path={'/configuracoes'} component={base(Configuracoes)} />
-						<Route path={'/perfil'} exact component={base(Perfil)} />
-						
+						<Route path={'/perfil'} exact component={base(Perfil)} />						
 						<Route path={'/Login'} component={noAuth(Login)} />
 						<Route path={'/recuperar-senha'} component={noAuth(RecuperarSenha)} />
 						<Route path={'/resetar-senha/:token'} component={noAuth(ResetarSenha)} />

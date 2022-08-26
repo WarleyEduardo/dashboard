@@ -96,4 +96,6 @@ const mapStateToProps = state => ({
 	clientes: state.cliente.clientes,
 	usuario: state.auth.usuario
 })
+
+
 export default connect(mapStateToProps,actions)(Clientes);

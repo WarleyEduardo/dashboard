@@ -2,9 +2,12 @@
 
 import { getHeaders } from './localStorage';
 import axios from 'axios';
-import { urlClientes, urlClientesPesquisa } from '../config';
+import { urlClientes, urlClientesPesquisa, urlClientesAdmin } from '../config';
 import errorHandling from './errorHandling';
-import { GET_CLIENTES } from './types';
+import { GET_CLIENTES, GET_CLIENTE, LIMPAR_CLIENTE, GET_CLIENTE_PEDIDOS, REMOVER_CLIENTE } from './types';
+
+/* modulo 29 - detalhes do cliente - preperando actions , reducer e configurações*/
+import { transformeDate } from './index';
 
 export const getClientes = (atual, limit, loja) => {
 	
@@ -15,9 +18,6 @@ export const getClientes = (atual, limit, loja) => {
 	} 
 };
 
-
-
-
 export const getClientesPesquisa = (termo, atual, limit, loja) => {
 	return function (dispatch) {
 		axios.get(`${urlClientesPesquisa}/${termo}?offset=${atual}&limit=${limit}&loja=${loja}`, getHeaders())
@@ -25,3 +25,72 @@ export const getClientesPesquisa = (termo, atual, limit, loja) => {
 			.catch(errorHandling);
 	};
 };
+
+
+
+
+
+export const LimparCliente = () => ({
+	type: LIMPAR_CLIENTE,
+});
+
+
+export const getCliente = (id, loja) => {
+
+	return function (dispatch) {
+		axios.get(`${urlClientesAdmin}/${id}?${loja}`,getHeaders())
+		.then(response => dispatch({ type: GET_CLIENTE, payload: response.data }))
+		.catch(errorHandling)
+	}
+};
+
+
+
+export const getClientePedidos = (id, atual,limit, loja) => {
+	return function (dispatch) {
+		axios
+			.get(`${urlClientesAdmin}/${id}/pedidos?${loja}&offset=${atual}&limit=${limit}`, getHeaders())
+			.then((response) => dispatch({ type: GET_CLIENTE_PEDIDOS, payload: response.data }))
+			.catch(errorHandling);
+	};
+};
+
+
+
+export const updateCliente = (cliente , id, loja, cb) => {
+	return function (dispatch) {
+		axios
+			.put(`${urlClientesAdmin}/${id}?${loja}`, {
+				nome: cliente.nome,
+				cpf: cliente.CPF,
+				email: cliente.email,
+				telefones: [cliente.telefone],
+				endereco: {
+					local: cliente.endereco,
+					numero: cliente.numero,
+					bairro: cliente.bairro,
+					cidade: cliente.cidade,
+					estado: cliente.estado,
+					CEP: cliente.cep
+				},
+				dataDeNascimento : transformeDate(cliente.DataDeNascimento,"/","YYYY-MM-DD")
+			},getHeaders())
+			.then((response) => {
+				dispatch({ type: GET_CLIENTE, payload: response.data });
+				cb(null);
+			})
+			.catch((e) => cb(errorHandling(e)));
+	};
+};
+
+export const removerCliente = (id, loja, cb) => {
+	return function (dispatch) {
+		axios.delete(`${urlClientesAdmin}/${id}?${loja}`,getHeaders())
+			.then((response) => {
+				dispatch({ type: REMOVER_CLIENTE, payload: response.data });
+				cb(null);
+			})
+			.catch((e) => cb(errorHandling(e)));
+	};
+};
+

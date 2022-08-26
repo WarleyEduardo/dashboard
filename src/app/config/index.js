@@ -17,3 +17,4 @@ export const urlPagamentos  = `${apiVersao()}/pagamentos`;
 export const urlEntregas = `${apiVersao()}/entregas`;
 export const urlClientes = `${apiVersao()}/clientes`;
 export const urlClientesPesquisa = `${apiVersao()}/clientes/search`;
+export const urlClientesAdmin = `${apiVersao()}/clientes/admin`;

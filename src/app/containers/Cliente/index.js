@@ -6,8 +6,26 @@ import DetalhesDoCliente from './detalhesDoCliente';
 
 import DetalhesDosPedidos from './detalhesDoPedidos';
 
+/* Modulo 29 - Detalhes do cliente - preparando o arquivo index */
+
+import { connect } from 'connect'
+import { actions } from '../../actions/clientes';
+
+
 
 class Cliente extends Component{ 
+
+
+	componentWillMount() {
+		const { usuario } = this.props;
+		const { id } = this.props.match.params;
+		if (!usuario) return null;
+		this.props.getCliente(id, usuario.loja);
+	}
+
+	componentWillUnmount() {
+		this.props.limparCliente();
+	}
 
 	render() {
 		
@@ -15,19 +33,24 @@ class Cliente extends Component{
 		
 			<div className='Cliente full-width flex vertical'>
 				<div className='Card'>
-				  <DetalhesDoCliente/>	
+					<DetalhesDoCliente history={this.props.history} />	 
 				</div>
 				
 				<div className='Sub-Card'>
-						<DetalhesDosPedidos />
+					<DetalhesDosPedidos id={this.props.match.params.id} />
 				</div>
 				
 			</div>
 		)
 
-	}
-	
-
+	}	
 }
 
-export default Cliente;
+const mapStateToProps = state => {
+	
+	usuario: state.auth.usuario;
+}
+
+
+
+export default  connect(mapStateToProps,actions)(Cliente);
