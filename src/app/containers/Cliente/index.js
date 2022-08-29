@@ -8,8 +8,8 @@ import DetalhesDosPedidos from './detalhesDoPedidos';
 
 /* Modulo 29 - Detalhes do cliente - preparando o arquivo index */
 
-import { connect } from 'connect'
-import { actions } from '../../actions/clientes';
+import { connect } from 'react-redux'
+import * as actions  from '../../actions/clientes';
 
 
 
@@ -24,7 +24,7 @@ class Cliente extends Component{
 	}
 
 	componentWillUnmount() {
-		this.props.limparCliente();
+		this.props.LimparCliente();
 	}
 
 	render() {
@@ -46,11 +46,10 @@ class Cliente extends Component{
 	}	
 }
 
-const mapStateToProps = state => {
-	
-	usuario: state.auth.usuario;
-}
+const mapStateToProps = state => ({
+	usuario: state.auth.usuario
+});
 
 
 
-export default  connect(mapStateToProps,actions)(Cliente);
+export default connect(mapStateToProps,actions)(Cliente);

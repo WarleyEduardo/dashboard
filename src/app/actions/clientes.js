@@ -27,54 +27,54 @@ export const getClientesPesquisa = (termo, atual, limit, loja) => {
 };
 
 
-
-
-
 export const LimparCliente = () => ({
-	type: LIMPAR_CLIENTE,
+	type: LIMPAR_CLIENTE
 });
 
 
 export const getCliente = (id, loja) => {
 
 	return function (dispatch) {
-		axios.get(`${urlClientesAdmin}/${id}?${loja}`,getHeaders())
+		axios.get(`${urlClientesAdmin}/${id}?loja=${loja}`,getHeaders())
 		.then(response => dispatch({ type: GET_CLIENTE, payload: response.data }))
 		.catch(errorHandling)
 	}
 };
 
 
-
 export const getClientePedidos = (id, atual,limit, loja) => {
 	return function (dispatch) {
 		axios
-			.get(`${urlClientesAdmin}/${id}/pedidos?${loja}&offset=${atual}&limit=${limit}`, getHeaders())
+			.get(`${urlClientesAdmin}/${id}/pedidos?loja=${loja}&offset=${atual}&limit=${limit}`, getHeaders())
 			.then((response) => dispatch({ type: GET_CLIENTE_PEDIDOS, payload: response.data }))
 			.catch(errorHandling);
 	};
 };
 
 
-
 export const updateCliente = (cliente , id, loja, cb) => {
 	return function (dispatch) {
-		axios
-			.put(`${urlClientesAdmin}/${id}?${loja}`, {
-				nome: cliente.nome,
-				cpf: cliente.CPF,
-				email: cliente.email,
-				telefones: [cliente.telefone],
-				endereco: {
-					local: cliente.endereco,
-					numero: cliente.numero,
-					bairro: cliente.bairro,
-					cidade: cliente.cidade,
-					estado: cliente.estado,
-					CEP: cliente.cep
+
+			axios
+			.put(
+				`${urlClientesAdmin}/${id}?loja=${loja}`,
+				{
+					nome: cliente.nome,
+					cpf: cliente.CPF,
+					email: cliente.email,
+					telefones: [cliente.telefone],
+					endereco: {
+						local: cliente.endereco,
+						numero: cliente.numero,
+						bairro: cliente.bairro,
+						cidade: cliente.cidade,
+						estado: cliente.estado,
+						CEP: cliente.cep,
+					},
+					dataDeNascimento: transformeDate(cliente.dataDeNascimento, '/', 'YYYY-MM-DD'),
 				},
-				dataDeNascimento : transformeDate(cliente.DataDeNascimento,"/","YYYY-MM-DD")
-			},getHeaders())
+				getHeaders()
+			)
 			.then((response) => {
 				dispatch({ type: GET_CLIENTE, payload: response.data });
 				cb(null);
@@ -85,7 +85,7 @@ export const updateCliente = (cliente , id, loja, cb) => {
 
 export const removerCliente = (id, loja, cb) => {
 	return function (dispatch) {
-		axios.delete(`${urlClientesAdmin}/${id}?${loja}`,getHeaders())
+		axios.delete(`${urlClientesAdmin}/${id}?loja=${loja}`,getHeaders())
 			.then((response) => {
 				dispatch({ type: REMOVER_CLIENTE, payload: response.data });
 				cb(null);

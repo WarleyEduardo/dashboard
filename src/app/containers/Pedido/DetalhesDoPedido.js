@@ -56,31 +56,17 @@ class DetalhesDoPedido extends Component {
 		return (
 			<div className='flex'>
 				<div className='flex-1 flex'>
-					<Titulo tipo='h2' titulo={`Pedido - ${pedido.cliente ? pedido.cliente.nome : ""}  
-					- ${moment(pedido.createdAt).format("DD/MM/YYYY")}`} />
+					{/*
+						<Titulo tipo='h2' titulo={`Pedido - ${pedido.cliente ? pedido.cliente.nome : ""}  
+					- ${moment(pedido.createdAt).format("DD/MM/YYYY")}`} /> */}
+					<Titulo tipo='h2' titulo={`Pedido : ${pedido._id} - ${moment(pedido.createdAt).format('DD/MM/YYYY')} `} />
 				</div>
 				<div className='flex-1 flex flex-end'>
-					{
-						pedido.cancelado ? (
-							
-							<ButtomSimples 
-								type='danger'
-								label='CANCELADO'
-								/>
-							
-						) :
-						(
-							<ButtomSimples
-								type='danger'
-								label='CANCELAR PEDIDO'
-								onClick={()=> this.cancelarPedido()}	
-									
-							 />		
-								
-						)
-						 
-					}
-					
+					{pedido.cancelado ? (
+						<ButtomSimples type='danger' label='CANCELADO' />
+					) : (
+						<ButtomSimples type='danger' label='CANCELAR PEDIDO' onClick={() => this.cancelarPedido()} />
+					)}
 				</div>
 			</div>
 		);
@@ -145,8 +131,7 @@ class DetalhesDoPedido extends Component {
 		const { carrinho } = this.props.pedido.pedido;
 
 		const dados = [];
-		carrinho.forEach((item) => {
-			console.log(item)
+		carrinho.forEach((item) => {	
 			
 			dados.push({
 				"Produto": item.produto.titulo + " - " + item.variacao.nome,

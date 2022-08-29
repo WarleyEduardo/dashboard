@@ -91,8 +91,7 @@ class Clientes extends Component {
 	}
 }
 
-const mapStateToProps = state => ({
-	
+const mapStateToProps = state => ({	
 	clientes: state.cliente.clientes,
 	usuario: state.auth.usuario
 })
