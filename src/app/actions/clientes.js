@@ -42,7 +42,7 @@ export const getCliente = (id, loja) => {
 };
 
 
-export const getClientePedidos = (id, atual,limit, loja) => {
+export const getPedidosCliente = (id, atual,limit, loja) => {
 	return function (dispatch) {
 		axios
 			.get(`${urlClientesAdmin}/${id}/pedidos?loja=${loja}&offset=${atual}&limit=${limit}`, getHeaders())

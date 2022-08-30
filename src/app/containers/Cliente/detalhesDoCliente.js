@@ -50,9 +50,10 @@ class DetalhesDoCliente extends Component {
 
 	clearAlert = () => this.setState({ aviso: null });
 
-	componentWillUpdate(nextProps) {
-		if ((!this.props.cliente && nextProps.cliente) || (this.props.cliente && nextProps.cliente && this.props.cliente.updateAt !== this.props.cliente.updateAt))
-			this.setState(this.generateStateCliente(nextProps));
+	componentDidUpdate(prevProps) {
+		if ((!prevProps.cliente && this.props.cliente) ||
+			(prevProps.cliente && this.props.cliente && prevProps.cliente.updateAt !== this.props.cliente.updateAt))
+			this.setState(this.generateStateCliente(this.props));
 	}
 
 	handleSubmit = (field, value) => {
