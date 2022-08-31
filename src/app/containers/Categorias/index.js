@@ -6,11 +6,29 @@ import Pesquisa from '../../components/Inputs/Pesquisa';
 import Tabela from '../../components/Tabela/Simples';
 import Paginacao from '../../components/Paginacao/Simples';
 
+import { connect } from 'react-redux';
+import * as actions from '../../actions/categorias';
+
 class Categorias extends Component {
 	state = {
 		pesquisa: '',
 		atual: 0,
+		limit: 5,
 	};
+
+	getCategorias() {
+		const { atual, limit, pesquisa } = this.state;
+		const { usuario } = this.props;
+
+		if (!usuario) return null;
+
+		this.props.getCategorias(atual, limit, usuario.loja);
+	}
+
+
+	componentWillMount() {
+		this.getCategorias();
+	}
 
 	onChangePesquisa = (ev) => this.setState({ pesquisa: ev.target.value });
 
@@ -19,36 +37,52 @@ class Categorias extends Component {
 	render() {
 		const { pesquisa } = this.state;
 
+		const { categorias } = this.props;
 
+		if (!categorias) return <div></div>
+        
+		const dados = [];
+	
+		categorias.forEach(item => {
+
+			dados.push({
+				'Categoria': item.nome,
+				'Qtd. de Produtos': item.produtos.length,
+				'botaoDetalhes': `categoria/${item.codigo}`
+			});
+			
+		});
+        
+
+       /*
 		const dados = [
 			{
-				"Categoria": 'Acessórios',
-				"Qtd. de Produtos": 15,
-				"botaoDetalhes" :"/categoria/acessorios"
-	
+				Categoria: 'Acessórios',
+				'Qtd. de Produtos': 15,
+				botaoDetalhes: '/categoria/acessorios',
 			},
 			{
-				"Categoria": 'Computadores',
-				"Qtd. de Produtos": 5,
-				"botaoDetalhes" :"/categoria/computadores"
+				Categoria: 'Computadores',
+				'Qtd. de Produtos': 5,
+				botaoDetalhes: '/categoria/computadores',
 			},
 			{
-				"Categoria": 'Fones de Ouvido',
-				"Qtd. de Produtos": 7,
-				"botaoDetalhes" :"/categoria/fones"
+				Categoria: 'Fones de Ouvido',
+				'Qtd. de Produtos': 7,
+				botaoDetalhes: '/categoria/fones',
 			},
 			{
-				"Categoria": 'Gabinetes',
-				"Qtd. de Produtos": 3,
-				"botaoDetalhes" :"/categoria/gabinetes"
+				Categoria: 'Gabinetes',
+				'Qtd. de Produtos': 3,
+				botaoDetalhes: '/categoria/gabinetes',
 			},
-						{
-				"Categoria": 'Processadores',
-				"Qtd. de Produtos": 8,
-				"botaoDetalhes" :"/categoria/processadores"
+			{
+				Categoria: 'Processadores',
+				'Qtd. de Produtos': 8,
+				botaoDetalhes: '/categoria/processadores',
 			},
 		];
-
+        */
 		return (
 			<div className='Categorias full-width'>
 				<div className='Card'>
@@ -69,4 +103,9 @@ class Categorias extends Component {
 	}
 }
 
-export default Categorias;
+const mapStateToProps = (state) => ({
+	usuario: state.auth.usuario,
+	categorias: state.categoria.categorias,
+});
+
+export default connect(mapStateToProps, actions)(Categorias);

@@ -14,10 +14,13 @@ import pedidoReducer from './pedido_reducer';
 /* Modulo 29 - Dashboard - integração clientes */
 import clienteReducer from './cliente_reducer'
 
+import categoriaReducer from './categoria_reducer'
+
 const reducers = combineReducers({
 	auth: authReducer,
 	pedido: pedidoReducer,
-	cliente: clienteReducer
+	cliente: clienteReducer,
+	categoria: categoriaReducer
 });
 
 export default reducers;
