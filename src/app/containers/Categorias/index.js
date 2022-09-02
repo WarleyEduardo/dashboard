@@ -32,13 +32,11 @@ class Categorias extends Component {
 
 	renderBotaoNovo() {
 		return (
-			<Link className="button button-success button-small"
-			 to="/categoria/nova"
-			>
+			<Link className='button button-success button-small' to='/categorias/nova'>
 				<i className='fas fa-plus'></i>
-			<span>&nbsp;Nova Categoria</span>	
+				<span>&nbsp;Adicionar</span>
 			</Link>
-		)
+		);
 	}
 	
 	render() {		
@@ -63,11 +61,15 @@ class Categorias extends Component {
 		return (
 			<div className='Categorias full-width'>
 				<div className='Card'>
-					<Titulo tipo='h1' titulo='Categoria' />	
-					<br />
-					{ this.renderBotaoNovo()}
-					<br/><br/>
-					<Tabela cabecalho={['Categoria', 'Qtd. de Produtos']} dados={dados} />					
+					<div className='flex'>
+						<div className='flex-1 flex'>
+							<Titulo tipo='h1' titulo='Categoria' />
+						</div>
+						<div className='flex-1 flex flex-end'>
+							{this.renderBotaoNovo()}
+						</div>
+					</div>
+					<Tabela cabecalho={['Categoria', 'Qtd. de Produtos']} dados={dados} />
 				</div>
 			</div>
 		);

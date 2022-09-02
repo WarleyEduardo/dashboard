@@ -56,9 +56,7 @@ class DetalhesDoPedido extends Component {
 		return (
 			<div className='flex'>
 				<div className='flex-1 flex'>
-					{/*
-						<Titulo tipo='h2' titulo={`Pedido - ${pedido.cliente ? pedido.cliente.nome : ""}  
-					- ${moment(pedido.createdAt).format("DD/MM/YYYY")}`} /> */}
+			
 					<Titulo tipo='h2' titulo={`Pedido : ${pedido._id} - ${moment(pedido.createdAt).format('DD/MM/YYYY')} `} />
 				</div>
 				<div className='flex-1 flex flex-end'>
@@ -151,6 +149,9 @@ class DetalhesDoPedido extends Component {
 		);
 	}
 
+
+
+	
 	render() {
 		return (
 			<div className='Detalhes-do-Pedido'>

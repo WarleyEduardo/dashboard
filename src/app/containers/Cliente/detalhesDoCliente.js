@@ -119,7 +119,7 @@ class DetalhesDoCliente extends Component {
 
 	renderCabecalho() {
 		const { nome } = this.state;
-		const { cliente } = this.props;
+		const { cliente } = this.props;	
 		return (
 			<div className='flex'>
 				<div className='flex-1 flex'>
