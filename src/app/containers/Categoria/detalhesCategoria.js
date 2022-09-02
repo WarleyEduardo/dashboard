@@ -104,17 +104,18 @@ class DetalhesCategoria extends Component {
 	onChangeInput = (field, value) => this.setState({ [field]: value }, () => this.validate());
 	
 	validate() { 
+		
 
 		const { nome, codigo } = this.state;
 		const erros = {};
          
 		if (!nome) erros.nome = "Preencha aqui com o nome da categoria";
-		if (!codigo) erros.codigo = "Preenchaaqui com o código da categoria"
-		if (codigo && codigo.length < 4) erros.codigo = 'Preenchaaqui com mais que 4 caracteres';
+		if (!codigo) erros.codigo = "Preencha aqui com o código da categoria"
+		if (codigo && codigo.length < 4) erros.codigo = 'Preencha aqui com mais que 4 caracteres';
 		if (codigo && codigo.indexOf(" ") !== -1) erros.codigo = 'Não coloque espaços no código';
-
+      
 		this.setState({ erros });
-		return !( Object.keys(erros).length > 0)
+		return !(Object.keys(erros).length > 0)
 	}
 
 	renderDados() {
@@ -124,12 +125,16 @@ class DetalhesCategoria extends Component {
 			<div>
 				<TextoDados
 					chave='Código'
-					valor={<Inputvalor noStyle name='codigo' value={codigo} erros={erros.codigo} handleSubmit={(valor) => this.setState({ codigo: valor })} />}
+					valor={<Inputvalor noStyle name='codigo'
+						value={codigo} erro={erros.codigo}
+						handleSubmit={(valor) => this.onChangeInput("codigo",valor)} />}
 				/>
 
 				<TextoDados chave='Nome'
 					valor={<Inputvalor noStyle
-						name='nome'  value={nome} erros={erros.nome} handleSubmit={(valor) => this.setState({ nome: valor })} />} />
+						name='nome' value={nome}
+						erro={erros.nome}
+						handleSubmit={(valor) => this.onChangeInput("nome",valor)} />} />
 
 				<br />
 

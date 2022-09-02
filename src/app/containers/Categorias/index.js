@@ -47,11 +47,14 @@ class Categorias extends Component {
         
 		const dados = [];
 	
-		(categorias || [] ).forEach(item => {
+		(categorias || []).forEach(item => {
+			
+			console.log(item)
 
 			dados.push({
 				Categoria: item.nome,
-				'Qtd. de Produtos': `${item.produtos ?  item.produtos.length : 0}`,
+				'Qtd. de Produtos': `${item.produtos ? item.produtos.length : 0}`,
+				'Disponibilidade': item.disponibilidade || item.disponibilidade === undefined ? 'Disponível' : 'Indisponível',
 				botaoDetalhes: `categoria/${item._id}`,
 			});
 			
@@ -69,7 +72,7 @@ class Categorias extends Component {
 							{this.renderBotaoNovo()}
 						</div>
 					</div>
-					<Tabela cabecalho={['Categoria', 'Qtd. de Produtos']} dados={dados} />
+					<Tabela cabecalho={['Categoria', 'Qtd. de Produtos', 'Disponibilidade']} dados={dados} />
 				</div>
 			</div>
 		);
