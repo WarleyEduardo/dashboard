@@ -14,7 +14,7 @@ import * as actions from '../../actions/categorias';
 class Categoria extends Component{
 
 
-	componentWillMount() {
+	componentDidMount() {
 		const { usuario } = this.props;
 		const { id } = this.props.match.params;
 		if (!usuario || !id) return null;

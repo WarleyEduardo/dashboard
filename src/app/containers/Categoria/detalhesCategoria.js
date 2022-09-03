@@ -37,15 +37,15 @@ class DetalhesCategoria extends Component {
 	}
 
 
-	componentWillUpdate(nextProps) {
+	componentDidUpdate(prevProps) {
 		if (
-			(!this.props.categoria && nextProps.categoria) ||
+			(!prevProps.categoria && this.props.categoria) ||
 			(
+				prevProps.categoria &&
 				this.props.categoria &&
-				nextProps.categoria &&
-				this.props.categoria.updatedAt !== nextProps.categoria.updatedAt
+				prevProps.categoria.updatedAt !== this.props.categoria.updatedAt
 			)
-		)this.setState(this.generateStateCategoria(nextProps));
+		)this.setState(this.generateStateCategoria(this.props));
 	}
 
 

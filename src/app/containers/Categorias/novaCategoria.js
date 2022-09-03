@@ -28,12 +28,10 @@ class NovaCategoria extends Component{
 		const erros = {};
 		if (!nome) erros.nome = "Preencha aqui com o nome da categoria";
 		if (!codigo) erros.codigo = 'Preencha aqui com o código da categoria';
-		
-		this.setState({ erros })
-			
+	
+		this.setState({ erros })			
 		return !(Object.keys(erros).length > 0);
 	}
-
 
 	salvarCategoria() {
 		const { usuario } = this.props

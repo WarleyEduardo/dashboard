@@ -22,7 +22,7 @@ class Categorias extends Component {
 		this.props.getCategorias(usuario.loja);
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		this.getCategorias();
 	} 
 
@@ -47,9 +47,8 @@ class Categorias extends Component {
         
 		const dados = [];
 	
-		(categorias || []).forEach(item => {
-			
-			console.log(item)
+		(categorias || []).forEach(item => {		
+	
 
 			dados.push({
 				Categoria: item.nome,
