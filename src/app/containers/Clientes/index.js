@@ -13,13 +13,14 @@ import Paginacao from '../../components/Paginacao/Simples';
 import { connect } from "react-redux";
 import * as actions from '../../actions/clientes';
 
+import { Link } from 'react-router-dom';
+
 class Clientes extends Component {
 	state = {
 		pesquisa: '',
 		atual: 0,
-		limit: 5
+		limit: 5,
 	};
-
 
 	getClientes() {
 		const { atual, limit, pesquisa } = this.state;
@@ -28,8 +29,8 @@ class Clientes extends Component {
 		if (!usuario) return null;
 		const loja = usuario.loja;
 
-		if (pesquisa) this.props.getClientesPesquisa(pesquisa, atual, limit, loja)
-		else this.props.getClientes(atual, limit, loja)
+		if (pesquisa) this.props.getClientesPesquisa(pesquisa, atual, limit, loja);
+		else this.props.getClientes(atual, limit, loja);
 	}
 
 	componentWillMount() {
@@ -43,34 +44,47 @@ class Clientes extends Component {
 	onChangePesquisa = (ev) => this.setState({ pesquisa: ev.target.value });
 
 	changeNumeroAtual = (atual) => this.setState({ atual }, () => this.getClientes());
-	
+
 	handleSubmitPesquisa() {
-		this.setState({atual : 0} , this.getClientes())
+		this.setState({ atual: 0 }, this.getClientes());
+	}
+
+	renderBotaoNovo() {
+		return (
+			<Link className='button button-success button-small' to='/clientes/novo'>
+				<i className='fas fa-plus'></i>
+				<span>&nbsp;Adicionar</span>
+			</Link>
+		);
 	}
 
 	render() {
 		const { pesquisa } = this.state;
 
 		const { clientes } = this.props;
-		
+
 		const dados = [];
 
-		(clientes ? clientes.docs : []).forEach(item => {
+		(clientes ? clientes.docs : []).forEach((item) => {
 			dados.push({
-				"Cliente": item.nome,
-				"E-mail": item.usuario ? item.usuario.email : "",
-				"Telefone": item.telefones[0],
-				"CPF": item.cpf,
-				"botaoDetalhes" : `/cliente/${item._id}`
-			 })
-			
-		  });
-	
+				Cliente: item.nome,
+				'E-mail': item.usuario ? item.usuario.email : '',
+				Telefone: item.telefones[0],
+				CPF: item.cpf,
+				botaoDetalhes: `/cliente/${item._id}`,
+			});
+		});
 
 		return (
 			<div className='Clientes full-width'>
 				<div className='Card'>
-					<Titulo tipo='h1' titulo='Clientes' />
+					<div className='flex'>
+						<div className='flex-1 flex'>
+							<Titulo tipo='h1' titulo='Clientes' />
+						</div>
+						<div className='flex-1 flex flex-end'>{this.renderBotaoNovo()}</div>
+					</div>
+
 					<br />
 					<Pesquisa
 						valor={pesquisa}
@@ -82,9 +96,10 @@ class Clientes extends Component {
 					<Tabela cabecalho={['Cliente', 'E-mail', 'Telefone', 'CPF']} dados={dados} />
 					<Paginacao
 						atual={this.state.atual}
-						total={clientes ? clientes.total :  0}
+						total={clientes ? clientes.total : 0}
 						limite={this.state.limit}
-						onClick={(numeroAtual) => this.changeNumeroAtual(numeroAtual)} />
+						onClick={(numeroAtual) => this.changeNumeroAtual(numeroAtual)}
+					/>
 				</div>
 			</div>
 		);

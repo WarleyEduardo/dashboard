@@ -83,8 +83,8 @@ export const updateCategoria = (categoria, id, loja, cb) => {
 		axios.put(`${urlCategorias}/${id}?loja=${loja}`, {
 			nome: categoria.nome,
 			codigo: categoria.codigo,
-			disponibilidade : categoria.disponibilidade === 'disponivel' ? "true" : "false"
-		}, getHeaders())
+			disponibilidade: categoria.disponibilidade === 'disponivel' ? "true" : "false",
+			}, getHeaders())
 			.then(response => {
 				dispatch({ type: GET_CATEGORIA, payload: response.data });
 				cb(null)

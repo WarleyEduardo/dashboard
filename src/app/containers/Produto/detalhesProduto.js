@@ -37,6 +37,7 @@ class DetalhesProduto extends Component {
 			'https://dummyimage.com/100x100/e39414/fff.jpg',
 			'https://dummyimage.com/100x100/f39414/fff.jpg',
 		],
+		categoria : 'Padrão'
 	};
 
 	renderCabecalho() {
@@ -59,15 +60,11 @@ class DetalhesProduto extends Component {
 	}
 
 	renderDados() {
-		const { nome, disponibilidade, descricao } = this.state;
+		const { nome, disponibilidade, descricao , categoria} = this.state;
 
 		return (
 			<div className='Dados-Produto'>
-				<TextoDados chave='Nome'
-					valor={<InputValor value={nome}
-						noStyle name='nome'
-						handleSubmit={(valor) => this.setState({ nome: valor })} />}
-				/>
+				<TextoDados chave='Nome' valor={<InputValor value={nome} noStyle name='nome' handleSubmit={(valor) => this.setState({ nome: valor })} />} />
 				<TextoDados
 					chave='Disponibilidade'
 					valor={
@@ -82,17 +79,30 @@ class DetalhesProduto extends Component {
 						/>
 					}
 				/>
+				<br />
+				<TextoDados
+					chave='Categoria'
+					valor={
+						<InputSelect
+							name='categoria'
+							onChange={(ev) => this.setState({ categoria: ev.target.value })}
+							value={categoria}
+							opcoes={[
+								{ label: 'Padrão', value: 'padrao' },
+								{ label: 'Diversos', value: 'diversos' },
+								{ label: 'Acessórios', value: 'acessorios' },
+								{ label: 'Utilidades', value: 'utilidades' },
+							]}
+						/>
+					}
+				/>
 
-				<br/>
+				<br />
 
 				<TextoDados
 					chave='Descrição'
 					vertical
-					valor={(
-						<textarea name={'descricao'}
-						onChange={(ev) => this.setState({ descricao: ev.target.value })} value={descricao} rows='10' style={{ resize: 'nome' }}
-						/>)
-					}
+					valor={<textarea name={'descricao'} onChange={(ev) => this.setState({ descricao: ev.target.value })} value={descricao} rows='10' style={{ resize: 'nome' }} />}
 				/>
 			</div>
 		);

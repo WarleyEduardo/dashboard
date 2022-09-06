@@ -77,6 +77,8 @@ import noAuth from './containers/HOC/noAuth';
 
 import novaCategoria from './containers/Categorias/novaCategoria'
 
+import novoCliente from './containers/Clientes/novoCliente';
+
 class App extends Component {
 
 	componentDidMount() {
@@ -93,6 +95,7 @@ class App extends Component {
 						<Route path={'/'} exact component={base(Pedidos)} />
 						<Route path={'/pedido/:id'} exact component={base(Pedido)} />
 						<Route path={'/clientes'} exact component={base(Clientes)} />
+						<Route path={'/clientes/novo'} exact component={base(novoCliente)} />
 						<Route path={'/cliente/:id'} exact component={base(Cliente)} />
 						<Route path={'/categorias'} exact component={base(Categorias)} />
 						<Route path={'/categorias/nova'} exact component={base(novaCategoria)} />

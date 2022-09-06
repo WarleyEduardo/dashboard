@@ -10,6 +10,8 @@ import InputValor from '../../components/Inputs/InputValor'
 
 import Voltar from '../../components/Links/Voltar';
 
+import ListaDinamicaSimples from '../../components/Listas/ListaDinamicaSimples';
+
 /* Modulo 29 - Detalhes do cliente  - 
 criando parte de detalhes do cliente.
 
@@ -22,18 +24,18 @@ import AlertGeral from '../../components/Alert/Geral';
 import moment from 'moment';
 
 
-
 class DetalhesDoCliente extends Component {
 	generateStateCliente = (props) => ({
 		nome: props.cliente ? props.cliente.nome : '',
 		CPF: props.cliente ? props.cliente.cpf : '',
-		telefone: props.cliente ? props.cliente.telefones[0] : '',
+		/*telefone: props.cliente ? props.cliente.telefones[0] : '',*/
+		telefones: props.cliente ? props.cliente.telefones : [],
 		dataDeNascimento: props.cliente ? moment(props.cliente.dataDeNascimento).format('DD/MM/YYYY') : '',
 		email: props.cliente && props.cliente.usuario ? props.cliente.usuario.email : '',
-
 		endereco: props.cliente && props.cliente.endereco ? props.cliente.endereco.local : '',
 		numero: props.cliente && props.cliente.endereco ? props.cliente.endereco.numero : '',
 		bairro: props.cliente && props.cliente.endereco ? props.cliente.endereco.bairro : '',
+		complemento: props.cliente && props.cliente.endereco ? props.cliente.endereco.complemento : '',
 		cidade: props.cliente && props.cliente.endereco ? props.cliente.endereco.cidade : '',
 		estado: props.cliente && props.cliente.endereco ? props.cliente.endereco.estado : '',
 		cep: props.cliente && props.cliente.endereco ? props.cliente.endereco.CEP : '',
@@ -44,6 +46,7 @@ class DetalhesDoCliente extends Component {
 		this.state = {
 			...this.generateStateCliente(props),
 			aviso: null,
+			avisoTelefone: null,
 			erros: {},
 		};
 	}
@@ -51,25 +54,23 @@ class DetalhesDoCliente extends Component {
 	clearAlert = () => this.setState({ aviso: null });
 
 	componentDidUpdate(prevProps) {
-		if ((!prevProps.cliente && this.props.cliente) ||
-			(prevProps.cliente && this.props.cliente && prevProps.cliente.updateAt !== this.props.cliente.updateAt))
+		if ((!prevProps.cliente && this.props.cliente) || (prevProps.cliente && this.props.cliente && prevProps.cliente.updateAt !== this.props.cliente.updateAt))
 			this.setState(this.generateStateCliente(this.props));
 	}
 
 	handleSubmit = (field, value) => {
-		this.setState({ [field]: value }, ()=> this.validate());
+		this.setState({ [field]: value }, () => this.validate());
 	};
 
 	validate() {
-		
-		const { nome, CPF, telefone, dataDeNascimento, email, endereco, numero, bairro, cidade,
-			estado, cep } = this.state;
-		
+		const { nome, CPF, dataDeNascimento, email, endereco, numero, bairro, complemento,
+			cidade, estado, cep } = this.state;
+
 		const erros = {};
-		
-		if (!nome) erros.nome = "Preencha aqui com o nome do cliente";
+
+		if (!nome) erros.nome = 'Preencha aqui com o nome do cliente';
 		if (!CPF) erros.CPF = 'Preencha aqui com o CPF do cliente';
-		if (!telefone) erros.telefone = 'Preencha aqui com  telefone do cliente';
+		/*if (!telefone) erros.telefone = 'Preencha aqui com  telefone do cliente';*/
 		if (!dataDeNascimento) erros.dataDeNascimento = 'Preencha aqui com a data de nascimento  do cliente';
 		if (!email) erros.email = 'Preencha aqui com o email do cliente';
 		if (!endereco) erros.endereco = 'Preencha aqui com o endereço do cliente';
@@ -81,7 +82,7 @@ class DetalhesDoCliente extends Component {
 
 		this.setState({ erros });
 
-		return !(Object.keys(erros).length > 0); 
+		return !(Object.keys(erros).length > 0);
 	}
 
 	salvarCliente() {
@@ -119,7 +120,7 @@ class DetalhesDoCliente extends Component {
 
 	renderCabecalho() {
 		const { nome } = this.state;
-		const { cliente } = this.props;	
+		const { cliente } = this.props;
 		return (
 			<div className='flex'>
 				<div className='flex-1 flex'>
@@ -141,34 +142,22 @@ class DetalhesDoCliente extends Component {
 	}
 
 	renderDetalhesCadastro() {
-		const { nome, CPF, email, telefone, dataDeNascimento, erros } = this.state;
+		const { nome, CPF, email, dataDeNascimento, erros } = this.state;
 		return (
 			<div className='Detalhes-do-Cadastro'>
-				<TextoDados chave='Nome' valor={<InputValor name='nome'
-					noStyle erro={erros.nome}
-					handleSubmit={(valor) => this.handleSubmit('nome', valor)}
-					value={nome} />} />
+				<TextoDados chave='Nome' valor={<InputValor name='nome' noStyle erro={erros.nome} handleSubmit={(valor) => this.handleSubmit('nome', valor)} value={nome} />} />
 
-				<TextoDados chave='CPF'
-					valor={<InputValor name='cpf'
-					noStyle erro={erros.CPF}
-					handleSubmit={(valor) => this.handleSubmit('CPF', valor)}
-					value={CPF} />} />
-
+				<TextoDados chave='CPF' valor={<InputValor name='cpf' noStyle erro={erros.CPF} handleSubmit={(valor) => this.handleSubmit('CPF', valor)} value={CPF} />} />
+				{/*
 				<TextoDados
 					chave='Telefone'
-					valor={<InputValor name='telefone'
-						noStyle erro={erros.telefone}
-						handleSubmit={(valor) => this.handleSubmit('telefone', valor)}
-						value={telefone} />}
+					valor={<InputValor name='telefone' noStyle erro={erros.telefone} handleSubmit={(valor) => this.handleSubmit('telefone', valor)} value={telefone} />}
 				/>
-
+				
+               */}
 				<TextoDados
 					chave='E-mail'
-					valor={<InputValor name='email'
-						noStyle erro={erros.email}
-						handleSubmit={(valor) => this.handleSubmit('email', valor)}
-						value={email} />}
+					valor={<InputValor name='email' noStyle erro={erros.email} handleSubmit={(valor) => this.handleSubmit('email', valor)} value={email} />}
 				/>
 
 				<TextoDados
@@ -188,7 +177,7 @@ class DetalhesDoCliente extends Component {
 	}
 
 	renderDetalhesEntrega() {
-		const { endereco, bairro, cidade, estado, cep, numero , erros } = this.state;
+		const { endereco, bairro, complemento , cidade, estado, cep, numero, erros } = this.state;
 
 		return (
 			<div className='Detalhes-da-Entrega'>
@@ -208,6 +197,13 @@ class DetalhesDoCliente extends Component {
 				/>
 
 				<TextoDados
+					chave='Complemento'
+					valor={<InputValor name='complemento'
+						noStyle erro={erros.complemento}
+						handleSubmit={(valor) => this.handleSubmit('complemento', valor)} value={complemento} />}
+				/>
+
+				<TextoDados
 					chave='Cidade'
 					valor={<InputValor name='cidade' noStyle erro={erros.cidade} handleSubmit={(valor) => this.handleSubmit('cidade', valor)} value={cidade} />}
 				/>
@@ -222,15 +218,53 @@ class DetalhesDoCliente extends Component {
 		);
 	}
 
+	onAdd = (valor) => {
+		this.clearAlert();
+		if (!valor) return this.setState({ avisoTelefone: { status: false, msg: 'Preenchar o campo para enviar um novo telefone' } });
+
+		const { telefones } = this.state;
+		this.setState({ telefones: [...telefones, valor] });
+	};
+
+	onRemove = (idx) => {
+		//if (!idx) return;
+		if (idx < 0) return;
+
+		const { telefones } = this.state;
+		telefones.splice(idx, 1);
+		this.setState({ telefones: [...telefones] });
+
+		//this.setState({ telefones: telefones.filter((item, index) => index !== idx) });
+	};
+
+	renderTelefones() {
+		const { telefones } = this.state;
+
+		return (
+			<div className='dados-telefones'>
+				<Titulo tipo='h3' titulo='Telefones' />
+				<AlertGeral aviso={this.state.avisoTelefone} />
+				<br />
+				<ListaDinamicaSimples dados={telefones} onAdd={this.onAdd} onRemove={this.onRemove} />
+			</div>
+		);
+	}
+
 	render() {
 		return (
 			<div className='DetalhesdoCliente'>
 				<Voltar history={this.props.history} />
 				<AlertGeral aviso={this.state.aviso} />
 				{this.renderCabecalho()}
+
 				<div className='flex horizontal'>
 					<div className='flex-1 flex vertical'>{this.renderDetalhesCadastro()}</div>
 					<div className='flex-1 flex vertical'>{this.renderDetalhesEntrega()}</div>
+				</div>
+
+				<div className='flex horizontal'>
+					<div className='flex-1'>{this.renderTelefones()}</div>
+					<div className='flex-1'></div>
 				</div>
 			</div>
 		);

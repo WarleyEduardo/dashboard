@@ -33,6 +33,7 @@ class DetalhesCategoria extends Component {
 			...this.generateStateCategoria(props),
 			erros: {},
 			aviso: null,
+			produtos : [],
 		};		
 	}
 
@@ -101,6 +102,7 @@ class DetalhesCategoria extends Component {
 	}
 
 
+	
 	onChangeInput = (field, value) => this.setState({ [field]: value }, () => this.validate());
 	
 	validate() { 
@@ -125,16 +127,10 @@ class DetalhesCategoria extends Component {
 			<div>
 				<TextoDados
 					chave='Código'
-					valor={<Inputvalor noStyle name='codigo'
-						value={codigo} erro={erros.codigo}
-						handleSubmit={(valor) => this.onChangeInput("codigo",valor)} />}
+					valor={<Inputvalor noStyle name='codigo' value={codigo} erro={erros.codigo} handleSubmit={(valor) => this.onChangeInput('codigo', valor)} />}
 				/>
 
-				<TextoDados chave='Nome'
-					valor={<Inputvalor noStyle
-						name='nome' value={nome}
-						erro={erros.nome}
-						handleSubmit={(valor) => this.onChangeInput("nome",valor)} />} />
+				<TextoDados chave='Nome' valor={<Inputvalor noStyle name='nome' value={nome} erro={erros.nome} handleSubmit={(valor) => this.onChangeInput('nome', valor)} />} />
 
 				<br />
 
@@ -160,6 +156,8 @@ class DetalhesCategoria extends Component {
 			          */
 					}
 				/>
+
+			
 			</div>
 		);
 	}

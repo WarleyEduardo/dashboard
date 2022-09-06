@@ -52,21 +52,20 @@ export const getPedidosCliente = (id, atual,limit, loja) => {
 };
 
 
-export const updateCliente = (cliente , id, loja, cb) => {
+export const salvarCliente = (cliente, loja, cb) => {
 	return function (dispatch) {
-
-			axios
-			.put(
-				`${urlClientesAdmin}/${id}?loja=${loja}`,
+		axios.post(	`${urlClientes}?loja=${loja}`,
 				{
 					nome: cliente.nome,
-					cpf: cliente.CPF,
+					password : cliente.password,
+					cpf: cliente.cpf,
 					email: cliente.email,
-					telefones: [cliente.telefone],
+					telefones: cliente.telefones,
 					endereco: {
-						local: cliente.endereco,
+						local: cliente.local,
 						numero: cliente.numero,
 						bairro: cliente.bairro,
+						complemento : cliente.complemento,
 						cidade: cliente.cidade,
 						estado: cliente.estado,
 						CEP: cliente.cep,
@@ -76,10 +75,44 @@ export const updateCliente = (cliente , id, loja, cb) => {
 				getHeaders()
 			)
 			.then((response) => {
-				dispatch({ type: GET_CLIENTE, payload: response.data });
+				dispatch({ type: GET_CLIENTES, payload: response.data });
 				cb(null);
 			})
 			.catch((e) => cb(errorHandling(e)));
+	};
+};
+
+
+export const updateCliente = (cliente , id, loja, cb) => {
+	return function (dispatch) {
+
+			axios
+				.put(
+					`${urlClientesAdmin}/${id}?loja=${loja}`,
+					{
+						nome: cliente.nome,
+						cpf: cliente.CPF,
+						email: cliente.email,
+						telefones: cliente.telefones,
+						/*telefones: [cliente.telefone],*/
+						endereco: {
+							local: cliente.endereco,
+							numero: cliente.numero,
+							bairro: cliente.bairro,
+							complemento : cliente.complemento,
+							cidade: cliente.cidade,
+							estado: cliente.estado,
+							CEP: cliente.cep,
+						},
+						dataDeNascimento: transformeDate(cliente.dataDeNascimento, '/', 'YYYY-MM-DD'),
+					},
+					getHeaders()
+				)
+				.then((response) => {
+					dispatch({ type: GET_CLIENTE, payload: response.data });
+					cb(null);
+				})
+				.catch((e) => cb(errorHandling(e)));
 	};
 };
 
