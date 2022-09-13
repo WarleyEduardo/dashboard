@@ -63,8 +63,7 @@ class DetalhesDoCliente extends Component {
 	};
 
 	validate() {
-		const { nome, CPF, dataDeNascimento, email, endereco, numero, bairro, complemento,
-			cidade, estado, cep } = this.state;
+		const { nome, CPF, dataDeNascimento, email, endereco, numero, bairro, cidade, estado, cep } = this.state;
 
 		const erros = {};
 
@@ -221,7 +220,7 @@ class DetalhesDoCliente extends Component {
 	onAdd = (valor) => {
 		this.clearAlert();
 		if (!valor) return this.setState({ avisoTelefone: { status: false, msg: 'Preenchar o campo para enviar um novo telefone' } });
-
+		
 		const { telefones } = this.state;
 		this.setState({ telefones: [...telefones, valor] });
 	};

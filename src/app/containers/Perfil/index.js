@@ -7,13 +7,15 @@ import Titulo from '../../components/Texto/Titulo';
 import InputValor from '../../components/Inputs/InputValor';
 import InputSimples from '../../components/Inputs/Simples';
 
+import {connect}  from 'react-redux'
+
 
 class Perfil extends React.Component {
 
 	state = {
 		
-		nome: "Usuário teste",
-		email: "usuario@teste.com",
+		nome:  this.props.usuario ?  this.props.usuario.nome :  "",
+		email: this.props.usuario ? this.props.usuario.email : "",
 		telefone: "11 1234-4321",		
 
 		senhaAntiga: "",
@@ -154,4 +156,9 @@ class Perfil extends React.Component {
 	}
 }
 
-export default Perfil;
+const mapStateToProps = state => (
+	
+	{ usuario : state.auth.usuario}
+)
+
+export default connect(mapStateToProps,null)(Perfil);

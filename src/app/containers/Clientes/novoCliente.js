@@ -10,7 +10,6 @@ import AlertGeral from '../../components/Alert/Geral';
 import ListaDinamicaSimples from '../../components/Listas/ListaDinamicaSimples';
 
 
-
 class NovoCliente extends Component {
 	state = {
 		nome: '',

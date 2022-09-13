@@ -16,7 +16,10 @@ export const initApp = () => {
 	
 	const opcaoLembrar = localStorage.getItem('opcaoLembrar');
 
-	if (opcaoLembrar === "false") cleanToken();
+
+	if (opcaoLembrar === "false") {
+		console.log('é falso');cleanToken();
+	}
 }
 
 //usuarios

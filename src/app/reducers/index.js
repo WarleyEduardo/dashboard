@@ -16,11 +16,14 @@ import clienteReducer from './cliente_reducer'
 
 import categoriaReducer from './categoria_reducer'
 
+import lojaReducer from './loja_reducer';
+
 const reducers = combineReducers({
 	auth: authReducer,
 	pedido: pedidoReducer,
 	cliente: clienteReducer,
-	categoria: categoriaReducer
+	categoria: categoriaReducer,
+	loja: lojaReducer
 });
 
 export default reducers;
