@@ -79,6 +79,8 @@ import novaCategoria from './containers/Categorias/novaCategoria'
 
 import novoCliente from './containers/Clientes/novoCliente';
 
+import novoProduto from './containers/Produtos/novoProduto';
+
 class App extends Component {
 
 	componentDidMount() {
@@ -101,6 +103,7 @@ class App extends Component {
 						<Route path={'/categorias/nova'} exact component={base(novaCategoria)} />
 						<Route path={'/categoria/:id'} exact component={base(Categoria)} />
 						<Route path={'/produtos'} exact component={base(Produtos)} />
+						<Route path={'/produtos/novo'} exact component={base(novoProduto)} />
 						<Route path={'/produto/:id'} exact component={base(Produto)} />
 						<Route path={'/avaliacoes/:id'} exact component={base(Avaliacoes)} />
 						<Route path={'/avaliacao/:id'} exact component={base(Avaliacao)} />

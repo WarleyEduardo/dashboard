@@ -10,6 +10,7 @@ import Paginacao from '../../components/Paginacao/Simples';
 
 import * as actions from '../../actions/produtos'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class Produtos extends Component {
 	state = {
@@ -48,6 +49,17 @@ class Produtos extends Component {
 
 	changeOrdem = (ev) => this.setState({ ordem: ev.target.value }, () => this.getProdutos(this.props));
 
+
+	renderBotaoNovo = () => {
+		return (
+			<Link className=" button button-success  button-small"
+				to="/produtos/novo">
+				<i className='fas fa-plus'></i>
+				<span>&nbsp;Adicionar</span>
+			</Link> 
+		)
+	}
+
 	render() {
 		const { pesquisa, ordem } = this.state; 
 
@@ -68,8 +80,14 @@ class Produtos extends Component {
 		return (
 			<div className='Produtos full-width'>
 				<div className='Card'>
-					<Titulo tipo='h1' titulo='Produtos' />
-					<br />
+					<div className='flex'>
+						<div className='flex flex-1'>
+							<Titulo tipo='h1' titulo='Produtos' />
+						</div>
+						<div className='flex flex-1 flex-end'>
+							{this.renderBotaoNovo()}
+						</div>
+					</div>
 					<div className='flex'>
 						<div className='flex-3'>
 							<Pesquisa
