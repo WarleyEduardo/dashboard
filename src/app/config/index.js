@@ -20,3 +20,4 @@ export const urlClientesPesquisa = `${apiVersao()}/clientes/search`;
 export const urlClientesAdmin = `${apiVersao()}/clientes/admin`;
 export const urlCategorias = `${apiVersao()}/categorias`;
 export const urlLojas = `${apiVersao()}/lojas`;
+export const urlProdutos = `${apiVersao()}/produtos`;

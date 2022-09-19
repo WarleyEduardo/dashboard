@@ -18,12 +18,17 @@ import categoriaReducer from './categoria_reducer'
 
 import lojaReducer from './loja_reducer';
 
+
+/* modulo 31 - produtos - preparando actions e reducer */
+import produtoReducer from './produto_reducer'
+
 const reducers = combineReducers({
 	auth: authReducer,
 	pedido: pedidoReducer,
 	cliente: clienteReducer,
 	categoria: categoriaReducer,
-	loja: lojaReducer
+	loja: lojaReducer,
+	produto : produtoReducer
 });
 
 export default reducers;
