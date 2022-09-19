@@ -37,7 +37,7 @@ class Produtos extends Component {
 	}
 
 	handleSubmitPesquisa() {
-		this.state({ atual: 0 }, () => {
+		this.setState({ atual: 0 }, () => {
 			this.getProdutos(this.props);
 		});
 	}
@@ -95,10 +95,12 @@ class Produtos extends Component {
 
 					<br />
 					<Tabela cabecalho={['Produto', 'Categoria', 'Disponível', '*Exibir']} dados={dados} />
-					<Paginacao atual={this.state.atual}
+					<Paginacao
+						atual={this.state.atual}
 						total={this.props.produtos ? this.props.produtos.total : 0}
 						limite={this.state.limit}
-						onClick={(numeroAtual) => this.changeNumeroAtual(numeroAtual)} />
+						onClick={(numeroAtual) => this.changeNumeroAtual(numeroAtual)}
+					/>
 				</div>
 			</div>
 		);
