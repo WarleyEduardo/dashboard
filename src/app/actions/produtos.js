@@ -26,26 +26,26 @@ export const getProdutosPesquisa = (termo , ordem, atual, limit, loja) => {
 };
 
 
-export const novoProduto = ( produto, loja , cb) => {
+export const salvarProduto = (produto, loja, cb) => {
 	return function (dispatch) {
 		axios
-			.post(`${urlProdutos}/?loja=${loja}`,
-				{  
+			.post(
+				`${urlProdutos}/?loja=${loja}`,
+				{
 					titulo: produto.nome,
 					descricao: produto.descricao,
 					categoria: produto.categoria,
 					preco: produto.preco,
 					promocao: produto.promocao,
-					sku: produto.sku
-
-
+					sku: produto.sku,
 				},
-				
-				getHeaders())
+
+				getHeaders()
+			)
 			.then((response) => {
 				dispatch({ type: GET_PRODUTO, payload: response.data });
-				cb(null)
+				cb(null);
 			})
-			.catch( (e) => cb(errorHandling(e)));
+			.catch((e) => cb(errorHandling(e)));
 	};
 };

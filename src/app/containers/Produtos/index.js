@@ -103,8 +103,8 @@ class Produtos extends Component {
 							</label>
 							<select value={ordem} onChange={this.changeOrdem}>
 								<option>Aleatório</option>
-								<option value={'alfabetica_a_z'}>Alfabética A-Z</option>
-								<option value={'alfabetica_z_a'}>Alfabética Z-A</option>
+								<option value={'alfabetica_a-z'}>Alfabética A-Z</option>
+								<option value={'alfabetica_z-a'}>Alfabética Z-A</option>
 								<option value={'preco-crescente'}>Preço menor</option>
 								<option value={'preco-decrescente'}>Preço maior</option>
 							</select>
