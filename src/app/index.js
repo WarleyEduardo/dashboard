@@ -12,6 +12,8 @@ import store from './store';
 
 import { HashRouter as Router, Route } from 'react-router-dom';
 
+//import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 /*
   Modulo 22 - Dashboard criando a base 
   o que é OHC e criando a base dos menus da Dashboard.

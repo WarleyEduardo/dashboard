@@ -1,6 +1,6 @@
 /* modulo 31 - produtos - preparando actions e reducer */
 
-import { GET_PRODUTOS , GET_PRODUTO } from '../actions/types';
+import { GET_PRODUTOS , GET_PRODUTO , LIMPAR_PRODUTO} from '../actions/types';
 
 export default (state = {}, action) => {
 	
@@ -16,6 +16,12 @@ export default (state = {}, action) => {
 				...state,
 				produtos: action.payload.produtos,
 			};
+		}
+		case LIMPAR_PRODUTO: {
+			return {
+				...state,
+				produto : null
+			}
 		}
 
 		default:

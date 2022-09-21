@@ -23,44 +23,88 @@ import BlocoImagens from '../../components/Imagens/Bloco';
 
 
 import Voltar from '../../components/Links/Voltar'
+
+
+/* Modulo 31  - detalhes do produto  - 
+ preparando as actions e reducer.
+
+*/
+
+import { connect } from 'react-redux';
+import * as actions from '../../actions/produtos';
+import AlertGeral from '../../components/Alert/Geral';
+
  
 class DetalhesProduto extends Component {
-	state = {
-		nome: 'Produto 1',
-		disponibilidade: 'disponivel',
-		descricao: '',
-		imagens: [
-			'https://dummyimage.com/100x100/a49430/fff.jpg',
-			'https://dummyimage.com/100x100/b39414/fff.jpg',
-			'https://dummyimage.com/100x100/c39414/fff.jpg',
-			'https://dummyimage.com/100x100/d39414/fff.jpg',
-			'https://dummyimage.com/100x100/e39414/fff.jpg',
-			'https://dummyimage.com/100x100/f39414/fff.jpg',
-		],
-		categoria : 'Padrão'
-	};
+	generateStateProduto = (props) => ({
+		nome: props.produto ? props.produto.titulo : '',
+		disponibilidade: props.produto ? (props.produto.disponibilidade ? 'disponivel' : 'indisponivel') : '',
+		descricao: props.produto ? props.produto.descricao : '',
+		categoria: props.produto ? props.produto.categoria : '',
+		fotos: props.produto ? props.produto.fotos : '',
+		preco: props.produto ? props.produto.preco : '',
+		promocao: props.produto ? props.produto.promocao : '',
+		sku: props.produto ? props.produto.sku : '',
+	});
+
+	constructor(props) {
+		super();
+		this.state = {
+			...this.generateStateProduto(props),
+			aviso: null,
+			erros : {}	
+		}
+	}
+
+	componentWillUpdate(nextProps) {
+		if (
+
+			(!this.props.produto && nextProps.produto) ||
+			(this.props.produto && nextProps.produto &&
+			 this.props.produto.updateAt !== nextProps.produto.updateAt
+			)
+		)this.setState(this.generateStateProduto(nextProps))
+	}
+
+
+	updateProduto() {
+		const { usuario, produto, updateProduto } = this.props;
+		if (!usuario || !produto || !this.validate()) return null;
+		updateProduto(this.state, produto._id, usuario.loja, (error) => {
+			
+			this.setState({
+				aviso: {
+					status: !error,
+					msg : error ? error.message : "Produto atualizado com sucesso"
+				    }
+			})
+		})
+	}
+
 
 	renderCabecalho() {
 		const { nome } = this.state;
+
+		const { produto } = this.props;
 
 		return (
 			<div className='flex'>
 				<div className='flex-1 flex vertical'>
 					<Titulo tipo='h1' titulo={nome} />
-					<Link to='/avaliacoes/IKDD124545'>
+					{produto && <Link to={`/avaliacoes/${produto._id}`}>
 						<small>Ver avaliações</small>
-					</Link>
+					</Link>}
 				</div>
 
 				<div className='flex-1 flex flex-end'>
-					<ButtonSimples type='success' label='Salvar' onClick={() => alert('Salvo!')} />
+					<ButtonSimples type='success' label='Salvar' onClick={() => this.updateProduto()} />
 				</div>
 			</div>
 		);
 	}
 
 	renderDados() {
-		const { nome, disponibilidade, descricao , categoria} = this.state;
+		const { nome, disponibilidade, descricao, categoria } = this.state;
 
 		return (
 			<div className='Dados-Produto'>
@@ -125,8 +169,9 @@ class DetalhesProduto extends Component {
 	render() {
 		return (
 			<div className='Detalhe-do-Produto'>
-				<Voltar path="/produtos"/>
+				<Voltar history={this.props.history} />
 				{this.renderCabecalho()}
+				<AlertGeral aviso={this.state.aviso} />
 				<br />
 				<div className='flex horizontal'>
 					<div className='flex-1 flex vertical'>{this.renderDados()}</div>
@@ -138,4 +183,13 @@ class DetalhesProduto extends Component {
 	}
 }
 
-export default DetalhesProduto;
+
+
+const mapStateToProps = state => ({
+
+	produto: state.produto.produto,
+	categoria: state.categoria.categorias,
+	usuario : state.auth.usuario
+})
+
+export default connect(mapStateToProps,actions)(DetalhesProduto);
