@@ -90,7 +90,7 @@ export const updateProduto = ( produto , id, loja ,cb) => {
 };
 
 
-export const removerProdutoImagens = (fotos, id, loja, cb) => {
+export const removeProdutoImagens = (fotos, id, loja, cb) => {
 	return function (dispatch) {
 		axios
 			.put(
@@ -108,11 +108,11 @@ export const removerProdutoImagens = (fotos, id, loja, cb) => {
 export const updateProdutoImagens = (data, id, loja, cb) => {
 	return function (dispatch) {
 		axios
-			.put(`${urlProdutos}/imagens/${id}?&loja=${loja}`, data, getHeaders())
+			.put(`${urlProdutos}/images/${id}?&loja=${loja}`, data, getHeaders())
 			.then((response) => {
 				dispatch({ type: GET_PRODUTO, payload: response.data });
-				cb(null)
+				cb(null);
 			})
-			.catch(e => cb(errorHandling(e)));
+			.catch((e) => cb(errorHandling(e)));
 	};
 };

@@ -52,35 +52,45 @@ class DetalhesProduto extends Component {
 		this.state = {
 			...this.generateStateProduto(props),
 			aviso: null,
-			erros : {}	
-		}
-	}
+			erros: {},
+		};	}
 
 	componentWillUpdate(nextProps) {
+		
 		if (
-
 			(!this.props.produto && nextProps.produto) ||
 			(this.props.produto && nextProps.produto &&
-			 this.props.produto.updateAt !== nextProps.produto.updateAt
-			)
-		)this.setState(this.generateStateProduto(nextProps))
+				this.props.produto.updatedAt !== nextProps.produto.updatedAt)
+		)this.setState(this.generateStateProduto(nextProps));
 	}
 
+	validate() {
+		const { nome, descricao, categoria, preco, sku } = this.state;
+		const erros = {};
+
+		if (!nome) erros.nome = 'Preencha aqui com o nome do produto';
+		if (!descricao) erros.descricao = 'Preencha aqui com a descrição do produto';
+		if (!categoria) erros.categoria = 'Preencha aqui com a categoria do produto';
+		if (!preco) erros.preco = 'Preencha aqui com o preço do produto';
+		if (!sku) erros.sku = 'Preencha aqui com o sku do produto';
+
+		this.setState({ erros });
+
+		return !(Object.keys(erros).length > 0);
+	}
 
 	updateProduto() {
 		const { usuario, produto, updateProduto } = this.props;
 		if (!usuario || !produto || !this.validate()) return null;
 		updateProduto(this.state, produto._id, usuario.loja, (error) => {
-			
 			this.setState({
 				aviso: {
 					status: !error,
-					msg : error ? error.message : "Produto atualizado com sucesso"
-				    }
-			})
-		})
+					msg: error ? error.message : 'Produto atualizado com sucesso',
+				},
+			});
+		});
 	}
-
 
 	renderCabecalho() {
 		const { nome } = this.state;
@@ -91,9 +101,11 @@ class DetalhesProduto extends Component {
 			<div className='flex'>
 				<div className='flex-1 flex vertical'>
 					<Titulo tipo='h1' titulo={nome} />
-					{produto && <Link to={`/avaliacoes/${produto._id}`}>
-						<small>Ver avaliações</small>
-					</Link>}
+					{produto && (
+						<Link to={`/avaliacoes/${produto._id}`}>
+							<small>Ver avaliações</small>
+						</Link>
+					)}
 				</div>
 
 				<div className='flex-1 flex flex-end'>
@@ -103,18 +115,22 @@ class DetalhesProduto extends Component {
 		);
 	}
 
+	onChangeInput = (field, value) => this.setState({ [field]: value }, () => this.validate());
+
 	renderDados() {
-		const { nome, disponibilidade, descricao, categoria } = this.state;
+		const { nome, disponibilidade, descricao, categoria, preco, promocao, sku, erros } = this.state;
+		const { categorias } = this.props;		
 
 		return (
 			<div className='Dados-Produto'>
-				<TextoDados chave='Nome' valor={<InputValor value={nome} noStyle name='nome' handleSubmit={(valor) => this.setState({ nome: valor })} />} />
+				<TextoDados chave='Nome' valor={<InputValor value={nome} noStyle name='nome' erro={erros.nome} handleSubmit={(valor) => this.onChangeInput('nome', valor)} />} />
+
 				<TextoDados
 					chave='Disponibilidade'
 					valor={
 						<InputSelect
 							name='disponibilidade'
-							onChange={(ev) => this.setState({ disponibilidade: ev.target.value })}
+							onChange={(ev) => this.onChangeInput('disponibilidade', ev.target.value)}
 							value={disponibilidade}
 							opcoes={[
 								{ label: 'Disponível', value: 'disponivel' },
@@ -123,45 +139,98 @@ class DetalhesProduto extends Component {
 						/>
 					}
 				/>
+
 				<br />
+
 				<TextoDados
 					chave='Categoria'
+					vertical
 					valor={
 						<InputSelect
 							name='categoria'
-							onChange={(ev) => this.setState({ categoria: ev.target.value })}
+							onChange={(ev) => this.onChangeInput('categoria', ev.target.value)}
 							value={categoria}
-							opcoes={[
-								{ label: 'Padrão', value: 'padrao' },
-								{ label: 'Diversos', value: 'diversos' },
-								{ label: 'Acessórios', value: 'acessorios' },
-								{ label: 'Utilidades', value: 'utilidades' },
-							]}
+							opcoes={(categorias || []).map((item) => ({
+								label: item.nome,
+								value: item._id,
+							}))}
 						/>
 					}
 				/>
 
 				<br />
-
 				<TextoDados
 					chave='Descrição'
 					vertical
 					valor={<textarea name={'descricao'} onChange={(ev) => this.setState({ descricao: ev.target.value })} value={descricao} rows='10' style={{ resize: 'nome' }} />}
 				/>
+
+				<TextoDados
+					chave='Preço'
+					valor={<InputValor value={preco} noStyle name='nome' erro={erros.preco} handleSubmit={(valor) => this.onChangeInput('preco', valor)} />}
+				/>
+
+				<TextoDados
+					chave='Preçõ em promoção'
+					valor={<InputValor value={promocao} noStyle name='promocao' erro={erros.promocao} handleSubmit={(valor) => this.onChangeInput('promocao', valor)} />}
+				/>
+
+				<TextoDados chave='SKU' valor={<InputValor value={sku} noStyle name='sku' erro={erros.sku} handleSubmit={(valor) => this.onChangeInput('sku', valor)} />} />
 			</div>
 		);
 	}
 
 	onRemove = (id) => {
-		const { imagens } = this.state;
-		this.setState({ imagens: imagens.filter((i, idx) => idx !== id) });
+		
+		const { usuario, produto } = this.props;
+		if (!usuario || !produto) return null;
+		const { fotos: _fotos } = this.state;
+		console.log(_fotos)
+		const fotos = _fotos.filter((foto, index) => index !== id);
+		console.log(fotos)
+		if (window.confirm("Você realmente deseja remover essa imagem?")) {
+
+				this.props.removeProdutoImagens(fotos, produto._id, usuario.loja, (error) => {
+					this.setState({
+						aviso: {
+							status: !error,
+							msg: error ? error.message : 'Fotos do produto removida com sucesso',
+						},
+					});
+				});
+			
+		}
+
+	
+ 		
 	};
 
+	handleUploadFoto =(ev) => {
+
+		const { usuario, produto } = this.props;
+		if (!usuario || !produto) return null;
+		const data = new FormData();
+		data.append("files", ev.target.files[0]);
+
+		this.props.updateProdutoImagens(data, produto._id, usuario.loja, (error) => {
+			this.setState({
+				aviso: {
+					status: !error,
+					msg : error ? error.message : "Fotos do produto atualizadas com sucesso"
+				}
+			})
+		})
+ 		
+	}
+
 	renderImagens() {
-		const { imagens } = this.state;
+		const { fotos } = this.state;
 		return (
 			<div className='dados-de-imagens'>
-				<BlocoImagens imagens={imagens} handleSubmit={() => alert('enviado')} onRemove={this.onRemove} />
+				<BlocoImagens
+					imagens={(fotos || [])}
+					handleSubmit={this.handleUploadFoto}
+					onRemove={this.onRemove} />
 			</div>
 		);
 	}
@@ -188,7 +257,7 @@ class DetalhesProduto extends Component {
 const mapStateToProps = state => ({
 
 	produto: state.produto.produto,
-	categoria: state.categoria.categorias,
+	categorias: state.categoria.categorias,
 	usuario : state.auth.usuario
 })
 

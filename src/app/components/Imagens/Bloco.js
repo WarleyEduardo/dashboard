@@ -4,6 +4,13 @@ import React from 'react';
 
 import Titulo from '../Texto/Titulo';
 
+/* Modulo 31  - detalhes do produto  - 
+  configurando parte de detalhes do produto 2/2
+
+*/
+
+import { urlImagens } from '../../config';
+
 class BlocoImagem extends React.Component {
 
 	render() {
@@ -26,7 +33,7 @@ class BlocoImagem extends React.Component {
 						imagens.map((src, idx) => (
 						   
 							<div className='imagem-container flex flex-center'
-								style={{ backgroundImage: `url("${src}")` }}
+								style={{ backgroundImage: `url("${urlImagens}/${src}")` }}
 								key={idx}
 							>
 
