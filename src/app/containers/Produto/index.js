@@ -16,7 +16,7 @@ import * as actionsCategorias from '../../actions/categorias';
 class Produto extends Component{
 
 
-	componentWillMount() {
+	componentDidMount() {
 		const { usuario, getProduto, getCategorias } = this.props;
 		if (!usuario) return;
 		const { id } = this.props.match.params;

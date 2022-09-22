@@ -29,12 +29,12 @@ class Produtos extends Component {
 		else props.getProdutos(ordem, atual, limit, usuario.loja);
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		this.getProdutos(this.props);
 	}
 
-	componentWillUpdate(nextProps) {
-		if (!this.props.usuario && nextProps.usuario) this.getProdutos(nextProps);
+	componentDidUpdateUpdate(prevProps) {
+		if (!prevProps.usuario && this.props.usuario) this.getProdutos(this.props);
 	}
 
 	handleSubmitPesquisa() {
