@@ -37,7 +37,7 @@ class Produto extends Component{
 				</div>
                  
 				<div >
-					{/*<DetalhesVariacoes />*/}
+					<DetalhesVariacoes />
 				</div>
 				
 			</div>

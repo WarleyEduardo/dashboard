@@ -22,13 +22,17 @@ import lojaReducer from './loja_reducer';
 /* modulo 31 - produtos - preparando actions e reducer */
 import produtoReducer from './produto_reducer'
 
+/* modulo 32 - variações - preparando base para nova variação */
+import variacaoReducer from './variacao_reducer'
+
 const reducers = combineReducers({
 	auth: authReducer,
 	pedido: pedidoReducer,
 	cliente: clienteReducer,
 	categoria: categoriaReducer,
 	loja: lojaReducer,
-	produto : produtoReducer
+	produto: produtoReducer,
+	variacao: variacaoReducer
 });
 
 export default reducers;

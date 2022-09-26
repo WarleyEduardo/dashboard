@@ -1,11 +1,15 @@
 /* Modulo 25 detalhes do produto 3/4 */
 
 import React, { Component } from 'react';
-
 import Variacoes from './variacoes';
-
 import OpcaoVariacao from './opcaoVariacao';
 
+
+
+
+/* modulo 32 - variações - preparando base para nova variação */
+import NovaVariacao from './novaVariacao';	
+import { connect } from 'react-redux';
 
 class DetalhesVariacoes extends Component{
     
@@ -19,7 +23,7 @@ class DetalhesVariacoes extends Component{
 				</div>
 				
 				<div className='Sub-Card flex-8'>
-					<OpcaoVariacao />
+					{!this.props.variacao ? <NovaVariacao/> :  <OpcaoVariacao />}
 				</div>
 		        
 		   </div>
@@ -28,7 +32,12 @@ class DetalhesVariacoes extends Component{
 	 }
 
 
- }
+}
+ 
+const mapStateToProps = state => ({
+	
+	variacao : state.variacao.variacao
+})
 
 
-export default DetalhesVariacoes;
+export default connect(mapStateToProps)(DetalhesVariacoes);
