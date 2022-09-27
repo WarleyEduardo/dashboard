@@ -36,7 +36,13 @@ class NovaVariacao extends Component {
 		}
 	}
 
-	onChangeInput = (field, value) => this.setState({ [field]: value }, () => this.validate())
+	onChangeInput = (field, value) => this.setState({ [field]: value }, () => {
+		
+		this.validate();
+		
+
+	}
+	)
 	
 	validate() {
 
@@ -160,22 +166,20 @@ class NovaVariacao extends Component {
 					error={erros.peso}
 					onChange={(ev) => this.onChangeInput("peso",ev.target.value)}				
 				/>
-				
+							
 				<TextoDados
 					chave="frete Gratis?"
-					valor={(
+					valor={
 						<InputSelect
 							nome="freteGratis"
-							onChange={(ev) => this.onChangeInput("FreteGratis", ev.target.value)}
+							onChange={(ev) => this.onChangeInput('freteGratis', ev.target.value)}
 							value={freteGratis}
 							opcoes={[
 								{ label: "Sim", value: "sim" },
 								{ label: "Não", value: "nao"}
-							]}
-						
-						/>
-						
-					)}			
+							]}					
+						/>						
+					}			
 				/>
 				
 				<InputSimples

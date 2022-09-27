@@ -58,4 +58,72 @@ export const salvarVariacao = (variacao, produto, loja, cb) => {
 			cb(null);
 		}).catch((e) => cb(errorHandling(e)));
 	}
-}
+};
+
+/* modulo 32 - Detalhes da variação -fazendo integraçaõ da pagina  1/2 */
+
+export const removeVariacao = (id, loja, produto , cb) => {
+	return function (dispatch) {
+		axios.delete(`${urlVariacoes}/${id}?loja=${loja}&produto=${produto}`, getHeaders())
+			.then((response) => {
+				dispatch({ type: REMOVER_VARIACAO, payload: response.data });
+				cb(null)
+			})
+			.catch( (e) => cb(errorHandling(e)));
+	};
+};
+
+export const updateVariacao = (variacao, id, loja, produto, cb) => {
+	return function (dispatch) {
+		axios
+			.put(
+				`${urlVariacoes}/${id}?loja=${loja}&produto=${produto}`,
+				{
+					codigo: variacao.codigo,
+					nome: variacao.nome,
+					preco: variacao.preco,
+					promocao: variacao.promocao,
+					quantidade: variacao.quantidade,
+					entrega: {
+						freteGratis: variacao.freteGratis === 'sim',
+						pesoKg: variacao.peso,
+						dimensoes: {
+							alturaCm: variacao.altura,
+							larguraCm: variacao.largura,
+							profundidadeCm: variacao.comprimento,
+						},
+					}
+				},
+				getHeaders()
+			)
+			.then((response) => {
+				dispatch({ type: GET_VARIACAO, payload: response.data });
+				cb(null);
+			})
+			.catch((e) => cb(errorHandling(e)));
+	};
+};
+
+export const removeVariacaoImagens = (fotos, id, loja, produto, cb) => {
+	return function (dispatch) {
+		axios
+			.put(`${urlVariacoes}/${id}?loja=${loja}&produto=${produto}`,{fotos} ,getHeaders())
+			.then((response) => {
+				dispatch({ type: REMOVER_VARIACAO, payload: response.data });
+				cb(null);
+			})
+			.catch((e) => cb(errorHandling(e)));
+	};
+};
+
+export const updateVariacaoImagens = (data, id, loja, produto, cb) => {
+	return function (dispatch) {
+		axios
+			.put(`${urlVariacoes}/${id}?loja=${loja}&produto=${produto}`,  data , getHeaders())
+			.then((response) => {
+				dispatch({ type: GET_VARIACAO, payload: response.data });
+				cb(null);
+			})
+			.catch((e) => cb(errorHandling(e)));
+	};
+};
