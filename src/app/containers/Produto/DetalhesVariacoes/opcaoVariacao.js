@@ -52,7 +52,8 @@ class OpcaoVariacao extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		if ((!prevProps.variacao && this.props.variacao) || (prevProps.variacao && this.props.variacao && prevProps.variacao.updatedAt !== this.props.variacao.updatedAt))
+		if ((!prevProps.variacao && this.props.variacao) ||
+			(prevProps.variacao && this.props.variacao && prevProps.variacao.updatedAt !== this.props.variacao.updatedAt))
 			this.setState(this.generateStateVariacao(this.props));
 	}
 
@@ -179,7 +180,7 @@ class OpcaoVariacao extends Component {
 						<InputSelect
 							name='freteGratis'
 							value={freteGratis}
-							erro={erros.freteGratis}
+							onChange={(ev) => this.onChangeInput('freteGratis', ev.target.value)}
 							opcoes={[
 								{ label: 'Sim', value: 'sim' },
 								{ label: 'Não', value: 'nao' },
@@ -238,7 +239,7 @@ class OpcaoVariacao extends Component {
 		const { usuario, produto, variacao } = this.props;
 		if (!usuario || !produto || !variacao) return null;
 		
-		const data = new FormData();
+		const data = new FormData();		
 		data.append("files", ev.target.files[0])
 
 		this.props.updateVariacaoImagens(data, variacao._id, produto._id, usuario.loja, (error) => {
@@ -255,7 +256,7 @@ class OpcaoVariacao extends Component {
 	}
 
 	renderImagens() {
-		const { fotos } = this.state;
+		const { fotos } = this.state;		
 		return (
 			<div className='dados-de-imagens'>
 				<BlocoImagens imagens={(fotos || [])}

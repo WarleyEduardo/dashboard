@@ -7,15 +7,16 @@ import { GET_VARIACOES, GET_VARIACAO, LIMPAR_VARIACAO, REMOVER_VARIACAO } from '
 
 
 
-export const getVariacoes = (loja, produto) => {
+export const getVariacoes = (produto, loja) => {
 	return function (dispatch) {
-		axios.get(`${urlVariacoes}?loja=${loja}&produto=${produto}`, getHeaders())
-			.then(response => dispatch({ type: GET_VARIACOES, payload: response.data }))
-		    .catch(errorHandling)
+		axios
+			.get(`${urlVariacoes}?loja=${loja}&produto=${produto}`, getHeaders())
+			.then((response) => dispatch({ type: GET_VARIACOES, payload: response.data }))
+			.catch(errorHandling);
 	};
 };
 
-export const getVariacao = (id , loja, produto) => {
+export const getVariacao = (id, produto, loja) => {
 	return function (dispatch) {
 		axios
 			.get(`${urlVariacoes}/${id}?loja=${loja}&produto=${produto}`, getHeaders())
@@ -62,7 +63,7 @@ export const salvarVariacao = (variacao, produto, loja, cb) => {
 
 /* modulo 32 - Detalhes da variação -fazendo integraçaõ da pagina  1/2 */
 
-export const removeVariacao = (id, loja, produto , cb) => {
+export const removeVariacao = (id, produto, loja,  cb) => {
 	return function (dispatch) {
 		axios.delete(`${urlVariacoes}/${id}?loja=${loja}&produto=${produto}`, getHeaders())
 			.then((response) => {
@@ -104,10 +105,10 @@ export const updateVariacao = (variacao, id, produto, loja, cb) => {
 	};
 };
 
-export const removeVariacaoImagens = (fotos, id, loja, produto, cb) => {
+export const removeVariacaoImagens = (fotos, id, produto, loja, cb) => {
 	return function (dispatch) {
 		axios
-			.put(`${urlVariacoes}/${id}?loja=${loja}&produto=${produto}`,{fotos} ,getHeaders())
+			.put(`${urlVariacoes}/${id}?loja=${loja}&produto=${produto}`, { fotos }, getHeaders())
 			.then((response) => {
 				dispatch({ type: REMOVER_VARIACAO, payload: response.data });
 				cb(null);
@@ -116,10 +117,11 @@ export const removeVariacaoImagens = (fotos, id, loja, produto, cb) => {
 	};
 };
 
-export const updateVariacaoImagens = (data, id, loja, produto, cb) => {
+export const updateVariacaoImagens = (data, id, produto, loja, cb) => {
+	
 	return function (dispatch) {
 		axios
-			.put(`${urlVariacoes}/${id}?loja=${loja}&produto=${produto}`,  data , getHeaders())
+			.put(`${urlVariacoes}/images/${id}?loja=${loja}&produto=${produto}`, data, getHeaders())
 			.then((response) => {
 				dispatch({ type: GET_VARIACAO, payload: response.data });
 				cb(null);

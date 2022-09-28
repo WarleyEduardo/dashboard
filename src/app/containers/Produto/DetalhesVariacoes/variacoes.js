@@ -12,45 +12,45 @@ import * as actions from '../../../actions/variacoes';
 
 class Variacoes extends Component {
 	state = {
-
-		variacaoSelecionada:"",	
+		variacaoSelecionada: '',
 		variacoes: [],
 	};
-
 
 	getVariacoes(props) {
 		const { produto, usuario, getVariacoes } = props;
 		if (!usuario || !produto) return null;
-		getVariacoes(usuario.loja, produto._id,);
+		getVariacoes(produto._id, usuario.loja);
 	}
-
 
 	componentDidMount() {
-		this.getVariacoes(this.props)
+		this.getVariacoes(this.props);
 	}
-
+	/*
 	componentDidUpdate(prevProps) {
 		
 		if (
 			(!prevProps.usuario || !prevProps.produto) &&
 			this.props.usuario && this.props.produto
-
-
 		) this.getVariacoes(this.props)
+	}
+	*/
+	componentWillUpdate(nextProps) {
+		if ((!this.props.usuario || !this.props.produto)
+			&& nextProps.usuario && nextProps.produto) this.getVariacoes(nextProps);
 	}
 
 	getVariacao(id) {
 		const { produto, usuario, getVariacao, limparVariacao } = this.props;
-        limparVariacao();
-		
-		if (produto && usuario && id !== "novo") getVariacao(id, usuario.loja, produto._id);
-		
-		this.setState({ variacaoSelecionada: id !== "novo" ? id : "" });
+		limparVariacao();
+
+		if (produto && usuario && id !== 'novo') getVariacao(id, produto._id, usuario.loja);
+
+		this.setState({ variacaoSelecionada: id !== 'novo' ? id:"" });
 	}
 
 	render() {
 		const { variacaoSelecionada } = this.state;
-		const { variacoes } = this.props;	
+		const { variacoes } = this.props;
 
 		return (
 			<div className='Variacoes flex vertical flex-center'>
@@ -61,11 +61,8 @@ class Variacoes extends Component {
 						<span>{item.nome}</span>
 					</div>
 				))}
-				<div onClick={() => this.getVariacao("novo")}
-				className={`flex flex-center variacao-item ${ !variacaoSelecionada ? 'variacao-item-ativa': ""}`}
-				
-				>
-                 <span>+ Novo</span>
+				<div onClick={() => this.getVariacao('novo')} className={`flex flex-center variacao-item ${!variacaoSelecionada ? 'variacao-item-ativa' : ''}`}>
+					<span>+ Novo</span>
 				</div>
 			</div>
 		);
