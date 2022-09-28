@@ -53,15 +53,12 @@ class DetalhesProduto extends Component {
 			...this.generateStateProduto(props),
 			aviso: null,
 			erros: {},
-		};	}
+		};
+	}
 
 	componentDidUpdate(prevProps) {
-		
-		if (
-			(!prevProps.produto && this.props.produto) ||
-			(prevProps.produto && this.props.produto &&
-			prevProps.produto.updatedAt !== this.props.produto.updatedAt)
-		)this.setState(this.generateStateProduto(this.props));
+		if ((!prevProps.produto && this.props.produto) || (prevProps.produto && this.props.produto && prevProps.produto.updatedAt !== this.props.produto.updatedAt))
+			this.setState(this.generateStateProduto(this.props));
 	}
 
 	validate() {
@@ -116,6 +113,7 @@ class DetalhesProduto extends Component {
 	}
 
 	onChangeInput = (field, value) => this.setState({ [field]: value }, () => this.validate());
+	
 
 	renderDados() {
 		const { nome, disponibilidade, descricao, categoria, preco, promocao, sku, erros } = this.state;
@@ -142,18 +140,16 @@ class DetalhesProduto extends Component {
 
 				<br />
 
+				
+
 				<TextoDados
-					chave='Categoria'
-					vertical
+					chave='Categoria'					
 					valor={
 						<InputSelect
 							name='categoria'
 							onChange={(ev) => this.onChangeInput('categoria', ev.target.value)}
 							value={categoria}
-							opcoes={(categorias || []).map((item) => ({
-								label: item.nome,
-								value: item._id,
-							}))}
+							opcoes={(categorias || []).map((item) => ({ label: item.nome, value: item._id }))}
 						/>
 					}
 				/>
@@ -181,63 +177,52 @@ class DetalhesProduto extends Component {
 	}
 
 	onRemove = (id) => {
-		
 		const { usuario, produto } = this.props;
 		if (!usuario || !produto) return null;
 		const { fotos: _fotos } = this.state;
-		console.log(_fotos)
+		console.log(_fotos);
 		const fotos = _fotos.filter((foto, index) => index !== id);
-		console.log(fotos)
-		if (window.confirm("Você realmente deseja remover essa imagem?")) {
-
-				this.props.removeProdutoImagens(fotos, produto._id, usuario.loja, (error) => {
-					this.setState({
-						aviso: {
-							status: !error,
-							msg: error ? error.message : 'Fotos do produto removida com sucesso',
-						},
-					});
+		console.log(fotos);
+		if (window.confirm('Você realmente deseja remover essa imagem?')) {
+			this.props.removeProdutoImagens(fotos, produto._id, usuario.loja, (error) => {
+				this.setState({
+					aviso: {
+						status: !error,
+						msg: error ? error.message : 'Fotos do produto removida com sucesso',
+					},
 				});
-			
+			});
 		}
-
-	
- 		
 	};
 
-	handleUploadFoto =(ev) => {
-
+	handleUploadFoto = (ev) => {
 		const { usuario, produto } = this.props;
 		if (!usuario || !produto) return null;
 		const data = new FormData();
-		data.append("files", ev.target.files[0]);
+		data.append('files', ev.target.files[0]);
 
 		this.props.updateProdutoImagens(data, produto._id, usuario.loja, (error) => {
 			this.setState({
 				aviso: {
 					status: !error,
-					msg : error ? error.message : "Fotos do produto atualizadas com sucesso"
-				}
-			})
-		})
- 		
-	}
+					msg: error ? error.message : 'Fotos do produto atualizadas com sucesso',
+				},
+			});
+		});
+	};
 
 	renderImagens() {
 		const { fotos } = this.state;
 		return (
 			<div className='dados-de-imagens'>
-				<BlocoImagens
-					imagens={(fotos || [])}
-					handleSubmit={this.handleUploadFoto}
-					onRemove={this.onRemove} />
+				<BlocoImagens imagens={fotos || []} handleSubmit={this.handleUploadFoto} onRemove={this.onRemove} />
 			</div>
 		);
 	}
 
 	render() {
 		return (
-			<div className='Detalhe-do-Produto'>
+			<div className='Detalhes-do-Produto'>
 				<Voltar history={this.props.history} />
 				{this.renderCabecalho()}
 				<AlertGeral aviso={this.state.aviso} />
