@@ -73,7 +73,7 @@ export const removeVariacao = (id, loja, produto , cb) => {
 	};
 };
 
-export const updateVariacao = (variacao, id, loja, produto, cb) => {
+export const updateVariacao = (variacao, id, produto, loja, cb) => {
 	return function (dispatch) {
 		axios
 			.put(
