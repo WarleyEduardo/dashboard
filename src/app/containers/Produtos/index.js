@@ -31,6 +31,9 @@ class Produtos extends Component {
 
 	componentDidMount() {
 		this.getProdutos(this.props);
+
+		/* modulo 33 - integração avaliações - detalhes da avaliação*/
+		this.props.limparProduto();
 	}
 
 	componentDidUpdateUpdate(prevProps) {

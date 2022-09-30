@@ -52,9 +52,10 @@ class DetalhesProduto extends Component {
 		this.state = {
 			...this.generateStateProduto(props),
 			aviso: null,
-			erros: {},
+			erros: {},			
 		};
 	}
+
 
 	componentDidUpdate(prevProps) {
 		if ((!prevProps.produto && this.props.produto) || (prevProps.produto && this.props.produto && prevProps.produto.updatedAt !== this.props.produto.updatedAt))
@@ -221,8 +222,8 @@ class DetalhesProduto extends Component {
 
 	render() {
 		return (
-			<div className='Detalhes-do-Produto'>
-				<Voltar history={this.props.history} />
+			<div className='Detalhes-do-Produto'>					
+				<Voltar path={'/produtos'} />
 				{this.renderCabecalho()}
 				<AlertGeral aviso={this.state.aviso} />
 				<br />

@@ -25,6 +25,9 @@ import produtoReducer from './produto_reducer'
 /* modulo 32 - variações - preparando base para nova variação */
 import variacaoReducer from './variacao_reducer'
 
+/* modulo 33 - integração avaliações - detalhes da avaliação*/
+import avaliacaoReducer from './avaliacao_reducer';
+
 const reducers = combineReducers({
 	auth: authReducer,
 	pedido: pedidoReducer,
@@ -32,7 +35,8 @@ const reducers = combineReducers({
 	categoria: categoriaReducer,
 	loja: lojaReducer,
 	produto: produtoReducer,
-	variacao: variacaoReducer
+	variacao: variacaoReducer,
+	avaliacao: avaliacaoReducer
 });
 
 export default reducers;

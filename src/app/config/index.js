@@ -23,3 +23,4 @@ export const urlLojas = `${apiVersao()}/lojas`;
 export const urlProdutos = `${apiVersao()}/produtos`;
 export const urlImagens = `${api}/public/images`;
 export const urlVariacoes = `${apiVersao()}/variacoes`;
+export const urlAvaliacoes = `${apiVersao()}/Avaliacoes`;

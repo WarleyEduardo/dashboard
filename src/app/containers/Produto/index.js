@@ -26,9 +26,13 @@ class Produto extends Component{
 
 	}
 
+	/* 
+	 modulo 33 - integração avaliações - detalhes da avaliação
+	 removido para o index dos produtos 
 	componentWillUnmount() {
 		this.props.limparProduto();
 	}
+	*/
 
 	render() {	
 	 
