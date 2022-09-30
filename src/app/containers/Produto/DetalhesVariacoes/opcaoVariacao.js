@@ -1,29 +1,23 @@
 /* Modulo 25 detalhes do produto 3/4 */
 import React, { Component } from 'react';
 
-import Titulo from '../../../components/Texto/Titulo'
+import Titulo from '../../../components/Texto/Titulo';
 
-import ButtonSimples from '../../../components/Button/Simples'
+import ButtonSimples from '../../../components/Button/Simples';
 
 import InputValor from '../../../components/Inputs/InputValor';
 
 import { TextoDados } from '../../../components/Texto/Dados';
 
-
-
-
 import BlocoImagens from '../../../components/Imagens/Bloco';
 
-
 /* modulo 32 - Detalhes da variação -fazendo integraçaõ da pagina  1/2 */
-import AlertGeral from '../../../components/Alert/Geral'
+import AlertGeral from '../../../components/Alert/Geral';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions/variacoes';
 
-
 /* modulo 32 - Detalhes da variação -fazendo integraçaõ da pagina  2/2 */
 import InputSelect from '../../../components/Inputs/Select';
-
 
 class OpcaoVariacao extends Component {
 	generateStateVariacao = (props) => ({
@@ -47,14 +41,14 @@ class OpcaoVariacao extends Component {
 			aviso: null,
 			erros: {},
 		};
-
-	
 	}
 
 	componentDidUpdate(prevProps) {
-		if ((!prevProps.variacao && this.props.variacao) ||
-			(prevProps.variacao && this.props.variacao && prevProps.variacao.updatedAt !== this.props.variacao.updatedAt))
-			this.setState(this.generateStateVariacao(this.props));
+		if (
+			(!prevProps.variacao && this.props.variacao) ||
+			(prevProps.variacao && this.props.variacao &&
+				prevProps.variacao.updatedAt !== this.props.variacao.updatedAt)
+		)this.setState(this.generateStateVariacao(this.props));
 	}
 
 	componentWillUnmount() {
@@ -82,6 +76,8 @@ class OpcaoVariacao extends Component {
 	}
 
 	updateVariacao() {
+
+		console.log('entrou 1 no update');
 		const { produto, variacao, usuario } = this.props;
 		if (!usuario || !variacao || !produto || !this.validate()) return null;
 
@@ -101,8 +97,7 @@ class OpcaoVariacao extends Component {
 		const { produto, variacao, usuario } = this.props;
 		if (!usuario || !variacao || !produto) return null;
 
-		if (window.confirm("Você deseja realmente remover esta imagem?")) {
-
+		if (window.confirm('Você deseja realmente remover esta imagem?')) {
 			this.props.removeVariacao(variacao._id, produto._id, usuario.loja, (error) => {
 				this.setState({
 					aviso: {
@@ -216,52 +211,47 @@ class OpcaoVariacao extends Component {
 		);
 	}
 
-	onRemove = (id) => {	
-		
-	   const { usuario, produto, variacao } = this.props;
+	onRemove = (id) => {
+		const { usuario, produto, variacao } = this.props;
 		if (!usuario || !produto || !variacao) return null;
-		
-		const { fotos: _fotos } = this.state;
-		const fotos = _fotos.filter((foto,index)=> index !== id)
 
-		this.props.removeVariacaoImagens(fotos, variacao._id, produto._id, usuario.loja, (error) => {
-		this.setState({
-			aviso: {
-				status: !error,
-				msg: error ? error.message : 'Foto da Variação removida com sucesso',
-			},
-		});
-	   });
+		const { fotos: _fotos } = this.state;
+		const fotos = _fotos.filter((foto, index) => index !== id);
+
+		if (window.confirm('você deseja realmente remover esta imagem?')) {
+			this.props.removeVariacaoImagens(fotos, variacao._id, produto._id, usuario.loja, (error) => {
+				this.setState({
+					aviso: {
+						status: !error,
+						msg: error ? error.message : 'Foto da Variação removida com sucesso',
+					},
+				});
+			});
+		}
 	};
 
 	handleUploadFoto = (ev) => {
-
 		const { usuario, produto, variacao } = this.props;
 		if (!usuario || !produto || !variacao) return null;
-		
-		const data = new FormData();		
-		data.append("files", ev.target.files[0])
+
+		const data = new FormData();
+		data.append('files', ev.target.files[0]);
 
 		this.props.updateVariacaoImagens(data, variacao._id, produto._id, usuario.loja, (error) => {
-			
 			this.setState({
 				aviso: {
 					status: !error,
-					msg : error ? error.message : "Foto da Variação adicionada com sucesso"
-				}
-			})
-		} )
-		
-
-	}
+					msg: error ? error.message : 'Foto da Variação adicionada com sucesso',
+				},
+			});
+		});
+	};
 
 	renderImagens() {
-		const { fotos } = this.state;		
+		const { fotos } = this.state;
 		return (
 			<div className='dados-de-imagens'>
-				<BlocoImagens imagens={(fotos || [])}
-					handleSubmit={this.handleUploadFoto}
-					onRemove={this.onRemove} />
+				<BlocoImagens imagens={fotos || []} handleSubmit={this.handleUploadFoto} onRemove={this.onRemove} />
 			</div>
 		);
 	}
@@ -281,13 +271,11 @@ class OpcaoVariacao extends Component {
 		);
 	}
 }
-	
-const mapStateToProps = state => ({
 
+const mapStateToProps = (state) => ({
 	variacao: state.variacao.variacao,
 	produto: state.produto.produto,
-	usuario : state.auth.usuario
-	
-})
+	usuario: state.auth.usuario,
+});
 
-export default connect(mapStateToProps,actions)(OpcaoVariacao);
+export default connect(mapStateToProps, actions)(OpcaoVariacao);

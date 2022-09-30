@@ -110,7 +110,7 @@ export const removeVariacaoImagens = (fotos, id, produto, loja, cb) => {
 		axios
 			.put(`${urlVariacoes}/${id}?loja=${loja}&produto=${produto}`, { fotos }, getHeaders())
 			.then((response) => {
-				dispatch({ type: REMOVER_VARIACAO, payload: response.data });
+				dispatch({ type: GET_VARIACAO, payload: response.data });
 				cb(null);
 			})
 			.catch((e) => cb(errorHandling(e)));

@@ -2,8 +2,7 @@
 
 import React, { Component } from 'react';
 
-import Titulo from '../../../components/Texto/Titulo'
-
+import Titulo from '../../../components/Texto/Titulo';
 
 /* modulo 32 - variações - criando lista de variações */
 
@@ -25,32 +24,33 @@ class Variacoes extends Component {
 	componentDidMount() {
 		this.getVariacoes(this.props);
 	}
-	/*
+
+
+	
 	componentDidUpdate(prevProps) {
-		
-		if (
-			(!prevProps.usuario || !prevProps.produto) &&
-			this.props.usuario && this.props.produto
-		) this.getVariacoes(this.props)
+		if ((!prevProps.usuario || !prevProps.produto) && this.props.usuario && this.props.produto) this.getVariacoes(this.props);
 	}
-	*/
+
+	/*
 	componentWillUpdate(nextProps) {
 		if ((!this.props.usuario || !this.props.produto)
 			&& nextProps.usuario && nextProps.produto) this.getVariacoes(nextProps);
 	}
+	*/
+	
 
-	getVariacao(id) {
+	getVariacao(id) {	
 		const { produto, usuario, getVariacao, limparVariacao } = this.props;
 		limparVariacao();
 
 		if (produto && usuario && id !== 'novo') getVariacao(id, produto._id, usuario.loja);
 
-		this.setState({ variacaoSelecionada: id !== 'novo' ? id:"" });
+		this.setState({ variacaoSelecionada: id !== 'novo' ? id : '' });
 	}
 
 	render() {
 		const { variacaoSelecionada } = this.state;
-		const { variacoes } = this.props;
+		const { variacoes } = this.props;		
 
 		return (
 			<div className='Variacoes flex vertical flex-center'>
@@ -69,13 +69,11 @@ class Variacoes extends Component {
 	}
 }
 
-const mapStateToProps = state => (
-	{
-		variacoes: state.variacao.variacoes,
-		variacao: state.variacao.variacao,
-		produto: state.produto.produto,
-		usuario: state.auth.usuario
-	}
-)
+const mapStateToProps = (state) => ({
+	variacoes: state.variacao.variacoes,
+	variacao: state.variacao.variacao,
+	produto: state.produto.produto,
+	usuario: state.auth.usuario,
+});
 
-export default connect(mapStateToProps,actions)(Variacoes);
+export default connect(mapStateToProps, actions)(Variacoes);

@@ -179,8 +179,7 @@ class DetalhesProduto extends Component {
 	onRemove = (id) => {
 		const { usuario, produto } = this.props;
 		if (!usuario || !produto) return null;
-		const { fotos: _fotos } = this.state;
-		console.log(_fotos);
+		const { fotos: _fotos } = this.state;	
 		const fotos = _fotos.filter((foto, index) => index !== id);
 		console.log(fotos);
 		if (window.confirm('Você realmente deseja remover essa imagem?')) {
