@@ -39,9 +39,9 @@ class Perfil extends React.Component {
 		this.props.getUser();
 	}
 
-	componentDidUpdate(PrevProps) {
-		if (PrevProps.usuario && this.props.usuario && 
-			PrevProps.usuario.updatedAt !== this.props.usuario.updatedAt
+	componentDidUpdate(prevProps) {
+		if (prevProps.usuario && this.props.usuario && 
+			prevProps.usuario.updatedAt !== this.props.usuario.updatedAt
 		){
 			this.setState({
 				nome: this.props.usuario ? this.props.usuario.nome : '',
