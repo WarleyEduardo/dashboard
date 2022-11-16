@@ -16,9 +16,6 @@ import clienteReducer from './cliente_reducer'
 
 import categoriaReducer from './categoria_reducer'
 
-import lojaReducer from './loja_reducer';
-
-
 /* modulo 31 - produtos - preparando actions e reducer */
 import produtoReducer from './produto_reducer'
 
@@ -28,15 +25,18 @@ import variacaoReducer from './variacao_reducer'
 /* modulo 33 - integração avaliações - detalhes da avaliação*/
 import avaliacaoReducer from './avaliacao_reducer';
 
+/* modulo 34-  dashboard  -  integração configuração  */
+import configuracaoReducer from './configuracao_reducer';
+
 const reducers = combineReducers({
 	auth: authReducer,
 	pedido: pedidoReducer,
 	cliente: clienteReducer,
 	categoria: categoriaReducer,
-	loja: lojaReducer,
 	produto: produtoReducer,
 	variacao: variacaoReducer,
-	avaliacao: avaliacaoReducer
+	avaliacao: avaliacaoReducer,
+	configuracao : configuracaoReducer
 });
 
 export default reducers;

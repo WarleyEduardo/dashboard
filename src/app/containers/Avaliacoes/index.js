@@ -55,8 +55,8 @@ class Avaliacoes extends Component {
 		return (
 			<div className='Avaliacoes full-width'>
 				<div className='Card'>
-					<Voltar path={`/produto/${produto._id}`} />
-					<Titulo tipo='h1' titulo={`Avaliações - ${produto ? produto.titulo : ""}`} />
+					<Voltar history={this.props.history} />
+					<Titulo tipo='h1' titulo={`Avaliações - ${produto ? produto.titulo : ''}`} />
 					<br />
 					<Tabela cabecalho={['Cliente', 'Data']} dados={dados} />
 				</div>

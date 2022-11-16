@@ -54,6 +54,22 @@ export const getUser = () => {
 	}
 }
 
+/* modulo 35 - integração perfil */
+
+export const updateUser = (dados,cb) => {
+	return function (dispatch) {
+		axios
+			.put(urlUsuarios, dados,getHeaders())
+			.then((response) => {
+				saveToken(response.data.usuario, true);
+				dispatch({ type: LOGIN_USER, payload: response.data });
+				cb(null)
+			})
+			.catch((error) => cb(errorHandling(error)));
+	};
+};
+
+
 
 export const handleLogout = () => {
 	cleanToken();
