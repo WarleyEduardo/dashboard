@@ -44,6 +44,7 @@ class DetalhesProduto extends Component {
 		fotos: props.produto ? props.produto.fotos : '',
 		preco: props.produto ? props.produto.preco : '',
 		promocao: props.produto ? props.produto.promocao : '',
+		parcelado: props.produto ? props.produto.parcelado : 1,
 		sku: props.produto ? props.produto.sku : '',
 	});
 
@@ -52,10 +53,9 @@ class DetalhesProduto extends Component {
 		this.state = {
 			...this.generateStateProduto(props),
 			aviso: null,
-			erros: {},			
+			erros: {},
 		};
 	}
-
 
 	componentDidUpdate(prevProps) {
 		if ((!prevProps.produto && this.props.produto) || (prevProps.produto && this.props.produto && prevProps.produto.updatedAt !== this.props.produto.updatedAt))
@@ -114,11 +114,11 @@ class DetalhesProduto extends Component {
 	}
 
 	onChangeInput = (field, value) => this.setState({ [field]: value }, () => this.validate());
-	
 
 	renderDados() {
-		const { nome, disponibilidade, descricao, categoria, preco, promocao, sku, erros } = this.state;
-		const { categorias } = this.props;		
+		const { nome, disponibilidade, descricao, categoria, preco, promocao, sku, erros, parcelado } = this.state;
+
+		const { categorias } = this.props;
 
 		return (
 			<div className='Dados-Produto'>
@@ -141,10 +141,8 @@ class DetalhesProduto extends Component {
 
 				<br />
 
-				
-
 				<TextoDados
-					chave='Categoria'					
+					chave='Categoria'
 					valor={
 						<InputSelect
 							name='categoria'
@@ -173,6 +171,29 @@ class DetalhesProduto extends Component {
 				/>
 
 				<TextoDados chave='SKU' valor={<InputValor value={sku} noStyle name='sku' erro={erros.sku} handleSubmit={(valor) => this.onChangeInput('sku', valor)} />} />
+
+				<TextoDados
+					chave='Parcelado'
+					valor={
+						<InputSelect
+							name='parcelado'
+							onChange={(ev) => this.onChangeInput('parcelado', ev.target.value)}
+							value={parcelado}
+							opcoes={[
+								{ label: '1 Parcela', value: 1 },
+								{ label: '2 Parcelas', value: 2 },
+								{ label: '3 Parcelas', value: 3 },
+								{ label: '4 Parcelas', value: 4 },
+								{ label: '5 Parcelas', value: 5 },
+								{ label: '6 Parcelas', value: 6 },
+								{ label: '7 Parcelas', value: 7 },
+								{ label: '8 Parcelas', value: 8 },
+								{ label: '9 Parcelas', value: 9 },
+								{ label: '10 Parcelas', value: 10 },
+							]}
+						/>
+					}
+				/>
 			</div>
 		);
 	}
@@ -180,7 +201,7 @@ class DetalhesProduto extends Component {
 	onRemove = (id) => {
 		const { usuario, produto } = this.props;
 		if (!usuario || !produto) return null;
-		const { fotos: _fotos } = this.state;	
+		const { fotos: _fotos } = this.state;
 		const fotos = _fotos.filter((foto, index) => index !== id);
 		console.log(fotos);
 		if (window.confirm('Você realmente deseja remover essa imagem?')) {
@@ -222,7 +243,7 @@ class DetalhesProduto extends Component {
 
 	render() {
 		return (
-			<div className='Detalhes-do-Produto'>					
+			<div className='Detalhes-do-Produto'>
 				<Voltar path={'/produtos'} />
 				{this.renderCabecalho()}
 				<AlertGeral aviso={this.state.aviso} />

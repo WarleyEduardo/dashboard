@@ -12,9 +12,11 @@ const Paginacao = ({atual, total,limite, onClick}) => {
 		<div className="Paginacao flex horizontal">
 			{
 				[...Array(numeroPaginas).keys()].map((numero, idx) => {
-					const numeroAtualDaPagina = numero * limite;
+
+					
+					const numeroAtualDaPagina = numero * limite;				
 					return (
-						<div className={`paginacao-item ${numeroAtualDaPagina === atual ? "paginacao-item-active" : ""}`}
+						<div className={`paginacao-item ${numeroAtualDaPagina === atual ? "paginacao-item-active" : ""}`}						
 						onClick={() => onClick(numeroAtualDaPagina)}
 						key={idx}>
 							{numero + 1 }

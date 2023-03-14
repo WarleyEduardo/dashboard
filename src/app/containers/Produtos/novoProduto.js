@@ -20,7 +20,7 @@ class NovoProduto extends Component {
 		descricao: "",
 		categoria: "",
 		preco: 0,
-		promocao: 0,
+		promocao: 0,	
 		sku: "",
 		aviso: null,
 		erros: {}
@@ -86,7 +86,7 @@ class NovoProduto extends Component {
 
 	renderDados() {
 
-		const { nome, descricao, categoria, preco, promocao, sku, erros } = this.state;
+		const { nome, descricao, categoria, preco, promocao, sku, erros, parcelado } = this.state;
 		const { categorias } = this.props;
 
 		return (

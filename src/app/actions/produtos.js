@@ -76,6 +76,7 @@ export const updateProduto = ( produto , id, loja ,cb) => {
 					categoria: produto.categoria,
 					preco: produto.preco,
 					promocao: produto.promocao,
+					parcelado: produto.parcelado,
 					sku: produto.sku,
 				},
 

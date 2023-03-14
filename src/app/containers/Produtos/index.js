@@ -87,9 +87,7 @@ class Produtos extends Component {
 						<div className='flex flex-1'>
 							<Titulo tipo='h1' titulo='Produtos' />
 						</div>
-						<div className='flex flex-1 flex-end'>
-							{this.renderBotaoNovo()}
-						</div>
+						<div className='flex flex-1 flex-end'>{this.renderBotaoNovo()}</div>
 					</div>
 					<div className='flex'>
 						<div className='flex-3'>

@@ -37,10 +37,10 @@ class Clientes extends Component {
 		this.getClientes();
 	}
 
-	
+	prevProps;
 
-	componentDidUpdate(PrevProps) {
-		if (!PrevProps.usuario && this.props.usuario) this.getClientes();
+	componentDidUpdate(prevProps) {
+		if (!prevProps.usuario && this.props.usuario) this.getClientes();
 	}
 
 	onChangePesquisa = (ev) => this.setState({ pesquisa: ev.target.value });
