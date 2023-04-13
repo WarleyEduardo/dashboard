@@ -27,25 +27,30 @@ import Paginacao from '../../components/Paginacao/Simples'
 import * as actions from '../../actions/pedidos'
 import { connect } from 'react-redux';
 
-import {formatMoney} from '../../actions'
+import { formatMoney } from '../../actions'
+
+/*implementação warley  */
+
+import InputSimples from '../../components/Inputs/Simples'
 
 class Pedidos extends Component {
 	state = {
 		pesquisa: '',
 		atual: 0,
 		limit: 5,
+		dtInicial:'',
+		dtFinal: '',
 	};
 
-
-	
 	getPedidos() {
-		
-		const { atual, limit, pesquisa } = this.state;
+		const { atual, limit, pesquisa, dtInicial, dtFinal } = this.state;
 		const { usuario } = this.props;
 		if (!usuario) return null;
 		const loja = usuario.loja;
-		if (pesquisa) this.props.getPedidosPesquisa(pesquisa, atual, limit, loja);
-		else this.props.getPedidos(atual, limit, loja);	
+		if (pesquisa) this.props.getPedidosPesquisa(pesquisa, atual, limit, loja)
+		else if ((dtInicial && dtInicial !== '') && (dtFinal && dtFinal !== ''))
+			this.props.getPedidosPorData(atual, limit, loja, dtInicial, dtFinal)		
+		else this.props.getPedidos(atual, limit, loja);
 	}
 
 	/* Modulo 28 integração de pedidos */
@@ -70,19 +75,35 @@ class Pedidos extends Component {
 
 	/* modulo 28 - Pedidos : criando a parte de pesquisa */
 
-	handleSubmitPesquisa = () => { 
-
-		this.setState({ atual: 0 }, () =>
-		{
+	handleSubmitPesquisa = () => {
+		this.setState({ atual: 0 ,dtInicial : '', dtFinal : '' }, () => {
 			this.getPedidos();
-		})	    
-
+		});
 	};
-	
 
+	getPedidosPorData() {
+		const { atual, limit, dtInicial, dtFinal } = this.state;
+		const { usuario } = this.props;
+		if (!usuario) return null;
+
+		if (!dtInicial || dtInicial === '' || !dtFinal || dtFinal === '' || dtInicial.length < 10 || dtFinal.length < 10) {
+			//alert('Data inicial e final devem ser informada');
+			return null;
+		}
+		const loja = usuario.loja;
+
+		this.setState({ atual: 0 , pequisa : ''}, () => {
+			this.props.getPedidosPorData(atual, limit, loja, dtInicial, dtFinal);
+		});
+		
+	}
+
+	onChange(field, value) {
+		this.setState({ [field]: value }, () => this.getPedidosPorData());
+	}
 
 	render() {
-		const { pesquisa } = this.state;
+		const { pesquisa, dtInicial, dtFinal } = this.state;
 		/*
 		  Modulo 23 - Dashboard  Finalizando  tela de pedidos 1/3	
 	   */
@@ -112,6 +133,21 @@ class Pedidos extends Component {
 						onChange={(ev) => this.onChangePesquisa(ev)}
 						onClick={() => this.handleSubmitPesquisa()}
 					/>
+					<br />
+					<div className='filtro-data flex flex horizontal'>
+						<InputSimples
+							type='date'
+							label='Inicial'
+							value={dtInicial}
+							onChange={(e) => this.onChange('dtInicial', e.target.value)} />
+
+						<InputSimples
+							type='date'
+							label='Final'
+							value={dtFinal}
+							onChange={(e) =>
+								this.onChange('dtFinal', e.target.value)} />						
+					</div>
 					<br />
 					<Tabela cabecalho={['Cliente', 'Valor Total', 'Data', 'Situação']} dados={dados} />
 					<Paginacao

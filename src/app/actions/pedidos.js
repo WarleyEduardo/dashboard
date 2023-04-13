@@ -19,6 +19,19 @@ export const getPedidos = (atual,limit,loja) => {
 
 }
 
+
+export const getPedidosPorData = (atual, limit, loja , dtInicial, dtFinal) => {
+	return function (dispatch) {
+		axios
+			.get(`${urlPedidosAdmin}?offset=${atual}&limit=${limit}
+			&loja=${loja}&dtInicial=${dtInicial}&dtFinal=${dtFinal}`, getHeaders())
+			.then((response) => {
+				dispatch({ type: GET_PEDIDOS, payload: response.data });
+			})
+			.catch(errorHandling);
+	};
+};
+
 /* modulo 28 - Pedidos : criando a parte de pesquisa */
 
 export const getPedidosPesquisa = (termo, atual, limit, loja) => {
