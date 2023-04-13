@@ -82,14 +82,27 @@ class Pedidos extends Component {
 	};
 
 	getPedidosPorData() {
+		
 		const { atual, limit, dtInicial, dtFinal } = this.state;
 		const { usuario } = this.props;
 		if (!usuario) return null;
 
-		if (!dtInicial || dtInicial === '' || !dtFinal || dtFinal === '' || dtInicial.length < 10 || dtFinal.length < 10) {
-			//alert('Data inicial e final devem ser informada');
-			return null;
-		}
+		console.log('data inicial', dtInicial)
+		console.log('data final', dtFinal);
+
+
+			if (dtInicial === '' &&  dtFinal === '')
+				this.setState({ atual: 0, dtInicial: '', dtFinal: '' }, () => {
+					this.getPedidos();
+				});
+
+
+
+	  if (dtInicial === '' ||  dtFinal === '' || dtInicial.length < 10 || dtFinal.length < 10) {
+					return null;
+	 }	
+		
+	
 		const loja = usuario.loja;
 
 		this.setState({ atual: 0 , pequisa : ''}, () => {
@@ -98,7 +111,8 @@ class Pedidos extends Component {
 		
 	}
 
-	onChange(field, value) {
+	onChange(field, value) {       
+
 		this.setState({ [field]: value }, () => this.getPedidosPorData());
 	}
 
