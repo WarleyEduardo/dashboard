@@ -4,7 +4,12 @@ import { getHeaders } from './localStorage';
 import axios from 'axios';
 import { urlProdutos} from '../config';
 import errorHandling from './errorHandling';
-import { GET_PRODUTOS ,GET_PRODUTO, LIMPAR_PRODUTO} from './types';
+import { GET_PRODUTOS, GET_PRODUTO, LIMPAR_PRODUTO, STATE_ATUAL, LIMPAR_STATE_ATUAL } from './types';
+
+
+export const setStateAtual = (stateAtual) => ({ type: STATE_ATUAL, stateAtual });
+
+export const limpaStateAtual = () => ({ type: LIMPAR_STATE_ATUAL });
 
 
 export const getProdutos = (ordem, atual, limit, loja) => {

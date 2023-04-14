@@ -30,7 +30,15 @@ class Produtos extends Component {
 	}
 
 	componentDidMount() {
-		this.getProdutos(this.props);
+
+		if (this.props.stateAtual) {
+			this.setState({ ...this.props.stateAtual }, () => {
+				this.props.limpaStateAtual();
+				this.getProdutos(this.props);
+			})
+		}
+		else
+		  this.getProdutos(this.props);
 
 		/* modulo 33 - integração avaliações - detalhes da avaliação*/
 		this.props.limparProduto();
@@ -52,32 +60,32 @@ class Produtos extends Component {
 
 	changeOrdem = (ev) => this.setState({ ordem: ev.target.value }, () => this.getProdutos(this.props));
 
-
 	renderBotaoNovo = () => {
 		return (
-			<Link className=" button button-success  button-small"
-				to="/produtos/novo">
+			<Link className=' button button-success  button-small' to='/produtos/novo'>
 				<i className='fas fa-plus'></i>
 				<span>&nbsp;Adicionar</span>
-			</Link> 
-		)
+			</Link>
+		);
+	};
+
+	gravarStateAtual() {
+		this.props.setStateAtual(this.state);
 	}
 
 	render() {
-		const { pesquisa, ordem } = this.state; 
+		const { pesquisa, ordem } = this.state;
 
 		const { produtos } = this.props;
 
 		const dados = [];
-		(produtos ? produtos.docs : []).forEach(item => {
-
+		(produtos ? produtos.docs : []).forEach((item) => {
 			dados.push({
-				"Produto": item.titulo,
-				"Categoria": item.categoria? item.categoria.nome : "" ,
-				"Disponível": (item.disponibilidade ? 'sim': "não"),
-				"botaoDetalhes": `/produto/${item._id}`,
+				Produto: item.titulo,
+				Categoria: item.categoria ? item.categoria.nome : '',
+				Disponível: item.disponibilidade ? 'sim' : 'não',
+				botaoDetalhes: `/produto/${item._id}`,
 			});
-			
 		});
 
 		return (
@@ -113,7 +121,10 @@ class Produtos extends Component {
 					</div>
 
 					<br />
-					<Tabela cabecalho={['Produto', 'Categoria', 'Disponível', '*Exibir']} dados={dados} />
+					<Tabela cabecalho={['Produto', 'Categoria', 'Disponível', '*Exibir']}
+						dados={dados}
+						onClick={() => this.gravarStateAtual()} />
+
 					<Paginacao
 						atual={this.state.atual}
 						total={this.props.produtos ? this.props.produtos.total : 0}
@@ -129,7 +140,8 @@ class Produtos extends Component {
 const mapStateToProps = state => ({
 	
 	produtos: state.produto.produtos,
-	usuario: state.auth.usuario
+	usuario: state.auth.usuario,
+	stateAtual : state.produto.stateAtual
 })
 
 export default connect(mapStateToProps,actions)(Produtos);

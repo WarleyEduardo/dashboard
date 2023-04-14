@@ -34,10 +34,14 @@ class Clientes extends Component {
 	}
 
 	componentDidMount() {
-		this.getClientes();
-	}
 
-	prevProps;
+			if (this.props.stateAtual) {
+				this.setState({ ...this.props.stateAtual }, () => {
+					this.props.limpaStateAtual();
+					this.getClientes();
+				})
+			} else this.getClientes();
+	}
 
 	componentDidUpdate(prevProps) {
 		if (!prevProps.usuario && this.props.usuario) this.getClientes();
@@ -58,6 +62,10 @@ class Clientes extends Component {
 				<span>&nbsp;Adicionar</span>
 			</Link>
 		);
+	}
+
+	gravarStateAtual() {
+		this.props.setStateAtual(this.state);
 	}
 
 	render() {
@@ -95,7 +103,7 @@ class Clientes extends Component {
 						onClick={() => this.handleSubmitPesquisa()}
 					/>
 					<br />
-					<Tabela cabecalho={['Cliente', 'E-mail', 'Telefone', 'CPF']} dados={dados} />
+					<Tabela cabecalho={['Cliente', 'E-mail', 'Telefone', 'CPF']} dados={dados} onClick={() => this.gravarStateAtual()} />
 					<Paginacao
 						atual={this.state.atual}
 						total={clientes ? clientes.total : 0}
@@ -110,7 +118,8 @@ class Clientes extends Component {
 
 const mapStateToProps = state => ({	
 	clientes: state.cliente.clientes,
-	usuario: state.auth.usuario
+	usuario: state.auth.usuario,
+	stateAtual : state.cliente.stateAtual
 })
 
 

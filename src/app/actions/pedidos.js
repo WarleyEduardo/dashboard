@@ -4,7 +4,7 @@ import { getHeaders } from './localStorage';
 import axios from 'axios';
 import { urlPedidosAdmin, urlPedidosPesquisa, urlPagamentos, urlEntregas } from '../config/';
 import errorHandling from './errorHandling'
-import { GET_PEDIDOS, GET_PEDIDO , CANCELAR_PEDIDO, LIMPAR_PEDIDO } from './types';
+import { GET_PEDIDOS, GET_PEDIDO, CANCELAR_PEDIDO, LIMPAR_PEDIDO, STATE_ATUAL, LIMPAR_STATE_ATUAL } from './types';
 
 export const getPedidos = (atual,limit,loja) => {	
 
@@ -72,6 +72,11 @@ export const cancelarPedido = (id, loja, cb) => {
 
 
 export const limparPedido = () => ({ type: LIMPAR_PEDIDO });
+
+
+export const setStateAtual = (stateAtual) => ({ type: STATE_ATUAL, stateAtual });
+
+export const limpaStateAtual = () => ({ type: LIMPAR_STATE_ATUAL });
 
 export const setNovoStatusPagamento = (status, id, idPedido, loja, cb) => {
 	

@@ -4,10 +4,17 @@ import { getHeaders } from './localStorage';
 import axios from 'axios';
 import { urlClientes, urlClientesPesquisa, urlClientesAdmin } from '../config';
 import errorHandling from './errorHandling';
-import { GET_CLIENTES, GET_CLIENTE, LIMPAR_CLIENTE, GET_CLIENTE_PEDIDOS, REMOVER_CLIENTE } from './types';
+import { GET_CLIENTES, GET_CLIENTE, LIMPAR_CLIENTE, GET_CLIENTE_PEDIDOS, REMOVER_CLIENTE, STATE_ATUAL, LIMPAR_STATE_ATUAL } from './types';
 
 /* modulo 29 - detalhes do cliente - preperando actions , reducer e configurações*/
 import { transformeDate } from './index';
+
+
+
+export const setStateAtual = (stateAtual) => ({ type: STATE_ATUAL, stateAtual });
+
+export const limpaStateAtual = () => ({ type: LIMPAR_STATE_ATUAL });
+
 
 export const getClientes = (atual, limit, loja) => {
 	

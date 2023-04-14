@@ -39,7 +39,7 @@ class Pedidos extends Component {
 		atual: 0,
 		limit: 5,
 		dtInicial:'',
-		dtFinal: '',
+		dtFinal: ''	
 	};
 
 	getPedidos() {
@@ -55,11 +55,21 @@ class Pedidos extends Component {
 
 	/* Modulo 28 integração de pedidos */
 	componentDidMount() {
-		this.getPedidos();
+
+					
+		if (this.props.stateAtual) {
+			this.setState({ ...this.props.stateAtual },
+				() => {
+					this.props.limpaStateAtual();
+					this.getPedidos();
+				});
+		}    
+		else		
+		this.getPedidos();		
 	}
 
 	componentDidUpdate(prevProps) {
-		if (!prevProps.usuario && this.props.usuario) this.getPedidos();
+		if (!prevProps.usuario && this.props.usuario) this.getPedidos();	
 	}
 
 	onChangePesquisa = (ev) => this.setState({ pesquisa: ev.target.value });
@@ -85,10 +95,7 @@ class Pedidos extends Component {
 		
 		const { atual, limit, dtInicial, dtFinal } = this.state;
 		const { usuario } = this.props;
-		if (!usuario) return null;
-
-		console.log('data inicial', dtInicial)
-		console.log('data final', dtFinal);
+		if (!usuario) return null;		
 
 
 			if (dtInicial === '' &&  dtFinal === '')
@@ -99,13 +106,13 @@ class Pedidos extends Component {
 
 
 	  if (dtInicial === '' ||  dtFinal === '' || dtInicial.length < 10 || dtFinal.length < 10) {
-					return null;
+		return null;
 	 }	
 		
 	
 		const loja = usuario.loja;
 
-		this.setState({ atual: 0 , pequisa : ''}, () => {
+		this.setState({ atual: 0 , pesquisa : ''}, () => {
 			this.props.getPedidosPorData(atual, limit, loja, dtInicial, dtFinal);
 		});
 		
@@ -115,6 +122,14 @@ class Pedidos extends Component {
 
 		this.setState({ [field]: value }, () => this.getPedidosPorData());
 	}
+
+	
+	gravarStateAtual() {
+		
+		this.props.setStateAtual(this.state);
+	}
+
+
 
 	render() {
 		const { pesquisa, dtInicial, dtFinal } = this.state;
@@ -132,7 +147,8 @@ class Pedidos extends Component {
 				'Valor Total': formatMoney(item.pagamento.valor),
 				Data: moment(item.createdAt).format('DD/MM/YYYY'),
 				Situação: item.pagamento.status !== 'Paga' ? item.pagamento.status : item.entrega.status,
-				botaoDetalhes: `/pedido/${item._id}`,
+				botaoDetalhes: `/pedido/${item._id}`
+				
 			});
 		});
 
@@ -149,21 +165,17 @@ class Pedidos extends Component {
 					/>
 					<br />
 					<div className='filtro-data flex flex horizontal'>
-						<InputSimples
-							type='date'
-							label='Inicial'
-							value={dtInicial}
-							onChange={(e) => this.onChange('dtInicial', e.target.value)} />
+						<InputSimples type='date' label='Inicial' value={dtInicial} onChange={(e) => this.onChange('dtInicial', e.target.value)} />
 
-						<InputSimples
-							type='date'
-							label='Final'
-							value={dtFinal}
-							onChange={(e) =>
-								this.onChange('dtFinal', e.target.value)} />						
+						<InputSimples type='date' label='Final' value={dtFinal} onChange={(e) => this.onChange('dtFinal', e.target.value)} />
 					</div>
 					<br />
-					<Tabela cabecalho={['Cliente', 'Valor Total', 'Data', 'Situação']} dados={dados} />
+					<Tabela
+						cabecalho={['Cliente', 'Valor Total', 'Data', 'Situação']}
+						dados={dados}
+						onClick={() => this.gravarStateAtual()}
+					/>
+
 					<Paginacao
 						atual={this.state.atual}
 						total={this.props.pedidos ? this.props.pedidos.total : 0}
@@ -179,7 +191,8 @@ class Pedidos extends Component {
 const mapStateToProps = state => ({
 	
 	pedidos: state.pedido.pedidos,
-	usuario: state.auth.usuario
+	usuario: state.auth.usuario,
+	stateAtual : state.pedido.stateAtual
 })
 
 export default connect(mapStateToProps,actions)(Pedidos);

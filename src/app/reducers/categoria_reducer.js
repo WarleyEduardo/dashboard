@@ -30,13 +30,14 @@ export default (state = {}, action) => {
 				...state,
 				categoria: null,
 			};
-		
+
 		case GET_CATEGORIA_PRODUTOS:
 			return {
 				...state,
-				categoriaProdutos : action.payload.produtos, 
-			}
-
+				categoriaProdutos: action.payload.produtos,
+			};
+		
+	
 		default:
 			return state;
 	}

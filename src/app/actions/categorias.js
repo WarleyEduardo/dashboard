@@ -12,7 +12,10 @@ import {
 	LIMPAR_CATEGORIA,
 	GET_CATEGORIA_PRODUTOS,
 	REMOVER_CATEGORIA
+
 } from './types';
+
+
 
 export const getCategorias = (loja) => {
 	return function (dispatch) {

@@ -6,7 +6,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-const TabelaSimples = ({ cabecalho, dados }) => (
+const TabelaSimples = ({ cabecalho, dados ,  onClick  }) => (
 	<div className='TabelaSimples'>
 		<table className='simples'>
 			<thead>
@@ -38,7 +38,12 @@ const TabelaSimples = ({ cabecalho, dados }) => (
 										td = 
 											<td>
 												<Link to={linha['botaoDetalhes']}>
-													<button className='button button-danger button-small'>DETALHES</button>
+													<button														
+														className='button button-danger button-small'
+														onClick={() => onClick()}	
+													>
+														DETALHES
+													</button>
 												</Link>
 											</td> 
 										 
